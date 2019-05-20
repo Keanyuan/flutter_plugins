@@ -7,7 +7,7 @@ import 'package:flutter/services.dart';
 const MethodChannel _channel = const MethodChannel('aj_flutter_plugin');
 
 /// 跳转外部浏览器、打电话、发邮件
-/// 外链url:  http:xxx, https:
+/// 外链url:  http:xxx, https: -----------test
 /// 与canLaunch同步使用
 Future<void> launch(String urlString){
   if(urlString.isNotEmpty){
