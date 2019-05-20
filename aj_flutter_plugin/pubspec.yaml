@@ -2,7 +2,7 @@ name: aj_flutter_plugin
 description: A new Flutter plugin.
 version: 0.0.2
 author: Anji-plus Kean <qizhiyuan@anji-plus.com>
-homepage: https://github.com/Keanyuan/aj_flutter_plugin
+homepage: http://gitlab.anji-allways.com/mobileteam/modules/aj_flutter_plugin
 
 environment:
   sdk: ">=2.0.0-dev.68.0 <3.0.0"
