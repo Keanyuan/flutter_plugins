@@ -8,8 +8,8 @@ import 'AppUtils.dart';
 import 'Commons.dart';
 import 'DialogUtils.dart';
 import 'VersionUpdateDialog.dart';
-mixin AjFlutterUpdateMixin<T extends StatefulWidget> on State<T>
-{
+
+mixin AjFlutterUpdateMixin<T extends StatefulWidget> on State<T> {
   static const apkInstallChannel =
       const MethodChannel(Commons.apkinstallChannel);
 
@@ -17,19 +17,16 @@ mixin AjFlutterUpdateMixin<T extends StatefulWidget> on State<T>
 
   //先接口请求，versionName（code）比对后再调用，这个请求+比对放在本地即可
   static versionUpdate(BuildContext context, String downloadUrl,
-      String releaseLog, bool mustUpdate,
-      {bool needToast = false}) async {
+      String releaseLog, bool mustUpdate) async {
     if (Platform.isIOS) {
-      showUpdateDialog(context, downloadUrl, releaseLog, mustUpdate,
-          needToast: needToast);
+      showUpdateDialog(context, downloadUrl, releaseLog, mustUpdate);
       return;
     }
     PermissionStatus status = await SimplePermissions.requestPermission(
         Permission.WriteExternalStorage);
 
     if (status == PermissionStatus.authorized) {
-      showUpdateDialog(context, downloadUrl, releaseLog, mustUpdate,
-          needToast: needToast);
+      showUpdateDialog(context, downloadUrl, releaseLog, mustUpdate);
     } else {
       DialogUtils.showCommonDialog(context,
           msg: '"获取文件读写权限失败,即将跳转应用信息”>“权限”中开启权限"',
@@ -43,9 +40,8 @@ mixin AjFlutterUpdateMixin<T extends StatefulWidget> on State<T>
   }
 
   static showUpdateDialog(BuildContext context, String downloadUrl,
-      String releaseLog, bool mustUpdate,
-      {bool needToast = false}) {
-      showDialog(
+      String releaseLog, bool mustUpdate) {
+    showDialog(
         context: context,
         builder: (context) {
           VersionUpdateDialog messageDialog = new VersionUpdateDialog(
