@@ -1,4 +1,4 @@
-package com.anji.plus.aj_flutter_update_example;
+package anjiplus.aj_flutter_update_example;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;
