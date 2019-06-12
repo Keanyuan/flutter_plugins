@@ -33,7 +33,7 @@ class _AppPageState extends State<AppWidget> with AjFlutterUpdateMixin {
         onTap: () {
           AjFlutterUpdateMixin.versionUpdate(
               context,
-              "https://test1.4q.sk/flutter_hello_world.apk",
+              "https://s3.cn-north-1.amazonaws.com.cn/anjiplus-ftp/6c2e042d-075f-450a-86eb-459f3722a7ad5084544252265841842.apk",
               "1，我的老哥==2，你的老妹",
               false);
         },

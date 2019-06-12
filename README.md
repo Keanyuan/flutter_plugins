@@ -19,12 +19,20 @@ path: xxx
 2、[aj_flutter_update](./aj_flutter_update/) 
 
   ```
+  dio 2.0以上版本
   - iOS需要添加如下内容
   Deployment Target 设置为 10.0
   Podfile 中 target 'Runner' do 添加 use_frameworks! 支持swift
   
   - Android需要添加如下内容
-  
+  <!-- permission plugin 需要的权限 -->
+  <uses-permission android:name="android.permission.RECORD_AUDIO" />
+  <!-- 写入权限 -->
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+  <!-- 读取权限 -->
+  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+  <!-- 网络权限 -->
+  <uses-permission android:name="android.permission.INTERNET"/>
   
  ```
 3、 [aj_flutter_auto_orientation](./aj_flutter_auto_orientation/) 
