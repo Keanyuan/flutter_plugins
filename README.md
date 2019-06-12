@@ -15,6 +15,7 @@ flutter与原生交互，包含静态资源获取，版本获取。
  
 4、[aj_flutter_scan](./aj_flutter_scan/) 
 
+    **aj_flutter_scan**
     - iOS需要添加如下内容
     <key>NSCameraUsageDescription</key>
     <string>允许应用在扫码功能中使用您的摄像头</string>
