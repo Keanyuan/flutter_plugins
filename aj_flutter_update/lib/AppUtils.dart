@@ -7,11 +7,10 @@ import 'Commons.dart';
 import 'aj_flutter_update.dart';
 
 class AppUtils {
-
   static List<String> getMsgList(String releaseLog, {String split}) {
     List<String> list = [];
     if (releaseLog != null) {
-      list =releaseLog.split('==');
+      list = releaseLog.split('==');
     }
     return list;
   }
