@@ -10,11 +10,27 @@
 }
 
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
-  if ([@"getPlatformVersion" isEqualToString:call.method]) {
-    result([@"iOS " stringByAppendingString:[[UIDevice currentDevice] systemVersion]]);
-  } else {
+  if ([@"launchUrl" isEqualToString:call.method]) {
+        NSDictionary *arguments = [call arguments];
+        NSString *utlString = arguments[@"url"];
+        [self launchURL:utlString result:result];
+    } else {
     result(FlutterMethodNotImplemented);
   }
+}
+
+- (void)launchURL:(NSString *)urlString result:(FlutterResult)result {
+    NSURL *url = [NSURL URLWithString:urlString];
+    if([[UIApplication sharedApplication] canOpenURL:url]){
+        [[UIApplication sharedApplication] openURL:url];
+    }
+    result(@"");
+}
+
+- (BOOL)canLaunchURL:(NSString *)urlString {
+  NSURL *url = [NSURL URLWithString:urlString];
+  UIApplication *application = [UIApplication sharedApplication];
+  return [application canOpenURL:url];
 }
 
 @end

@@ -17,7 +17,16 @@ path: xxx
 1、 [aj_flutter_plugin](./aj_flutter_plugin/) 
 
 2、[aj_flutter_update](./aj_flutter_update/) 
- 
+
+  ```
+  - iOS需要添加如下内容
+  Deployment Target 设置为 10.0
+  Podfile 中 target 'Runner' do 添加 use_frameworks! 支持swift
+  
+  - Android需要添加如下内容
+  
+  
+ ```
 3、 [aj_flutter_auto_orientation](./aj_flutter_auto_orientation/) 
 
 4、[aj_flutter_scan](./aj_flutter_scan/) 

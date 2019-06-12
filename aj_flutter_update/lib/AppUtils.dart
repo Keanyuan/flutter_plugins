@@ -1,8 +1,10 @@
 import 'dart:async';
 
-import 'package:aj_flutter_plugin/aj_flutter_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+import 'Commons.dart';
+import 'aj_flutter_update.dart';
 
 class AppUtils {
 
@@ -19,9 +21,7 @@ class AppUtils {
   * */
   static Future gotoAppstore(BuildContext context, String appurl) async {
     Navigator.pop(context);
-    if (await canLaunch(appurl)) {
-      await launch(appurl);
-    }
+    AjFlutterUpdateMixin.apkInstallChannel.invokeMethod(Commons.iOSInstallMethod, {'url': appurl});
   }
 
   static Future push(BuildContext context, Widget page,
