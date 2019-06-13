@@ -1,14 +1,56 @@
 # aj_flutter_update
 
-version update Flutter plugin.
+###集成方式
 
-## Getting Started
+###一，For Android
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.io/developing-packages/),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
+    ##1，pubspec.yaml引用
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.io/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+    aj_flutter_update:
+       git:
+          url: http://gitlab.anji-allways.com/mobileteam/modules.git
+          path: aj_flutter_update
+
+    ##2，权限添加，在AndroidManifest.xml加入
+      <uses-permission android:name="android.permission.INTERNET" />
+      <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+      <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    ##3，兼容android7.0+，继续在AndroidManifest.xml加入
+     <provider
+           android:name="android.support.v4.content.FileProvider"
+           android:authorities="anjiplus.aj_flutter_update_example.fileprovider"
+           android:exported="false"
+           android:grantUriPermissions="true">
+              <meta-data
+                 android:name="android.support.FILE_PROVIDER_PATHS"
+                 android:resource="@xml/file_paths" />
+      </provider>
+
+     Note："anjiplus.aj_flutter_update_example"是example的包名，所以
+        authorities为 "包名.fileprovider" ，注意file_paths.xml里的path为
+        <external-path path="Android/data/anjiplus.aj_flutter_update_example/" name="files_root" />，
+        这里的"anjiplus.aj_flutter_update_example"就是包名
+
+###二，iOS（待完善）
+
+###三，dart层调用
+      （1）引用
+      import 'package:aj_flutter_update/aj_flutter_update.dart';
+      class _AppPageState extends State<AppWidget> with AjFlutterUpdateMixin
+      这里要加入mixin AjFlutterUpdateMixin
+
+     (2)使用
+      AjFlutterUpdateMixin.versionUpdate(
+                        context,
+                        downloadurl,//apk下载地址或者App Store下载地址
+                        releaselog, //更新内容，默认"=="分隔
+                        mustupdate);//是否强制更新
+
+     比如：
+      AjFlutterUpdateMixin.versionUpdate(
+                   context,
+                   "https://s3.cn-north-1.amazonaws.com.cn/anjiplus-ftp/6c2e042d-075f-450a-86eb-459f3722a7ad5084544252265841842.apk",
+                   "1，我的老哥==2，你的老妹",
+                   true);
+

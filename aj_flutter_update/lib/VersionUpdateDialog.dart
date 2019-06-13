@@ -215,7 +215,6 @@ class _VersionUpdateWidgetState extends State<VersionUpdateWidget> {
     File file = new File('$dir/AJ_' +
         new DateTime.now().millisecondsSinceEpoch.toString() +
         '.apk');
-//    response = await dio.download(urlPath, savePath, onReceiveProgress: )
     response =
         await dio.download(apkUrl, file.path, onReceiveProgress: (received, total) {
       print("total" + total.toString() + " received " + received.toString());
