@@ -21,18 +21,33 @@ path: xxx
   ```
   dio 2.0以上版本
   - iOS需要添加如下内容
-  Deployment Target 设置为 10.0
-  Podfile 中 target 'Runner' do 添加 use_frameworks! 支持swift
+      Deployment Target 设置为 10.0
+      Podfile 中 target 'Runner' do 添加 use_frameworks! 支持swift
   
   - Android需要添加如下内容
-  <!-- permission plugin 需要的权限 -->
-  <uses-permission android:name="android.permission.RECORD_AUDIO" />
-  <!-- 写入权限 -->
-  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-  <!-- 读取权限 -->
-  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-  <!-- 网络权限 -->
-  <uses-permission android:name="android.permission.INTERNET"/>
+      <!-- permission plugin 需要的权限 -->
+      <!-- 写入权限 -->
+      <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+      <!-- 读取权限 -->
+      <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+      <!-- 网络权限 -->
+      <uses-permission android:name="android.permission.INTERNET"/>
+      
+      **兼容android7.0+，继续在AndroidManifest.xml加入
+      <provider
+      android:name="android.support.v4.content.FileProvider"
+      android:authorities="anjiplus.aj_flutter_update_example.fileprovider"
+      android:exported="false"
+      android:grantUriPermissions="true">
+      <meta-data
+      android:name="android.support.FILE_PROVIDER_PATHS"
+      android:resource="@xml/file_paths" />
+      </provider>
+      
+      Note："anjiplus.aj_flutter_update_example"是example的包名，所以
+      authorities为 "包名.fileprovider" ，注意file_paths.xml里的path为
+      <external-path path="Android/data/anjiplus.aj_flutter_update_example/" name="files_root" />，
+      这里的"anjiplus.aj_flutter_update_example"就是包名
   
  ```
 3、 [aj_flutter_auto_orientation](./aj_flutter_auto_orientation/) 
