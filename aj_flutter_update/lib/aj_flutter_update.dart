@@ -16,17 +16,29 @@ mixin AjFlutterUpdateMixin<T extends StatefulWidget> on State<T> {
   static const String apkInstallMethod = Commons.apkInstallMethod;
 
   //先接口请求，versionName（code）比对后再调用，这个请求+比对放在本地即可
-  static versionUpdate(BuildContext context, String downloadUrl,
-      String releaseLog, bool mustUpdate) async {
+  /// [downloadUrl] 下载地址 （iOS 跳转App Store URL 或者 跳转下载页 URL，Android下载apkURL ）
+  /// [updateLog] 更新信息描述 以 == 做分割
+  /// [mustUpdate] 是否强制更新 default is false
+  /// [buttonColor] 确定按钮颜色 默认
+  /// [titleColor] 标题颜色
+  static versionUpdate(
+      {BuildContext context,
+      String downloadUrl,
+      String updateLog,
+      bool mustUpdate = false,
+      Color buttonColor = Colors.blue,
+      Color titleColor = const Color(0xFFFFA033)}) async {
     if (Platform.isIOS) {
-      showUpdateDialog(context, downloadUrl, releaseLog, mustUpdate);
+      showUpdateDialog(context, downloadUrl, updateLog, mustUpdate,
+          buttonColor: buttonColor, titleColor: titleColor);
       return;
     }
     PermissionStatus status = await SimplePermissions.requestPermission(
         Permission.WriteExternalStorage);
 
     if (status == PermissionStatus.authorized) {
-      showUpdateDialog(context, downloadUrl, releaseLog, mustUpdate);
+      showUpdateDialog(context, downloadUrl, updateLog, mustUpdate,
+          buttonColor: buttonColor, titleColor: titleColor);
     } else {
       DialogUtils.showCommonDialog(context,
           msg: '"获取文件读写权限失败,即将跳转应用信息”>“权限”中开启权限"',
@@ -40,7 +52,8 @@ mixin AjFlutterUpdateMixin<T extends StatefulWidget> on State<T> {
   }
 
   static showUpdateDialog(BuildContext context, String downloadUrl,
-      String releaseLog, bool mustUpdate) {
+      String releaseLog, bool mustUpdate,
+      {Color buttonColor, Color titleColor}) {
     showDialog(
         context: context,
         builder: (context) {
@@ -49,7 +62,9 @@ mixin AjFlutterUpdateMixin<T extends StatefulWidget> on State<T> {
             versionMsgList: AppUtils.getMsgList(releaseLog),
             mustUpdate: mustUpdate,
             downloadUrl: downloadUrl,
-            minHeight: 160,
+//            minHeight: 160,
+            buttonColor: buttonColor,
+            titleColor: titleColor,
           );
           return messageDialog;
         });

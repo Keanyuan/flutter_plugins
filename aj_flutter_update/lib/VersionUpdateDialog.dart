@@ -9,6 +9,7 @@ import 'package:path_provider/path_provider.dart';
 
 import 'AppUtils.dart';
 import 'aj_flutter_update.dart';
+
 // ignore: must_be_immutable
 class VersionUpdateDialog extends Dialog {
   String title;
@@ -18,22 +19,26 @@ class VersionUpdateDialog extends Dialog {
   String iconPath;
   Function onCloseEvent;
   double minHeight;
+  Color titleColor;
+  Color buttonColor;
   double barHeight = 48;
   double radius = 20;
   bool mustUpdate;
   String downloadUrl;
   List<String> versionMsgList;
 
-  VersionUpdateDialog(
-      {Key key,
-      this.iconPath,
-      this.negativeText,
-      this.positiveText,
-      this.minHeight = 60,
-      this.downloadUrl = '',
-      this.mustUpdate = false,
-      this.versionMsgList})
-      : assert(minHeight > 0),
+  VersionUpdateDialog({
+    Key key,
+    this.iconPath,
+    this.negativeText,
+    this.positiveText,
+    this.minHeight = 60,
+    this.downloadUrl = '',
+    this.mustUpdate = false,
+    this.versionMsgList,
+    this.titleColor,
+    this.buttonColor,
+  })  : assert(minHeight > 0),
         super(key: key);
 
   @override
@@ -46,6 +51,8 @@ class VersionUpdateDialog extends Dialog {
       minHeight: minHeight,
       mustUpdate: mustUpdate,
       versionMsgList: versionMsgList,
+      titleColor: titleColor,
+      buttonColor: buttonColor,
     );
   }
 }
@@ -57,6 +64,8 @@ class VersionUpdateWidget extends StatefulWidget {
   String positiveText;
   String iconPath;
   double minHeight;
+  Color titleColor;
+  Color buttonColor;
   double barHeight = 48;
   double radius = 20;
   double rate;
@@ -64,17 +73,19 @@ class VersionUpdateWidget extends StatefulWidget {
   bool mustUpdate;
   List<String> versionMsgList;
 
-  VersionUpdateWidget(
-      {Key key,
-      this.iconPath,
-      this.negativeText,
-      this.positiveText,
-      this.minHeight = 60,
-      this.downloadUrl = '',
-      this.rate = 0.0,
-      this.mustUpdate = false,
-      this.versionMsgList})
-      : super(key: key);
+  VersionUpdateWidget({
+    Key key,
+    this.iconPath,
+    this.negativeText,
+    this.positiveText,
+    this.minHeight = 60,
+    this.downloadUrl = '',
+    this.rate = 0.0,
+    this.mustUpdate = false,
+    this.versionMsgList,
+    this.titleColor,
+    this.buttonColor,
+  }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -177,7 +188,7 @@ class _VersionUpdateWidgetState extends State<VersionUpdateWidget> {
 
   Widget _getPositiveWidget() {
     return Material(
-        color: Theme.of(context).primaryColor,
+        color: widget.buttonColor,
         shape: RoundedRectangleBorder(
           borderRadius:
               BorderRadius.only(bottomRight: Radius.circular(widget.radius)),
@@ -215,8 +226,8 @@ class _VersionUpdateWidgetState extends State<VersionUpdateWidget> {
     File file = new File('$dir/AJ_' +
         new DateTime.now().millisecondsSinceEpoch.toString() +
         '.apk');
-    response =
-        await dio.download(apkUrl, file.path, onReceiveProgress: (received, total) {
+    response = await dio.download(apkUrl, file.path,
+        onReceiveProgress: (received, total) {
       print("total" + total.toString() + " received " + received.toString());
       double ratio = received / total;
       setState(() {
@@ -236,7 +247,8 @@ class _VersionUpdateWidgetState extends State<VersionUpdateWidget> {
 //      在通道上调用此方法
       Map<String, String> argument = new Map();
       argument["path"] = file.path;
-      await AjFlutterUpdateMixin.apkInstallChannel.invokeMethod(AjFlutterUpdateMixin.apkInstallMethod, argument);
+      await AjFlutterUpdateMixin.apkInstallChannel
+          .invokeMethod(AjFlutterUpdateMixin.apkInstallMethod, argument);
     } on PlatformException catch (e) {
       print("dart -PlatformException ");
     } finally {}
@@ -267,7 +279,7 @@ class _VersionUpdateWidgetState extends State<VersionUpdateWidget> {
                       child: new Text(
                         '新版发布',
                         style:
-                            TextStyle(fontSize: 20.0, color: Color(0xFFFFA033)),
+                            TextStyle(fontSize: 20.0, color: widget.titleColor),
                       ),
                       height: 36,
                       margin: EdgeInsets.only(top: 6),
@@ -381,7 +393,7 @@ class _iOSVersionUpdateWidgetState extends State<VersionUpdateWidget> {
 
   Widget _getPositiveWidget() {
     return Material(
-        color: Theme.of(context).primaryColor,
+        color: widget.buttonColor,
         shape: RoundedRectangleBorder(
           borderRadius: widget.mustUpdate
               ? BorderRadius.only(
@@ -434,7 +446,7 @@ class _iOSVersionUpdateWidgetState extends State<VersionUpdateWidget> {
                       child: new Text(
                         '新版发布',
                         style:
-                            TextStyle(fontSize: 20.0, color: Color(0xFFFFA033)),
+                            TextStyle(fontSize: 20.0, color: widget.titleColor),
                       ),
                       height: 36,
                       margin: EdgeInsets.only(top: 6),
