@@ -32,7 +32,11 @@
         <external-path path="Android/data/anjiplus.aj_flutter_update_example/" name="files_root" />，
         这里的"anjiplus.aj_flutter_update_example"就是包名
 
-###二，iOS（待完善）
+###二，iOS
+```
+Deployment Target 设置为 10.0
+Podfile 中 target 'Runner' do 添加 use_frameworks! 支持swift
+```
 
 ###三，dart层调用
       （1）引用
