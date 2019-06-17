@@ -1,4 +1,4 @@
-group 'com.anji.plus.aj_flutter_scan'
+group 'anjiplus.aj.flutter.aj_flutter_scan'
 version '1.0-SNAPSHOT'
 
 buildscript {
@@ -22,7 +22,7 @@ rootProject.allprojects {
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 27
 
     defaultConfig {
         minSdkVersion 16
@@ -31,4 +31,28 @@ android {
     lintOptions {
         disable 'InvalidPackage'
     }
+
+    sourceSets {
+
+        main {
+            manifest.srcFile 'src/main/AndroidManifest.xml'
+            java.srcDirs = ['src/main/java']
+            resources.srcDirs = ['src/main/resources']
+            res.srcDirs = ['src/main/res']
+            assets.srcDirs = ['src/main/assets']
+            jniLibs.srcDirs = ['libs']
+        }
+
+    }
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
 }
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    compile "com.android.support:appcompat-v7:27.1.1"
+}
+
