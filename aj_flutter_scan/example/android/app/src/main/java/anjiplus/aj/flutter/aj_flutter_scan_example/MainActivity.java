@@ -1,4 +1,4 @@
-package com.anji.plus.aj_flutter_scan_example;
+package anjiplus.aj.flutter.aj_flutter_scan_example;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;

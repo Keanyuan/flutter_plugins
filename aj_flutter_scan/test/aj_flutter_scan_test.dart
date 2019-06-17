@@ -15,4 +15,7 @@ void main() {
     channel.setMockMethodCallHandler(null);
   });
 
+  test('getPlatformVersion', () async {
+    expect(await AjFlutterScan.platformVersion, '42');
+  });
 }

@@ -12,53 +12,45 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String barcode = "";
+  String _platformVersion = 'Unknown';
 
   @override
   void initState() {
     super.initState();
+    initPlatformState();
   }
 
+  // Platform messages are asynchronous, so we initialize in an async method.
+  Future<void> initPlatformState() async {
+    String platformVersion;
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    try {
+      platformVersion = await AjFlutterScan.platformVersion;
+    } on PlatformException {
+      platformVersion = 'Failed to get platform version.';
+    }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) return;
+
+    setState(() {
+      _platformVersion = platformVersion;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-      home: new Scaffold(
-          appBar: new AppBar(
-            title: new Text('Barcode Scanner Example'),
-          ),
-          body: new Center(
-            child: new Column(
-              children: <Widget>[
-                new Container(
-                  child: new MaterialButton(
-                      color: Colors.red,
-                      onPressed: scan, child: new Text("Scan", style: TextStyle(color: Colors.white),)),
-                  padding: const EdgeInsets.all(8.0),
-                ),
-                new Text(barcode),
-              ],
-            ),
-          )),
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Plugin example app'),
+        ),
+        body: Center(
+          child: Text('Running on: $_platformVersion\n'),
+        ),
+      ),
     );
-  }
-
-  Future scan() async {
-    try {
-      String barcode = await AjFlutterScan.qrscan();
-      setState(() => this.barcode = barcode);
-    } on PlatformException catch (e) {
-      if (e.code == AjFlutterScan.CameraAccessDenied) {
-        setState(() {
-          this.barcode = 'The user did not grant the camera permission!';
-        });
-      } else {
-        setState(() => this.barcode = 'Unknown error: $e');
-      }
-    } on FormatException{
-      setState(() => this.barcode = 'null (User returned using the "back"-button before scanning anything. Result)');
-    } catch (e) {
-      setState(() => this.barcode = 'Unknown error: $e');
-    }
   }
 }
