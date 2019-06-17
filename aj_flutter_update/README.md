@@ -45,16 +45,12 @@ Podfile 中 target 'Runner' do 添加 use_frameworks! 支持swift
       这里要加入mixin AjFlutterUpdateMixin
 
      (2)使用
-      AjFlutterUpdateMixin.versionUpdate(
-                        context,
-                        downloadurl,//apk下载地址或者App Store下载地址
-                        releaselog, //更新内容，默认"=="分隔
-                        mustupdate);//是否强制更新
-
-     比如：
-      AjFlutterUpdateMixin.versionUpdate(
-                   context,
-                   "https://s3.cn-north-1.amazonaws.com.cn/anjiplus-ftp/6c2e042d-075f-450a-86eb-459f3722a7ad5084544252265841842.apk",
-                   "1，我的老哥==2，你的老妹",
-                   true);
+     AjFlutterUpdateMixin.versionUpdate(
+     context: context,
+     downloadUrl: "https://s3.cn-north-1.amazonaws.com.cn/anjiplus-ftp/6c2e042d-075f-450a-86eb-459f3722a7ad5084544252265841842.apk",//iOS App StoreURL 、Android apk下载url
+     updateLog: "1，我的老哥==2，你的老妹",//updateLog 以 == 做分割
+     mustUpdate: false, //是否强制更新
+     titleColor: Color(0xFFFFA033), //标题颜色
+     buttonColor: Colors.blue, //按钮颜色
+     );
 
