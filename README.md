@@ -17,6 +17,7 @@ path: xxx
 1、 [aj_flutter_plugin](./aj_flutter_plugin/) 
 
 2、[aj_flutter_update](./aj_flutter_update/) 
+使用详细描述[【README.md】](./aj_flutter_update/README.md))
 
   ```
   dio 2.0以上版本
