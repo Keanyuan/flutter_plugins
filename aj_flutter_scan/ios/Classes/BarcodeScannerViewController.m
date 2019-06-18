@@ -1,7 +1,3 @@
-//
-// Created by Matthew Smith on 11/7/17.
-//
-
 #import "BarcodeScannerViewController.h"
 #import <MTBBarcodeScanner/MTBBarcodeScanner.h>
 #import "ScannerOverlay.h"

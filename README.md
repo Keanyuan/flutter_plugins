@@ -53,6 +53,7 @@ path: xxx
 3、 [aj_flutter_auto_orientation](./aj_flutter_auto_orientation/) 
 
 4、[aj_flutter_scan](./aj_flutter_scan/) 
+使用详细描述[【README.md】](./aj_flutter_scan/README.md))
 ```
     **aj_flutter_scan**
     - iOS需要添加如下内容

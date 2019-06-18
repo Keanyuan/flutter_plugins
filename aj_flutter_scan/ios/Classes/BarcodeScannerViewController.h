@@ -1,7 +1,3 @@
-//
-// Created by Matthew Smith on 11/7/17.
-//
-
 #import <Foundation/Foundation.h>
 #import <MTBBarcodeScanner/MTBBarcodeScanner.h>
 
