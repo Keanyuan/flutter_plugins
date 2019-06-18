@@ -70,7 +70,6 @@ final class DecodeHandler extends Handler {
             for (Symbol sym : symSet)
                 result = sym.getData();
         }
-        Log.d("hailong22", " Decode barcode is " + result);
         if (result != null) {
             mImageScanner.destroy();
             if (activity.isNeedCapture()) {
