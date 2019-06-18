@@ -2,29 +2,17 @@
 # aj_flutter_scan
 
 ###集成方式
-话说前头：
-example运行报错，需要集成到混合项目中，app中运行，
-flutter run打包后的apk不支持armeabi-v7a，而android引用的so正好是基于armeabi-v7a，
-所以运行会报找不到so的错误,这个问题后续解决
-
 ###一，For Android
 
-    ##1，pubspec.yaml引用
+    ## pubspec.yaml引用
 
     aj_flutter_scan:
        git:
           url: http://gitlab.anji-allways.com/mobileteam/modules.git
           path: aj_flutter_scan
 
-    ##2，权限添加，在AndroidManifest.xml加入
-    <uses-permission android:name="android.permission.FLASHLIGHT" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.CAMERA" />
 
-    <uses-feature android:name="android.hardware.camera" />
-    <uses-feature android:name="android.hardware.camera.autofocus" />
+    
  
 ###二，iOS
 ```
