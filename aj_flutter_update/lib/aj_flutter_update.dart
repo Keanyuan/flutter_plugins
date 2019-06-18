@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:simple_permissions/simple_permissions.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import 'AppUtils.dart';
 import 'Commons.dart';
@@ -33,10 +33,12 @@ mixin AjFlutterUpdateMixin<T extends StatefulWidget> on State<T> {
           buttonColor: buttonColor, titleColor: titleColor);
       return;
     }
-    PermissionStatus status = await SimplePermissions.requestPermission(
-        Permission.WriteExternalStorage);
-
-    if (status == PermissionStatus.authorized) {
+    final List<PermissionGroup> permissions = <PermissionGroup>[PermissionGroup.storage];
+    final Map<PermissionGroup, PermissionStatus> permissionRequestResult =
+    await PermissionHandler().requestPermissions(permissions);
+    PermissionStatus status =  permissionRequestResult[PermissionGroup.storage];
+    print(status.toString());
+    if (status == PermissionStatus.granted) {
       showUpdateDialog(context, downloadUrl, updateLog, mustUpdate,
           buttonColor: buttonColor, titleColor: titleColor);
     } else {
@@ -44,7 +46,7 @@ mixin AjFlutterUpdateMixin<T extends StatefulWidget> on State<T> {
           msg: '"获取文件读写权限失败,即将跳转应用信息”>“权限”中开启权限"',
           negativeMsg: '取消',
           positiveMsg: '前往', onDone: () {
-        SimplePermissions.openSettings().then((openSuccess) {
+            PermissionHandler().openAppSettings().then((openSuccess) {
           if (openSuccess != true) {}
         });
       });
