@@ -7,6 +7,7 @@ void main() => runApp(new MaterialApp(
       title: "FlutterApplication",
       //页面
       home: new AppWidget(),
+      theme: ThemeData(primaryColor: Colors.white),
     ));
 
 class AppWidget extends StatefulWidget {

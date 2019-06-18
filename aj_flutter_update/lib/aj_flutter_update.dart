@@ -37,7 +37,7 @@ mixin AjFlutterUpdateMixin<T extends StatefulWidget> on State<T> {
     final Map<PermissionGroup, PermissionStatus> permissionRequestResult =
     await PermissionHandler().requestPermissions(permissions);
     PermissionStatus status =  permissionRequestResult[PermissionGroup.storage];
-    print(status.toString());
+
     if (status == PermissionStatus.granted) {
       showUpdateDialog(context, downloadUrl, updateLog, mustUpdate,
           buttonColor: buttonColor, titleColor: titleColor);
@@ -52,7 +52,6 @@ mixin AjFlutterUpdateMixin<T extends StatefulWidget> on State<T> {
       });
     }
   }
-
   static showUpdateDialog(BuildContext context, String downloadUrl,
       String releaseLog, bool mustUpdate,
       {Color buttonColor, Color titleColor}) {

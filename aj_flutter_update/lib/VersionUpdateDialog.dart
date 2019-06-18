@@ -128,6 +128,8 @@ class _VersionUpdateWidgetState extends State<VersionUpdateWidget> {
     list.add(Padding(
       padding: EdgeInsets.only(left: 6, right: 6),
       child: LinearProgressIndicator(
+        backgroundColor: widget.buttonColor,
+        valueColor:  AlwaysStoppedAnimation<Color>(widget.titleColor),
         value: widget.rate,
       ),
     ));

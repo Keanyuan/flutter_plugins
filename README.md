@@ -36,7 +36,7 @@ path: xxx
       
       **兼容android7.0+，继续在AndroidManifest.xml加入
       <provider
-      android:name="android.support.v4.content.FileProvider"
+      android:name="androidx.core.content.FileProvider"
       android:authorities="anjiplus.aj_flutter_update_example.fileprovider"
       android:exported="false"
       android:grantUriPermissions="true">

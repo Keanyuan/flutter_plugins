@@ -4,6 +4,8 @@
 ###集成方式
 ###一，For Android
 ```
+    <!--请求访问使用照相设备-->
+    <uses-permission android:name="android.permission.CAMERA" />
     ## pubspec.yaml引用
 
     aj_flutter_scan:
@@ -30,17 +32,20 @@ Podfile 中 target 'Runner' do 添加 use_frameworks! 支持swift
 ###三，dart层调用
       （1）引用
 ``` 
-	  import 'package:simple_permissions/simple_permissions.dart';//permission request
+      import 'package:permission_handler/permission_handler.dart';//permission request
 	  import 'package:aj_flutter_scan/aj_flutter_scan.dart';
 ``` 
      (2)使用	
 ```     
   //扫一扫
   _onScanRequest() async {
+    //permission_handler: ^3.1.0 iOS、Android通用
     //权限先校验
-    PermissionStatus status =
-        await SimplePermissions.requestPermission(Permission.Camera);
-    if (status == PermissionStatus.authorized) {
+    final List<PermissionGroup> permissions = <PermissionGroup>[PermissionGroup.camera];
+    final Map<PermissionGroup, PermissionStatus> permissionRequestResult =
+    await PermissionHandler().requestPermissions(permissions);
+    PermissionStatus status =  permissionRequestResult[PermissionGroup.camera];
+    if (status == PermissionStatus.granted) {
       String barcode = await AjFlutterScan.getBarCode;
       //成功回调
       _getWaybillNoByWaybillNo(barcode);
@@ -52,13 +57,10 @@ Podfile 中 target 'Runner' do 添加 use_frameworks! 支持swift
           : '"相机权限获取失败,是否跳转“应用信息”>“权限”中开启相机权限？"';
       AppUtils.showCommonDialog(context,
           msg: msg, negativeMsg: '取消', positiveMsg: positiveMsg, onDone: () {
-        if (Platform.isAndroid) {
-          SimplePermissions.openSettings().then((openSuccess) {
+          PermissionHandler().openAppSettings().then((openSuccess) {
             if (openSuccess != true) {}
           });
-        }
       });
     }
   }
 ```
-
