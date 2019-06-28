@@ -49,27 +49,15 @@
     CGFloat kStatusBarH = isIPhone8X ? 44.0 : 20.0;
     
     self.backLabelButton = [[UIButton alloc]init];
-    self.backLabelButton.frame = CGRectMake(10, kStatusBarH+5, 30, 30);
-    [self.backLabelButton setTitle:@"X" forState:UIControlStateNormal];
-    self.backLabelButton.titleLabel.font = [UIFont systemFontOfSize:20];
-    [self.backLabelButton  setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [self.backLabelButton.layer setBorderColor:[UIColor whiteColor].CGColor];
-    self.backLabelButton.layer.cornerRadius = 15;
-    self.backLabelButton.layer.masksToBounds = YES;
-    self.backLabelButton.layer.borderWidth = 0.5;
-    
+    self.backLabelButton.frame = CGRectMake(10, kStatusBarH+5, 35, 35);
+    [self.backLabelButton setImage:[UIImage imageNamed:@"navigaton-back-button-bg"] forState:UIControlStateNormal];
     [self.backLabelButton addTarget:self action:@selector(cancel) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.backLabelButton];
     
     self.flashButton = [[UIButton alloc]init];
-    self.flashButton.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - 70, kStatusBarH + 5, 60, 30);
-    [self.flashButton setTitle:@"闪光灯" forState:UIControlStateNormal];
-    self.flashButton.titleLabel.font = [UIFont systemFontOfSize:12];
-    [self.flashButton  setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [self.flashButton.layer setBorderColor:[UIColor whiteColor].CGColor];
-    self.flashButton.layer.cornerRadius = 15;
-    self.flashButton.layer.masksToBounds = YES;
-    self.flashButton.layer.borderWidth = 0.5;
+    //130 174
+    self.flashButton.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - 60, kStatusBarH + 5, 40, 174 * 4 / 13.0);
+    [self.flashButton setImage:[UIImage imageNamed:@"qrcode_scan_btn_flash_nor"] forState:UIControlStateNormal];
     [self.flashButton addTarget:self action:@selector(toggle) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.flashButton];
 }
@@ -115,7 +103,7 @@
 }
 
 - (void)cancel {
-    [self dismissViewControllerAnimated:true completion:nil];
+    [self dismissViewControllerAnimated:NO completion:nil];
 }
 
 - (void)updateFlashButton {
@@ -126,9 +114,9 @@
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Flash Off"
                                                                                   style:UIBarButtonItemStylePlain
                                                                                  target:self action:@selector(toggle)];
-        [self.flashButton setTitle:@"闪光灯开" forState:UIControlStateNormal];
-
+        [self.flashButton setImage:[UIImage imageNamed:@"qrcode_scan_btn_flash_down"] forState:UIControlStateNormal];
     } else {
+        [self.flashButton setImage:[UIImage imageNamed:@"qrcode_scan_btn_flash_nor"] forState:UIControlStateNormal];
         [self.flashButton setTitle:@"闪光灯关" forState:UIControlStateNormal];
     }
 }

@@ -16,6 +16,7 @@ A new Flutter plugin.
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
   s.dependency 'MTBBarcodeScanner'
+  s.resources = ['Classes/resources/*.png']
 
   s.ios.deployment_target = '8.0'
 end
