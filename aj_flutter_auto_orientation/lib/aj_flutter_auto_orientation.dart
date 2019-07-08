@@ -26,7 +26,7 @@ class AjFlutterAutoOrientation {
 
   // rotate the device to portrait up mode
   //屏幕方向向下
-  static portraitUpMode() async {
+  static landscapeRightMode() async {
     try {
       await _channel.invokeMethod('setPortraitUp');
     } on MissingPluginException catch (_) {

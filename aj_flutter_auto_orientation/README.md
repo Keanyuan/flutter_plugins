@@ -2,13 +2,24 @@
 
 A new Flutter plugin.
 
+## 强制切换横竖屏（锁定方向也可以切换）
+###集成方式
+```
+aj_flutter_auto_orientation:
+git:
+url: http://gitlab.anji-allways.com/mobileteam/modules.git
+path: aj_flutter_auto_orientation
+
+```
+
 ## Getting Started
-
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.dev/developing-packages/),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
-
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+```
+//屏幕方向向左
+await AjFlutterAutoOrientation.landscapeLeftMode()
+//屏幕方向向右
+await AjFlutterAutoOrientation.landscapeRightMode()
+//屏幕方向向上
+await AjFlutterAutoOrientation.landscapeRightMode()
+//屏幕方向向下
+await AjFlutterAutoOrientation.portraitDownMode()
+```

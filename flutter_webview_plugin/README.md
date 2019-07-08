@@ -1,6 +1,15 @@
-[![Flutter Community: flutter_webview_plugin](https://fluttercommunity.dev/_github/header/flutter_webview_plugin)](https://github.com/fluttercommunity/community)
 
 # Flutter WebView Plugin
+
+## 原生webview
+###集成方式
+```
+flutter_webview_plugin:
+git:
+url: http://gitlab.anji-allways.com/mobileteam/modules.git
+path: flutter_webview_plugin
+
+```
 
 
 #### iOS

@@ -15,6 +15,7 @@ path: xxx
 ```
 
 1、 [aj_flutter_plugin](./aj_flutter_plugin/) 
+使用详细描述[【README.md】](./aj_flutter_plugin/README.md))
 
 2、[aj_flutter_update](./aj_flutter_update/) 
 使用详细描述[【README.md】](./aj_flutter_update/README.md))
@@ -52,6 +53,8 @@ path: xxx
   
  ```
 3、 [aj_flutter_auto_orientation](./aj_flutter_auto_orientation/) 
+使用详细描述[【README.md】](./aj_flutter_auto_orientation/README.md))
+
 
 4、[aj_flutter_scan](./aj_flutter_scan/) 
 使用详细描述[【README.md】](./aj_flutter_scan/README.md))
