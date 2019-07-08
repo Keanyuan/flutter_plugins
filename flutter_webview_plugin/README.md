@@ -2,21 +2,10 @@
 
 # Flutter WebView Plugin
 
-[![pub package](https://img.shields.io/pub/v/flutter_webview_plugin.svg)](https://pub.dartlang.org/packages/flutter_webview_plugin)
-
-Plugin that allows Flutter to communicate with a native WebView.
-
-**_Warning:_**
-The webview is not integrated in the widget tree, it is a native view on top of the flutter view.
-You won't be able see snackbars, dialogs, or other flutter widgets that would overlap with the region of the screen taken up by the webview.
-
-## Getting Started
-
-For help getting started with Flutter, view our online [documentation](http://flutter.io/).
 
 #### iOS
 
-In order for plugin to work correctly, you need to add new key to `ios/Runner/Info.plist`
+要使插件正确工作，您需要添加新的关键字到 `ios/Runner/Info.plist`
 
 ```xml
 <key>NSAppTransportSecurity</key>
@@ -27,14 +16,11 @@ In order for plugin to work correctly, you need to add new key to `ios/Runner/In
     <true/>
 </dict>
 ```
+iOS9以上需要添加`NSAllowsArbitraryLoads` 
+iOS10+还需要添加`NSAllowsArbitraryLoadsInWebContent`
 
-`NSAllowsArbitraryLoadsInWebContent` is for iOS 10+ and `NSAllowsArbitraryLoads` for iOS 9.
 
-
-### How it works
-
-#### Launch WebView Fullscreen with Flutter navigation
-
+#### 添加一个webview 如下
 ```dart
 new MaterialApp(
       routes: {
@@ -48,11 +34,11 @@ new MaterialApp(
     );
 ```
 
-Optional parameters `hidden` and `initialChild` are available so that you can show something else while waiting for the page to load.
-If you set `hidden` to true it will show a default CircularProgressIndicator. If you additionally specify a Widget for initialChild
-you can have it display whatever you like till page-load.
+可选参数`hidden`和`initialChild`可用，以便在等待页面加载时显示其他内容。
+如果将`hidden`设置为true，它将显示一个默认的`CircularProgressIndicator`。如果另外为`initialChild`指定小部件
+你可以让它显示任何你喜欢的直到页面加载。
 
-e.g. The following will show a read screen with the text 'waiting.....'.
+下面将显示一个显示文本`waiting…`的reading屏幕。
 ```dart
 return new MaterialApp(
   title: 'Flutter WebView Demo',
@@ -68,6 +54,9 @@ return new MaterialApp(
       ),
       withZoom: true,
       withLocalStorage: true,
+      javascriptChannels: <String>[
+      "NativeJavascriptChannel"
+      ],
       hidden: true,
       initialChild: Container(
         color: Colors.redAccent,
@@ -80,8 +69,8 @@ return new MaterialApp(
 );
 ```
 
-`FlutterWebviewPlugin` provide a singleton instance linked to one unique webview,
-so you can take control of the webview from anywhere in the app
+`FlutterWebviewPlugin`提供了一个单独的实例，链接到一个独特的webview，
+所以你可以从应用程序的任何地方控制webview
 
 listen for events
 
@@ -93,7 +82,7 @@ flutterWebviewPlugin.onUrlChanged.listen((String url) {
 });
 ```
 
-#### Listen for scroll event in webview
+#### 监听webview中的滚动事件
 
 ```dart
 final flutterWebviewPlugin = new FlutterWebviewPlugin();
@@ -107,10 +96,10 @@ flutterWebviewPlugin.onScrollXChanged.listen((double offsetX) { // latest offset
 
 ````
 
-Note: Do note there is a slight difference is scroll distance between ios and android. Android scroll value difference tends to be larger than ios devices.
+注意:ios和android之间的滚动距离略有不同。Android的滚动值差异往往大于ios设备。
 
 
-#### Hidden WebView
+#### 隐藏的WebView
 
 ```dart
 final flutterWebviewPlugin = new FlutterWebviewPlugin();
@@ -118,13 +107,13 @@ final flutterWebviewPlugin = new FlutterWebviewPlugin();
 flutterWebviewPlugin.launch(url, hidden: true);
 ```
 
-#### Close launched WebView
+#### 关闭 WebView
 
 ```dart
 flutterWebviewPlugin.close();
 ```
 
-#### Webview inside custom Rectangle
+####自定义矩形内的Webview
 
 ```dart
 final flutterWebviewPlugin = new FlutterWebviewPlugin();
@@ -140,10 +129,10 @@ flutterWebviewPlugin.launch(url,
 );
 ```
 
-#### Injecting custom code into the webview
-Use `flutterWebviewPlugin.evalJavaScript(String code)`. This function must be run after the page has finished loading (i.e. listen to `onStateChanged` for events where state is `finishLoad`).
+#### 将定制代码注入webview
+使用`flutterWebviewPlugin。evalJavaScript(String code)`。这个函数必须在页面加载完成后运行(例如，在状态为`finishLoad`的事件中监听`onStateChanged`)。
 
-If you have a large amount of JavaScript to embed, use an asset file. Add the asset file to `pubspec.yaml`, then call the function like:
+如果要嵌入大量JavaScript，请使用资产文件。将资产文件添加到`pubspec.yaml`,。然后像这样调用函数：
 
 ```dart
 Future<String> loadJS(String name) async {
@@ -167,8 +156,9 @@ Future<String> loadJS(String name) async {
 - `Stream<double>` onScrollXChanged
 - `Stream<double>` onScrollYChanged
 - `Stream<String>` onError
+- `StreamSubscription<JavascriptChannel>`  _onJavascriptChannelMessage
 
-**_Don't forget to dispose webview_**
+**_不要忘记处理释放webview _**
 `flutterWebviewPlugin.dispose()`
 
 ### Webview Functions
@@ -190,6 +180,7 @@ Future<Null> launch(String url, {
    bool supportMultipleWindows: false,
    bool appCacheEnabled: false,
    bool allowFileURLs: false,
+   List<String> javascriptChannels
 });
 ```
 
@@ -240,4 +231,38 @@ Future<Null> goForward();
 ```dart
 Future<Null> stopLoading();
 ```
+
+
+#### 使用javascriptChannels
+初始化注册`javascriptChannels`
+```
+        javascriptChannels: <String>[
+            "NativeJavascriptChannel"
+        ],
+```
+注册监听
+- `StreamSubscription<JavascriptChannel>`  _onJavascriptChannelMessage
+
+监听回调
+```
+    _onJavascriptChannelMessage = flutterWebViewPlugin
+        .onJavascriptChannelMessage
+        .listen((JavascriptChannel javascriptChannel) {
+            print("${javascriptChannel.message}   --- ${javascriptChannel.channelName}");
+
+            if(javascriptChannel.channelName == "NativeJavascriptChannel"){
+                if (javascriptChannel.message == "setProjectInfo") { //TODO 索取筛选信息
+                    var map = {
+                        "token" : "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI5IiwiZXhwIjoxNTY0OTEyNTM0fQ.eb8KstYlIOT7NwM4TPKO35HlpLm7Hl_P5p8KdBXBkDhgxX6qV0puvb9FQxeJ6jVCJuef-sCEzCwQ2Sb95VpR7Q",
+                        "projectId": 8,
+                        "connectName": 0,//网络状态
+                        "plateform": 3, //APP来源  Android： 1，  iOS真机： 2 ,   iOS 模拟器： 3,
+                    };
+                String mapStr = json.encode(map);
+                flutterWebViewPlugin.evalJavascript("getProjectInfo($mapStr)");
+               }
+            }
+        });
+```
+
 

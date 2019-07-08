@@ -171,7 +171,7 @@ class _MyHomePageState extends State<MyHomePage> {
     _onProgressChanged.cancel();
     _onScrollXChanged.cancel();
     _onScrollYChanged.cancel();
-
+    _onJavascriptChannelMessage.cancel();
     flutterWebViewPlugin.dispose();
 
     super.dispose();
