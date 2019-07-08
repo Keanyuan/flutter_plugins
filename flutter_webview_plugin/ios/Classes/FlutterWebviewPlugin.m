@@ -111,13 +111,8 @@ static NSString *const CHANNEL_NAME = @"flutter_webview_plugin";
     }
     _javaScriptChannelNames = [[NSMutableSet alloc] init];
     WKUserContentController* userContentController = [[WKUserContentController alloc] init];
-    
-    
-    NSLog(@"-------------------------------   %@",call.arguments);
 
     if ([call.arguments[@"javascriptChannelNames"] isKindOfClass:[NSArray class]]) {
-        NSLog(@"-------------------------------   %@",call.arguments[@"javascriptChannelNames"]);
-
         NSArray* javaScriptChannelNames = call.arguments[@"javascriptChannelNames"];
         [_javaScriptChannelNames addObjectsFromArray:javaScriptChannelNames];
         [self registerJavaScriptChannels:_javaScriptChannelNames controller:userContentController];
