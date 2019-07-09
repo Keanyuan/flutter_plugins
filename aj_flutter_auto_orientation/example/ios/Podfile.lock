@@ -1,0 +1,22 @@
+PODS:
+  - aj_flutter_auto_orientation (0.0.1):
+    - Flutter
+  - Flutter (1.0.0)
+
+DEPENDENCIES:
+  - aj_flutter_auto_orientation (from `.symlinks/plugins/aj_flutter_auto_orientation/ios`)
+  - Flutter (from `.symlinks/flutter/ios`)
+
+EXTERNAL SOURCES:
+  aj_flutter_auto_orientation:
+    :path: ".symlinks/plugins/aj_flutter_auto_orientation/ios"
+  Flutter:
+    :path: ".symlinks/flutter/ios"
+
+SPEC CHECKSUMS:
+  aj_flutter_auto_orientation: a37c6d7cb7218fc3ec9dec3573b74f5d6066e5ba
+  Flutter: 9d0fac939486c9aba2809b7982dfdbb47a7b0296
+
+PODFILE CHECKSUM: aff02bfeed411c636180d6812254b2daeea14d09
+
+COCOAPODS: 1.5.3
