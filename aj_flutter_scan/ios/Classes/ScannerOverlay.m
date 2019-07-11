@@ -62,8 +62,8 @@
   [path addLineToPoint:CGPointMake(holeRect.origin.x, bottomHoleY)];
   [path addLineToPoint:CGPointMake(holeRect.origin.x, bottomHoleY - cornerSize)];
   
-  path.lineWidth = 2;
-  [[UIColor greenColor] setStroke];
+  path.lineWidth = 4;
+  [[UIColor colorWithRed:95/255.0 green:144/255.0 blue:232/255.0 alpha:1/1.0] setStroke];
   [path stroke];
   
 }
