@@ -46,10 +46,19 @@ Podfile 中 target 'Runner' do 添加 use_frameworks! 支持swift
     await PermissionHandler().requestPermissions(permissions);
     PermissionStatus status =  permissionRequestResult[PermissionGroup.camera];
     if (status == PermissionStatus.granted) {
-      String barcode = await AjFlutterScan.getBarCode;
+      String barcode = "";
+      try {
       //成功回调
-      _getWaybillNoByWaybillNo(barcode);
+      barCode = await AjFlutterScan.getBarCode;
       Toast.toast(context, barcode);
+      } catch (e) {
+      //成功失败
+      if (e.code == AjFlutterScan.ScanCancle) {
+      print("Unknown error: 取消扫描 ${e.code}");
+      } else {
+      print("Unknown error: $e");
+      }
+      }
     } else {
       String positiveMsg = Platform.isIOS ? "确定" : "前往";
       String msg = Platform.isIOS

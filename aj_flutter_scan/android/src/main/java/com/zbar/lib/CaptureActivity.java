@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Vibrator;
 import android.util.DisplayMetrics;
+import android.view.KeyEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
@@ -52,6 +53,7 @@ public class CaptureActivity extends Activity implements Callback {
     private RelativeLayout mCropLayout = null;
     private boolean isNeedCapture = false;
     private String TYPE = null;//类型 分从车辆扫描进来和从身份验证进来
+    private static String scan_cancle = "SCAN_CANCLE"; //取消扫描
 
     public boolean isNeedCapture() {
         return isNeedCapture;
@@ -118,7 +120,7 @@ public class CaptureActivity extends Activity implements Callback {
 
                     @Override
                     public void onClick(View arg0) {
-                        finish();
+                        onBackAction();
                     }
                 });
         // 获得屏幕的宽高
@@ -138,6 +140,22 @@ public class CaptureActivity extends Activity implements Callback {
         mAnimation.setRepeatMode(Animation.REVERSE);
         mAnimation.setInterpolator(new LinearInterpolator());
         mQrLineView.setAnimation(mAnimation);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN){
+            onBackAction();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    private void onBackAction() {
+        Intent intent = new Intent();
+        intent.putExtra("resultCode",scan_cancle);
+        setResult(0104,intent);
+        finish();
     }
 
     boolean flag = true;

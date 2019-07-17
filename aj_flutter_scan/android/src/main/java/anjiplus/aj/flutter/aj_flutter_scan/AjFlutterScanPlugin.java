@@ -36,6 +36,12 @@ public class AjFlutterScanPlugin implements MethodCallHandler {
                         String barcode = data.getStringExtra("resultCode");
                         result.success(barcode);
                     }
+                } else if (AjFlutterScanPlugin.requestCode == requestCode
+                        && resultCode == 0104) {
+                    if (result != null) {
+                        String errorCode = data.getStringExtra("resultCode");
+                        result.error(errorCode, null, null);
+                    }
                 }
                 return AjFlutterScanPlugin.requestCode == requestCode;
             }

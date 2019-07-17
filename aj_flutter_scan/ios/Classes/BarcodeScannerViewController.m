@@ -1,6 +1,7 @@
 #import "BarcodeScannerViewController.h"
 #import <MTBBarcodeScanner/MTBBarcodeScanner.h>
 #import "ScannerOverlay.h"
+#import "QRHelper.h"
 
 
 @implementation BarcodeScannerViewController {
@@ -60,6 +61,19 @@
     [self.flashButton setImage:[UIImage imageNamed:@"qrcode_scan_btn_flash_nor"] forState:UIControlStateNormal];
     [self.flashButton addTarget:self action:@selector(toggle) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.flashButton];
+    CGRect rect = self.view.frame;
+    CGFloat heightMultiplier = 3.0/4.0; // 4:3 aspect ratio
+    CGFloat scanRectWidth = rect.size.width * 0.8f;
+    CGFloat scanRectHeight = scanRectWidth * heightMultiplier;
+    CGFloat scanRectOriginY = (rect.size.height / 2) - (scanRectHeight / 2);
+    UILabel *titleLabel = [[UILabel alloc]init];
+    titleLabel.frame = CGRectMake(0, scanRectOriginY - 50, [UIScreen mainScreen].bounds.size.width, 40);
+    titleLabel.text = @"将二维码/条形码放入框内，即可自动扫描";
+    titleLabel.textColor = [UIColor whiteColor];
+    titleLabel.font = [UIFont systemFontOfSize:13];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    [self.view addSubview:titleLabel];
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -93,6 +107,7 @@
 - (void)startScan {
     NSError *error;
     [self.scanner startScanningWithResultBlock:^(NSArray<AVMetadataMachineReadableCodeObject *> *codes) {
+        [QRHelper playAudioWithSoundName:@"noticeMusic.caf"];
         [self.scanner stopScanning];
          AVMetadataMachineReadableCodeObject *code = codes.firstObject;
         if (code) {
@@ -103,6 +118,7 @@
 }
 
 - (void)cancel {
+    [self.delegate barcodeScannerViewController:self didFailWithErrorCode:@"SCAN_CANCLE"];
     [self dismissViewControllerAnimated:NO completion:nil];
 }
 
