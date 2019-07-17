@@ -1,6 +1,7 @@
 #import "BarcodeScannerViewController.h"
 #import <MTBBarcodeScanner/MTBBarcodeScanner.h>
 #import "ScannerOverlay.h"
+#import "QRHelper.h"
 
 
 @implementation BarcodeScannerViewController {
@@ -107,6 +108,7 @@
 - (void)startScan {
     NSError *error;
     [self.scanner startScanningWithResultBlock:^(NSArray<AVMetadataMachineReadableCodeObject *> *codes) {
+        [QRHelper playAudioWithSoundName:@"noticeMusic.caf"];
         [self.scanner stopScanning];
          AVMetadataMachineReadableCodeObject *code = codes.firstObject;
         if (code) {

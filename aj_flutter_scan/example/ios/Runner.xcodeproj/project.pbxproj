@@ -157,7 +157,7 @@
 				9705A1C41CF9048500538489 /* Embed Frameworks */,
 				3B06AD1E1E4923F5004D2608 /* Thin Binary */,
 				0164FA2EC62586E6943BAE3E /* [CP] Embed Pods Frameworks */,
-				2EFE3DE952748BDB2EB3D1B7 /* [CP] Copy Pods Resources */,
+				0C181FA2A628675F266A8819 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -236,7 +236,7 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Runner/Pods-Runner-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		2EFE3DE952748BDB2EB3D1B7 /* [CP] Copy Pods Resources */ = {
+		0C181FA2A628675F266A8819 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -245,6 +245,7 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-Runner/Pods-Runner-resources.sh",
 				"${PODS_ROOT}/../.symlinks/plugins/aj_flutter_scan/ios/Classes/resources/navigaton-back-button-bg@2x.png",
 				"${PODS_ROOT}/../.symlinks/plugins/aj_flutter_scan/ios/Classes/resources/navigaton-back-button-bg@3x.png",
+				"${PODS_ROOT}/../.symlinks/plugins/aj_flutter_scan/ios/Classes/resources/noticeMusic.caf",
 				"${PODS_ROOT}/../.symlinks/plugins/aj_flutter_scan/ios/Classes/resources/qrcode_scan_btn_flash_down@2x.png",
 				"${PODS_ROOT}/../.symlinks/plugins/aj_flutter_scan/ios/Classes/resources/qrcode_scan_btn_flash_nor@2x.png",
 			);
@@ -252,6 +253,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/navigaton-back-button-bg@2x.png",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/navigaton-back-button-bg@3x.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/noticeMusic.caf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/qrcode_scan_btn_flash_down@2x.png",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/qrcode_scan_btn_flash_nor@2x.png",
 			);
