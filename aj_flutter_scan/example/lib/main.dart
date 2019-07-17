@@ -31,6 +31,8 @@ class _MyAppState extends State<MyApp> {
       } catch (e) {
         if (e.code == AjFlutterScan.CameraAccessDenied) {
           print("扫描失败,请在iOS\"设置\"-\"隐私\"-\"相机\"中开启权限");
+        } else if (e.code == AjFlutterScan.ScanCancle) {
+          print("Unknown error: 取消扫描 ${e.code}");
         } else {
           print("Unknown error: $e");
         }

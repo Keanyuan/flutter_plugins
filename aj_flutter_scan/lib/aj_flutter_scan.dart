@@ -5,7 +5,8 @@ import 'package:flutter/services.dart';
 class AjFlutterScan {
   static const MethodChannel _channel =
       const MethodChannel('aj_flutter_scan');
-  static const CameraAccessDenied = 'PERMISSION_NOT_GRANTED';
+  static const CameraAccessDenied = 'PERMISSION_NOT_GRANTED'; //权限不足
+  static const ScanCancle = 'SCAN_CANCLE'; //取消扫描
 
   //todo iOS需要添加如下内容
 //  <key>NSCameraUsageDescription</key>
