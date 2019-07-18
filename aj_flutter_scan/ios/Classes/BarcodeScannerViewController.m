@@ -4,6 +4,7 @@
 #import "QRHelper.h"
 
 
+
 @implementation BarcodeScannerViewController {
 }
 
@@ -49,16 +50,22 @@
     BOOL isIPhone8X = [UIScreen mainScreen].bounds.size.height >= 812 ? YES : NO;
     CGFloat kStatusBarH = isIPhone8X ? 44.0 : 20.0;
     
-    self.backLabelButton = [[UIButton alloc]init];
-    self.backLabelButton.frame = CGRectMake(10, kStatusBarH+5, 35, 35);
-    [self.backLabelButton setImage:[UIImage imageNamed:@"navigaton-back-button-bg"] forState:UIControlStateNormal];
+    self.backLabelButton = [[BackButton alloc]init];
+    self.backLabelButton.frame = CGRectMake(10, kStatusBarH+5, 40, 40);
+    self.backLabelButton.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
+    self.backLabelButton.layer.cornerRadius = 20;
+    self.backLabelButton.layer.masksToBounds = true;
+//    [self.backLabelButton setImage:[UIImage imageNamed:@"navigaton-back-button-bg"] forState:UIControlStateNormal];
     [self.backLabelButton addTarget:self action:@selector(cancel) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.backLabelButton];
     
-    self.flashButton = [[UIButton alloc]init];
+    self.flashButton = [[FlashButton alloc]init];
     //130 174
-    self.flashButton.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - 60, kStatusBarH + 5, 40, 174 * 4 / 13.0);
-    [self.flashButton setImage:[UIImage imageNamed:@"qrcode_scan_btn_flash_nor"] forState:UIControlStateNormal];
+    self.flashButton.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - 60, kStatusBarH + 5, 30, 40);
+    [self.flashButton setNeedsDrawColor:UIColor.whiteColor];
+//    self.flashButton.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
+
+//    [self.flashButton setImage:[UIImage imageNamed:@"qrcode_scan_btn_flash_nor"] forState:UIControlStateNormal];
     [self.flashButton addTarget:self action:@selector(toggle) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.flashButton];
     
@@ -131,10 +138,13 @@
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Flash Off"
                                                                                   style:UIBarButtonItemStylePlain
                                                                                  target:self action:@selector(toggle)];
-        [self.flashButton setImage:[UIImage imageNamed:@"qrcode_scan_btn_flash_down"] forState:UIControlStateNormal];
+//        [self.flashButton setImage:[UIImage imageNamed:@"qrcode_scan_btn_flash_down"] forState:UIControlStateNormal];
+        [self.flashButton setNeedsDrawColor:[UIColor colorWithRed:95/255.0 green:144/255.0 blue:232/255.0 alpha:1/1.0]];
+
     } else {
-        [self.flashButton setImage:[UIImage imageNamed:@"qrcode_scan_btn_flash_nor"] forState:UIControlStateNormal];
-        [self.flashButton setTitle:@"闪光灯关" forState:UIControlStateNormal];
+//        [self.flashButton setImage:[UIImage imageNamed:@"qrcode_scan_btn_flash_nor"] forState:UIControlStateNormal];
+        [self.flashButton setNeedsDrawColor:UIColor.whiteColor];
+
     }
 }
 
