@@ -3,7 +3,8 @@
 
 #import "BarcodeScannerViewControllerDelegate.h"
 #import "ScannerOverlay.h"
-
+#import "BackButton.h"
+#import "FlashButton.h"
 
 @interface BarcodeScannerViewController : UIViewController
 @property(nonatomic, retain) UIView *previewView;
@@ -11,8 +12,8 @@
 @property(nonatomic, retain) MTBBarcodeScanner *scanner;
 @property(nonatomic, weak) id<BarcodeScannerViewControllerDelegate> delegate;
 
-@property(nonatomic, retain) UIButton *backLabelButton;
-@property(nonatomic, retain) UIButton *flashButton;
+@property(nonatomic, retain) BackButton *backLabelButton;
+@property(nonatomic, retain) FlashButton *flashButton;
 
   -(id) initWithOptions:(NSDictionary *) options;
 @end
