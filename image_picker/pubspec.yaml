@@ -14,11 +14,11 @@ flutter:
     pluginClass: ImagePickerPlugin
 
 dependencies:
+  video_player: 0.5.2
   flutter:
     sdk: flutter
 
 dev_dependencies:
-  video_player: 0.5.2
   flutter_test:
     sdk: flutter
 
