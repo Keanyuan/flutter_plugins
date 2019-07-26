@@ -478,7 +478,7 @@ public class ImagePickerDelegate
             public void onPathReady(String path) {
 			 //解决三星手机拍照旋转的问题
               String filePath=PhotoBitmapUtils.amendRotatePhoto(path,activity);
-              handleImageResult(path, true);
+              handleImageResult(filePath, true);
             }
           });
       return;
