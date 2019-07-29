@@ -1,4 +1,4 @@
-#Thu Jul 25 14:46:30 CST 2019
-base.0=/Users/kean_qi/Desktop/AllwaysWork/AllwaysGit/yidong/modules/image_picker/example/build/app/intermediates/transforms/dexMerger/debug/0
+#Mon Jul 29 10:45:25 CST 2019
+base.0=D\:\\Progects\\image_picker\\modules\\image_picker\\example\\build\\app\\intermediates\\transforms\\dexMerger\\debug\\0
 path.0=classes.dex
 renamed.0=classes.dex

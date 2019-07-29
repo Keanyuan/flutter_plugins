@@ -1,19 +1,19 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/kean_qi/.pub-cache/hosted/pub.flutter-io.cn/video_player-0.5.2/android/src/main/AndroidManifest.xml:1:1-3:12
-INJECTED from /Users/kean_qi/.pub-cache/hosted/pub.flutter-io.cn/video_player-0.5.2/android/src/main/AndroidManifest.xml:1:1-3:12
-INJECTED from /Users/kean_qi/.pub-cache/hosted/pub.flutter-io.cn/video_player-0.5.2/android/src/main/AndroidManifest.xml:1:1-3:12
+ADDED from D:\AndroidStudio\flutter_windows_v1.0.0-stable\flutter\.pub-cache\hosted\pub.flutter-io.cn\video_player-0.5.2\android\src\main\AndroidManifest.xml:1:1-3:12
+INJECTED from D:\AndroidStudio\flutter_windows_v1.0.0-stable\flutter\.pub-cache\hosted\pub.flutter-io.cn\video_player-0.5.2\android\src\main\AndroidManifest.xml:1:1-3:12
+INJECTED from D:\AndroidStudio\flutter_windows_v1.0.0-stable\flutter\.pub-cache\hosted\pub.flutter-io.cn\video_player-0.5.2\android\src\main\AndroidManifest.xml:1:1-3:12
 	package
-		ADDED from /Users/kean_qi/.pub-cache/hosted/pub.flutter-io.cn/video_player-0.5.2/android/src/main/AndroidManifest.xml:2:3-43
-		INJECTED from /Users/kean_qi/.pub-cache/hosted/pub.flutter-io.cn/video_player-0.5.2/android/src/main/AndroidManifest.xml
-		INJECTED from /Users/kean_qi/.pub-cache/hosted/pub.flutter-io.cn/video_player-0.5.2/android/src/main/AndroidManifest.xml
+		ADDED from D:\AndroidStudio\flutter_windows_v1.0.0-stable\flutter\.pub-cache\hosted\pub.flutter-io.cn\video_player-0.5.2\android\src\main\AndroidManifest.xml:2:3-43
+		INJECTED from D:\AndroidStudio\flutter_windows_v1.0.0-stable\flutter\.pub-cache\hosted\pub.flutter-io.cn\video_player-0.5.2\android\src\main\AndroidManifest.xml
+		INJECTED from D:\AndroidStudio\flutter_windows_v1.0.0-stable\flutter\.pub-cache\hosted\pub.flutter-io.cn\video_player-0.5.2\android\src\main\AndroidManifest.xml
 	xmlns:android
-		ADDED from /Users/kean_qi/.pub-cache/hosted/pub.flutter-io.cn/video_player-0.5.2/android/src/main/AndroidManifest.xml:1:11-69
+		ADDED from D:\AndroidStudio\flutter_windows_v1.0.0-stable\flutter\.pub-cache\hosted\pub.flutter-io.cn\video_player-0.5.2\android\src\main\AndroidManifest.xml:1:11-69
 uses-sdk
-INJECTED from /Users/kean_qi/.pub-cache/hosted/pub.flutter-io.cn/video_player-0.5.2/android/src/main/AndroidManifest.xml reason: use-sdk injection requested
-INJECTED from /Users/kean_qi/.pub-cache/hosted/pub.flutter-io.cn/video_player-0.5.2/android/src/main/AndroidManifest.xml
-INJECTED from /Users/kean_qi/.pub-cache/hosted/pub.flutter-io.cn/video_player-0.5.2/android/src/main/AndroidManifest.xml
+INJECTED from D:\AndroidStudio\flutter_windows_v1.0.0-stable\flutter\.pub-cache\hosted\pub.flutter-io.cn\video_player-0.5.2\android\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from D:\AndroidStudio\flutter_windows_v1.0.0-stable\flutter\.pub-cache\hosted\pub.flutter-io.cn\video_player-0.5.2\android\src\main\AndroidManifest.xml
+INJECTED from D:\AndroidStudio\flutter_windows_v1.0.0-stable\flutter\.pub-cache\hosted\pub.flutter-io.cn\video_player-0.5.2\android\src\main\AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from /Users/kean_qi/.pub-cache/hosted/pub.flutter-io.cn/video_player-0.5.2/android/src/main/AndroidManifest.xml
-		ADDED from /Users/kean_qi/.pub-cache/hosted/pub.flutter-io.cn/video_player-0.5.2/android/src/main/AndroidManifest.xml
-		INJECTED from /Users/kean_qi/.pub-cache/hosted/pub.flutter-io.cn/video_player-0.5.2/android/src/main/AndroidManifest.xml
+		INJECTED from D:\AndroidStudio\flutter_windows_v1.0.0-stable\flutter\.pub-cache\hosted\pub.flutter-io.cn\video_player-0.5.2\android\src\main\AndroidManifest.xml
+		ADDED from D:\AndroidStudio\flutter_windows_v1.0.0-stable\flutter\.pub-cache\hosted\pub.flutter-io.cn\video_player-0.5.2\android\src\main\AndroidManifest.xml
+		INJECTED from D:\AndroidStudio\flutter_windows_v1.0.0-stable\flutter\.pub-cache\hosted\pub.flutter-io.cn\video_player-0.5.2\android\src\main\AndroidManifest.xml
