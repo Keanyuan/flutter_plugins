@@ -31,10 +31,10 @@
             ]
         },
         {
-            "outputFile": "D:\\Progects\\image_picker\\modules\\image_picker\\example\\build\\app\\intermediates\\res\\merged\\debug\\values-lo_values-lo.arsc.flat",
+            "outputFile": "D:\\Progects\\image_picker\\modules\\image_picker\\example\\build\\app\\intermediates\\res\\merged\\debug\\values-as_values-as.arsc.flat",
             "map": [
                 {
-                    "source": "C:\\Users\\chenzhihong\\.gradle\\caches\\transforms-1\\files-1.1\\core-1.0.0.aar\\1c7d5e274dbab6688f44054d699bd606\\res\\values-lo\\values-lo.xml",
+                    "source": "C:\\Users\\chenzhihong\\.gradle\\caches\\transforms-1\\files-1.1\\core-1.0.0.aar\\1c7d5e274dbab6688f44054d699bd606\\res\\values-as\\values-as.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -46,10 +46,10 @@
             ]
         },
         {
-            "outputFile": "D:\\Progects\\image_picker\\modules\\image_picker\\example\\build\\app\\intermediates\\res\\merged\\debug\\values-as_values-as.arsc.flat",
+            "outputFile": "D:\\Progects\\image_picker\\modules\\image_picker\\example\\build\\app\\intermediates\\res\\merged\\debug\\values-lo_values-lo.arsc.flat",
             "map": [
                 {
-                    "source": "C:\\Users\\chenzhihong\\.gradle\\caches\\transforms-1\\files-1.1\\core-1.0.0.aar\\1c7d5e274dbab6688f44054d699bd606\\res\\values-as\\values-as.xml",
+                    "source": "C:\\Users\\chenzhihong\\.gradle\\caches\\transforms-1\\files-1.1\\core-1.0.0.aar\\1c7d5e274dbab6688f44054d699bd606\\res\\values-lo\\values-lo.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
