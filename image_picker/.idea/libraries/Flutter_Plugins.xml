@@ -2,7 +2,7 @@
   <library name="Flutter Plugins" type="FlutterPluginsLibraryType">
     <CLASSES>
       <root url="file://$PROJECT_DIR$" />
-      <root url="file://D:/AndroidStudio/flutter_windows_v1.0.0-stable/flutter/.pub-cache/hosted/pub.flutter-io.cn/video_player-0.5.2" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.flutter-io.cn/video_player-0.5.2" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

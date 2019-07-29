@@ -1,28 +1,16 @@
 # Image Picker plugin for Flutter
 
-[![pub package](https://img.shields.io/pub/v/image_picker.svg)](https://pub.dartlang.org/packages/image_picker)
-
-A Flutter plugin for iOS and Android for picking images from the image library,
-and taking new pictures with the camera.
-
-*Note*: This plugin is still under development, and some APIs might not be available yet. [Feedback welcome](https://github.com/flutter/flutter/issues) and [Pull Requests](https://github.com/flutter/plugins/pulls) are most welcome!
-
-## Installation
-
-First, add `image_picker` as a [dependency in your pubspec.yaml file](https://flutter.io/platform-plugins/).
-
 ### iOS
 
-Add the following keys to your _Info.plist_ file, located in `<project root>/ios/Runner/Info.plist`:
+需要在`Info.plist`添加如下权限
 
-* `NSPhotoLibraryUsageDescription` - describe why your app needs permission for the photo library. This is called _Privacy - Photo Library Usage Description_ in the visual editor.
-* `NSCameraUsageDescription` - describe why your app needs access to the camera. This is called _Privacy - Camera Usage Description_ in the visual editor.
-* `NSMicrophoneUsageDescription` - describe why your app needs access to the microphone, if you intend to record videos. This is called _Privacy - Microphone Usage Description_ in the visual editor.
+* `NSPhotoLibraryUsageDescription`
+* `NSCameraUsageDescription` 
+* `NSMicrophoneUsageDescription` 
 
 ### Android
 
-No configuration required - the plugin should work out of the box.
-
+不需要配置-插件应该开箱即用。
 ### Example
 
 ``` dart
@@ -65,9 +53,9 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 ```
 
-### Handling MainActivity destruction on Android
+### 处理Android上的主活动销毁
 
-Android system -- although very rarely -- sometimes kills the MainActivity after the image_picker finishes. When this happens, we lost the data selected from the image_picker. You can use `retrieveLostData` to retrieve the lost data in this situation. For example: 
+Android系统——尽管很少——有时会在image_picker完成后杀死主活动。当这种情况发生时，我们丢失了从image_picker中选择的数据。在这种情况下，可以使用`retrieveLostData`来检索丢失的数据。例如:
 
 ```dart
 Future<void> retrieveLostData() async {
@@ -90,4 +78,4 @@ Future<void> retrieveLostData() async {
 }
 ```
 
-There's no way to detect when this happens, so calling this method at the right place is essential. We recommend to wire this into some kind of start up check. Please refer to the example app to see how we used it.
+无法检测何时发生这种情况，因此在正确的位置调用此方法是必要的。我们建议将其连接到某种启动检查中。请参考示例应用程序了解我们如何使用它。

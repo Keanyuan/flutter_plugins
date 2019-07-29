@@ -60,6 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
     } else {
       try {
         _imageFile = await ImagePicker.pickImage(source: source);
+        print(_imageFile);
       } catch (e) {
         _pickImageError = e;
       }
@@ -116,9 +117,13 @@ class _MyHomePageState extends State<MyHomePage> {
     if (retrieveError != null) {
       return retrieveError;
     }
+    print("_imageFile--- ${_imageFile}");
     if (_imageFile != null) {
+      print("_imageFile1--- ${_imageFile}");
       return Image.file(_imageFile);
     } else if (_pickImageError != null) {
+      print("_imageFile2--- ${_imageFile}");
+
       return Text(
         'Pick image error: $_pickImageError',
         textAlign: TextAlign.center,
@@ -132,6 +137,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> retrieveLostData() async {
+    print("---");
     final LostDataResponse response = await ImagePicker.retrieveLostData();
     if (response.isEmpty) {
       return;
