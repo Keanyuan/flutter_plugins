@@ -53,6 +53,7 @@ public class AjFlutterScanPlugin implements MethodCallHandler {
         if (call.method.equals("getBarCode")) {
             AjFlutterScanPlugin.result = result;
             Intent intent = new Intent(registrar.activity(), CaptureActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             registrar.activity().startActivityForResult(intent, requestCode);
         } else {
             result.notImplemented();
