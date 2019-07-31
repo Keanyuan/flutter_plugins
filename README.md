@@ -74,3 +74,5 @@ path: xxx
  使用详细描述[【README.md】](./flutter_webview_plugin/README.md))
 
 
+6、[image_picker](./image_picker/) 
+使用详细描述[【README.md】](./image_picker/README.md))
