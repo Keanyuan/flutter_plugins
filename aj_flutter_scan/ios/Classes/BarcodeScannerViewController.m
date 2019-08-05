@@ -115,7 +115,7 @@
 - (void)startScan {
     NSError *error;
     [self.scanner startScanningWithResultBlock:^(NSArray<AVMetadataMachineReadableCodeObject *> *codes) {
-        [QRHelper playAudioWithSoundName:@"noticeMusic.caf"];
+//        [QRHelper playAudioWithSoundName:@"noticeMusic.caf"];
         [self.scanner stopScanning];
          AVMetadataMachineReadableCodeObject *code = codes.firstObject;
         if (code) {
