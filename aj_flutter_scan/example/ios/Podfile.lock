@@ -20,10 +20,10 @@ EXTERNAL SOURCES:
     :path: ".symlinks/flutter/ios"
 
 SPEC CHECKSUMS:
-  aj_flutter_scan: 0a59ed3b57f0dfb409067004224339126d45ebce
-  Flutter: 9d0fac939486c9aba2809b7982dfdbb47a7b0296
+  aj_flutter_scan: 85004194f5048a2348250e2de17665769195d5dc
+  Flutter: 58dd7d1b27887414a370fcccb9e645c08ffd7a6a
   MTBBarcodeScanner: 2ce0cc045a584467e62a383fcd25f1b4adeb2779
 
 PODFILE CHECKSUM: aff02bfeed411c636180d6812254b2daeea14d09
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.6.0
