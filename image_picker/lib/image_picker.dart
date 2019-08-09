@@ -39,6 +39,7 @@ class ImagePicker {
     @required ImageSource source,
     double maxWidth,
     double maxHeight,
+	  double compressSize,
   }) async {
     assert(source != null);
 
@@ -56,6 +57,7 @@ class ImagePicker {
         'source': source.index,
         'maxWidth': maxWidth,
         'maxHeight': maxHeight,
+		    'compressSize': compressSize,
       },
     );
 
