@@ -124,4 +124,41 @@
   return info;
 }
 
++ (UIImage *)compressImage:(UIImage *)image
+         maxDataSizeKBytes:(double)maxSize {
+    
+    if (maxSize <= 0) {
+        return  image;
+    }
+    
+    CGFloat targetMaxSize = maxSize;
+    NSData * data = UIImageJPEGRepresentation(image, 1.0);
+    NSInteger px = data.length/(targetMaxSize*1024); //换算原图大小 与 目标大小的备差
+    CGFloat minQ = 0.9f;
+    UIImage *targetImage = image;
+    //原图大小与目标大小差距过大先进行一次压缩处理
+    if (px > 5) {
+        minQ = 1.0/px;
+        data = UIImageJPEGRepresentation(image, minQ);
+        targetImage = [UIImage imageWithData:data];
+        return targetImage;
+    }
+    
+    CGFloat maxQuality = 0.9f;
+    data = UIImageJPEGRepresentation(targetImage, maxQuality);
+    CGFloat dataKBytes = data.length/1024.0;
+    CGFloat lastData = dataKBytes;
+    //每次质量递减 5%
+    while (dataKBytes > targetMaxSize && maxQuality > 0.05f) {
+      maxQuality = maxQuality - 0.05f;
+      data = UIImageJPEGRepresentation(targetImage, maxQuality);
+      dataKBytes = data.length / 1024.0;
+      if (lastData == dataKBytes) {
+        break;
+      }else{
+        lastData = dataKBytes;
+      }
+    }
+    return [UIImage imageWithData:data];
+}
 @end

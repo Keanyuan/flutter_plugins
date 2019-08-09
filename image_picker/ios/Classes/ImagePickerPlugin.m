@@ -251,9 +251,14 @@ static const int SOURCE_GALLERY = 1;
 
     NSNumber *maxWidth = [_arguments objectForKey:@"maxWidth"];
     NSNumber *maxHeight = [_arguments objectForKey:@"maxHeight"];
+    NSNumber *maxSize = [_arguments objectForKey:@"compressSize"];
 
     if (maxWidth != (id)[NSNull null] || maxHeight != (id)[NSNull null]) {
       image = [FLTImagePickerImageUtil scaledImage:image maxWidth:maxWidth maxHeight:maxHeight];
+    }
+    // 用于图片指定大小kb 压缩
+    if (maxSize != nil && maxSize != (id)[NSNull null]) {
+      image = [FLTImagePickerImageUtil compressImage:image maxDataSizeKBytes:[maxSize doubleValue]];
     }
 
     PHAsset *originalAsset = [FLTImagePickerPhotoAssetUtil getAssetFromImagePickerInfo:info];
