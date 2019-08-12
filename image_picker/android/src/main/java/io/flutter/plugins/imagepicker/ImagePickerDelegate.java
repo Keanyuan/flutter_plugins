@@ -451,8 +451,7 @@ public class ImagePickerDelegate
   private void handleChooseImageResult(int resultCode, Intent data) {
     if (resultCode == Activity.RESULT_OK && data != null) {
       String path = fileUtils.getPathFromUri(activity, data.getData());
-      String filePath= PhotoBitmapUtils.amendRotatePhoto(path,activity);
-      handleImageResult(filePath, false);
+      handleImageResult(path, false);
       return;
     }
 

@@ -117,12 +117,36 @@ public class PhotoBitmapUtils {
      * @return 压缩后的图片
      */
     public static Bitmap getCompressPhoto(String path) {
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inJustDecodeBounds = false;
-        options.inSampleSize = 10;  // 图片的大小设置为原来的十分之一
-        Bitmap bmp = BitmapFactory.decodeFile(path, options);
-        options = null;
+
+        File file = new File(path);
+        Bitmap bmp = null;
+        try {
+            int oldSize = (int) (getFileSize(file) / 1024);
+            //如果小于1M不压缩
+            if (oldSize < 1024) {
+                bmp = BitmapFactory.decodeFile(path);
+                return bmp;
+            } else {
+                //压缩大小 快
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inJustDecodeBounds = false;
+                options.inSampleSize = 5;  // 图片的大小设置为原来的五分之一
+                bmp = BitmapFactory.decodeFile(path, options);
+                options = null;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return bmp;
+        //压缩质量 慢
+//        Bitmap image = BitmapFactory.decodeFile(path);
+//        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//        image.compress(Bitmap.CompressFormat.JPEG, 10, baos);
+//        ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());
+//        Bitmap bitmap = BitmapFactory.decodeStream(isBm, null, null);
+//        //不压缩 直接旋转 更慢
+//        Bitmap bmp = BitmapFactory.decodeFile(path);
+//        return bitmap;
     }
 
     /**
@@ -138,13 +162,13 @@ public class PhotoBitmapUtils {
         //前两步已经写好了在前面
         //第三部 质量循环压缩到指定大小
         if (null == compressSizeKb) {
-         return screenImagePath;
+            return screenImagePath;
         }
         File file = new File(screenImagePath);
 
         String finalImagePath = screenImagePath;
         try {
-            int oldSize = (int)(getFileSize(file) / 1024);
+            int oldSize = (int) (getFileSize(file) / 1024);
             Log.i("123", "测试压缩前的图片大小ddd：" + oldSize + "kB" + "压缩要求：" + compressSizeKb + "时间：" + System.currentTimeMillis());
             if (oldSize < compressSizeKb.intValue()) {
                 return screenImagePath;
@@ -198,10 +222,9 @@ public class PhotoBitmapUtils {
         while (baos.toByteArray().length / 1024 > kb) {  //循环判断如果压缩后图片是否大于1M,大于继续压缩
             Log.i("123", " comprss" + baos.toByteArray().length);
             //先压缩几倍
-            int scaleSize=baos.toByteArray().length / 1024/kb;
-            if (scaleSize>1){
-                options=100/scaleSize;
-                baos.reset();//重置baos即清空baos
+            int scaleSize = baos.toByteArray().length / 1024 / kb;
+            if (scaleSize > 1) {
+                options = 100 / scaleSize;
                 image.compress(Bitmap.CompressFormat.JPEG, options, baos);
             }
             baos.reset();//重置baos即清空baos
@@ -234,8 +257,9 @@ public class PhotoBitmapUtils {
 
         // 取得图片旋转角度
         int angle = readPictureDegree(originpath);
-        //如果图片过大 先等比例缩放到1/10再压缩 防止OOM
-        Bitmap bmp=getCompressPhoto(originpath);
+        //如果图片过大 先等比例缩放到1/5再压缩 防止OOM
+//        Bitmap bmp=BitmapFactory.decodeFile(originpath);
+        Bitmap bmp = getCompressPhoto(originpath);
         // 修复图片被旋转的角度
         Bitmap bitmap = rotaingImageView(angle, bmp);
         // 保存修复后的图片并返回保存后的图片路径
