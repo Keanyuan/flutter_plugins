@@ -33,7 +33,7 @@ class _MyAppState extends State<MyApp> {
 //        await SimplePermissions.requestPermission(Permission.Camera);
 //    if (status == PermissionStatus.authorized) {
     try {
-      barCode = await AjFlutterScan.getBarCode();
+      barCode = await AjFlutterScan.getBarCode(scanTitle: "将二维码/条形码放入框内，即可自动扫描");
     } catch (e) {
       if (e.code == AjFlutterScan.CameraAccessDenied) {
         print("扫描失败,请在iOS\"设置\"-\"隐私\"-\"相机\"中开启权限");
