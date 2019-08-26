@@ -1,5 +1,6 @@
 #import "AjFlutterScanPlugin.h"
 #import "BarcodeScannerViewController.h"
+#import "ZBarSDK.h"
 
 @implementation AjFlutterScanPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
@@ -15,6 +16,11 @@
     if ([@"getBarCode" isEqualToString:call.method]) {
         self.result = result;
         [self showBarcodeView];
+    } else if ([@"checkQRCode" isEqualToString:call.method]) {
+        self.result = result;
+        NSString *documentDirectory = [NSString stringWithFormat:@"%@",call.arguments[@"imageFile"]];
+        UIImage *image = [UIImage imageWithContentsOfFile:documentDirectory];
+        [self checkQR:image];
     } else {
         result(FlutterMethodNotImplemented);
     }
@@ -39,5 +45,33 @@
                                         message:nil
                                         details:nil]);
     }
+}
+
+- (void)checkQR:(UIImage *)image{
+    ZBarReaderController *reader = [[ZBarReaderController alloc] init];
+    CGImageRef cgimage = image.CGImage;
+    ZBarSymbol *symbol = nil;
+    for(symbol in [reader scanImage:cgimage])
+        break;
+    NSString *urlStr = symbol.data;
+    if (urlStr==nil || urlStr.length<=0) {
+        self.result([FlutterError errorWithCode:@"CHECK_ERROR"
+                                        message:nil
+                                        details:nil]);
+    } else{
+        self.result(urlStr);
+    }
+//    
+//    CIDetector *detector = [CIDetector detectorOfType:CIDetectorTypeQRCode context:nil options:@{ CIDetectorAccuracy : CIDetectorAccuracyHigh }];// 二维码识别
+//    NSArray *features = [detector featuresInImage:[CIImage imageWithCGImage:imageview.image.CGImage]];
+//    if (features.count >= 1) {
+//        CIQRCodeFeature *feature = [features objectAtIndex:0];
+//        NSString *scannedResult = feature.messageString;
+//        self.result(scannedResult);
+//    } else{
+//        self.result([FlutterError errorWithCode:@"CHECK_ERROR"
+//                                        message:nil
+//                                        details:nil]);
+//    }
 }
 @end
