@@ -1,9 +1,5 @@
 PODS:
   - aj_flutter_scan (0.0.1):
-    - aj_flutter_scan/ZBarSDK (= 0.0.1)
-    - Flutter
-    - MTBBarcodeScanner
-  - aj_flutter_scan/ZBarSDK (0.0.1):
     - Flutter
     - MTBBarcodeScanner
   - Flutter (1.0.0)
@@ -34,7 +30,7 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/video_player/ios"
 
 SPEC CHECKSUMS:
-  aj_flutter_scan: 29d33d66d551bc4b7902e8a239ef81c8bfdd39b0
+  aj_flutter_scan: 46e6342bc7aeea3688bcdecc9b1d1aa48f67d0b5
   Flutter: 58dd7d1b27887414a370fcccb9e645c08ffd7a6a
   image_picker: 16e5fec1fbc87fd3b297c53e4048521eaf17cd06
   MTBBarcodeScanner: 2ce0cc045a584467e62a383fcd25f1b4adeb2779
