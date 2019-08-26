@@ -5,7 +5,7 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:aj_flutter_scan/aj_flutter_scan.dart';
-import 'package:image_picker/image_picker.dart';
+//import 'package:image_picker/image_picker.dart';
 
 void main() => runApp(MyApp());
 
@@ -33,7 +33,7 @@ class _MyAppState extends State<MyApp> {
 //        await SimplePermissions.requestPermission(Permission.Camera);
 //    if (status == PermissionStatus.authorized) {
     try {
-      barCode = await AjFlutterScan.getBarCode;
+      barCode = await AjFlutterScan.getBarCode();
     } catch (e) {
       if (e.code == AjFlutterScan.CameraAccessDenied) {
         print("扫描失败,请在iOS\"设置\"-\"隐私\"-\"相机\"中开启权限");
@@ -69,27 +69,27 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  Future<void> checkQRCode(String imageFile) async {
-    String barCode;
-    try {
-      barCode = await AjFlutterScan.checkQRCode(imageFile);
-    } catch (e) {
-      if (e.code == AjFlutterScan.CheckError) {
-        print("Unknown error: 图片扫描失败 ${e.code}");
-      } else {
-        print("Unknown error: $e");
-      }
-    }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
-    setState(() {
-      _checkCode = barCode;
-    });
-  }
+//  Future<void> checkQRCode(String imageFile) async {
+//    String barCode;
+//    try {
+//      barCode = await AjFlutterScan.checkQRCode(imageFile);
+//    } catch (e) {
+//      if (e.code == AjFlutterScan.CheckError) {
+//        print("Unknown error: 图片扫描失败 ${e.code}");
+//      } else {
+//        print("Unknown error: $e");
+//      }
+//    }
+//
+//    // If the widget was removed from the tree while the asynchronous platform
+//    // message was in flight, we want to discard the reply rather than calling
+//    // setState to update our non-existent appearance.
+//    if (!mounted) return;
+//
+//    setState(() {
+//      _checkCode = barCode;
+//    });
+//  }
 
   @override
   Widget build(BuildContext context) {
@@ -114,39 +114,37 @@ class _MyAppState extends State<MyApp> {
                       style: TextStyle(color: Colors.white)),
                 ),
               ),
-              InkWell(
-                onTap: () {
+//              InkWell(
+//                onTap: () {
 //                  _onImageButtonPressed(ImageSource.camera);
-                  _onImageButtonPressed(ImageSource.gallery);
-
-
-                },
-                child: Container(
-                  alignment: Alignment.center,
-                  constraints: BoxConstraints(minHeight: 60),
-                  width: 300,
-                  height: 200,
-                  color: Colors.green,
-                  child: Text(
-                    '点击 checkCode is: $_checkCode\n',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-              )
+////                  _onImageButtonPressed(ImageSource.gallery);
+//                },
+//                child: Container(
+//                  alignment: Alignment.center,
+//                  constraints: BoxConstraints(minHeight: 60),
+//                  width: 300,
+//                  height: 200,
+//                  color: Colors.green,
+//                  child: Text(
+//                    '点击 checkCode is: $_checkCode\n',
+//                    style: TextStyle(color: Colors.white),
+//                  ),
+//                ),
+//              )
             ],
           )),
     );
   }
 
-  void _onImageButtonPressed(ImageSource source) async {
-    try {
-      _imageFile = await ImagePicker.pickImage(source: source,maxHeight: 500);
-      print(_imageFile.path);
-      checkQRCode(_imageFile.path);
-    } catch (e) {
-      _pickImageError = e;
-    }
-    setState(() {});
-  }
+//  void _onImageButtonPressed(ImageSource source) async {
+//    try {
+//      _imageFile = await ImagePicker.pickImage(source: source,maxHeight: 500);
+//      print(_imageFile.path);
+//      checkQRCode(_imageFile.path);
+//    } catch (e) {
+//      _pickImageError = e;
+//    }
+//    setState(() {});
+//  }
 
 }

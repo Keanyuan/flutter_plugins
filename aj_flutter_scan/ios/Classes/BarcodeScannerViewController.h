@@ -5,7 +5,7 @@
 #import "ScannerOverlay.h"
 #import "BackButton.h"
 #import "FlashButton.h"
-#import "ZBarSDK.h"
+//#import "ZBarSDK.h"
 
 @interface BarcodeScannerViewController : UIViewController<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property(nonatomic, retain) UIView *previewView;

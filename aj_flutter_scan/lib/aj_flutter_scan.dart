@@ -7,7 +7,7 @@ class AjFlutterScan {
       const MethodChannel('aj_flutter_scan');
   static const CameraAccessDenied = 'PERMISSION_NOT_GRANTED'; //权限不足
   static const ScanCancle = 'SCAN_CANCLE'; //取消扫描
-  static const CheckError = 'CHECK_ERROR'; //图片扫描失败
+//  static const CheckError = 'CHECK_ERROR'; //图片扫描失败
 
 
   //todo iOS需要添加如下内容
@@ -17,14 +17,14 @@ class AjFlutterScan {
 //  <string>需要访问你的相册</string>
 //  <key>NSMicrophoneUsageDescription</key>
 //  <string>需要访问你的麦克风</string>
-  static Future<String> get getBarCode async {
-    final String version = await _channel.invokeMethod('getBarCode');
+  static Future<String> getBarCode({scanTitle = "将二维码/条形码放入框内，即可自动扫描"}) async {
+    final String version = await _channel.invokeMethod('getBarCode',{"scan_title": scanTitle});
     return version;
   }
 
 
-  static Future<String> checkQRCode(String imageFile) async {
-    final String version = await _channel.invokeMethod('checkQRCode',{"imageFile": imageFile});
-    return version;
-  }
+//  static Future<String> checkQRCode(String imageFile) async {
+//    final String version = await _channel.invokeMethod('checkQRCode',{"imageFile": imageFile});
+//    return version;
+//  }
 }

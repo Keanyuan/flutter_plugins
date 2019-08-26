@@ -1,6 +1,5 @@
 #import <Flutter/Flutter.h>
 #import "BarcodeScannerViewControllerDelegate.h"
-#import "ZBarSDK.h"
 
 #define UIColorFromRGB(rgbValue) \
 [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \

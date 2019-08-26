@@ -2,14 +2,22 @@
 #import <MTBBarcodeScanner/MTBBarcodeScanner.h>
 #import "ScannerOverlay.h"
 #import "QRHelper.h"
-#import "ZBarSDK.h"
+//#import "ZBarSDK.h"
 
 
 
 @implementation BarcodeScannerViewController {
     UIImagePickerController *_picker;//系统相册视图
+    NSString *_scanTitle;
 }
 
+- (id)initWithOptions:(NSDictionary *)options{
+    self = [super init];
+    if (self) {
+        _scanTitle = options[@"scan_title"];
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -78,18 +86,18 @@
     CGFloat scanRectOriginY = (rect.size.height / 2) - (scanRectHeight / 2);
     UILabel *titleLabel = [[UILabel alloc]init];
     titleLabel.frame = CGRectMake(0, scanRectOriginY - 50, [UIScreen mainScreen].bounds.size.width, 40);
-    titleLabel.text = @"将二维码/条形码放入框内，即可自动扫描";
+    titleLabel.text = _scanTitle;
     titleLabel.textColor = [UIColor whiteColor];
     titleLabel.font = [UIFont systemFontOfSize:13];
     titleLabel.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:titleLabel];
     
     
-    UIButton *photoButton = [[UIButton alloc]init];
-    photoButton.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - 120, kStatusBarH + 5, 30, 30);
-    [photoButton setImage:[UIImage imageNamed:@"photo"] forState:UIControlStateNormal];
-    [photoButton addTarget:self action:@selector(photoButtonClick) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:photoButton];
+//    UIButton *photoButton = [[UIButton alloc]init];
+//    photoButton.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - 120, kStatusBarH + 5, 30, 30);
+//    [photoButton setImage:[UIImage imageNamed:@"photo"] forState:UIControlStateNormal];
+//    [photoButton addTarget:self action:@selector(photoButtonClick) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:photoButton];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -242,51 +250,13 @@
 
 
 - (void)checkQR:(UIImage *)image{
-    ZBarReaderController *reader = [[ZBarReaderController alloc] init];
-    CGImageRef cgimage = image.CGImage;
-    ZBarSymbol *symbol = nil;
-    for(symbol in [reader scanImage:cgimage])
-        break;
-    NSString *urlStr = symbol.data;
-    if (urlStr==nil || urlStr.length<=0) {
-        //二维码内容解析失败
-        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"扫描失败" message:nil preferredStyle:UIAlertControllerStyleAlert];
-        __weak __typeof(self) weakSelf = self;
-        UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-            //重新扫描
-            [MTBBarcodeScanner requestCameraPermissionWithSuccess:^(BOOL success) {
-                if (success) {
-                    [weakSelf startScan];
-                } else {
-                    [weakSelf.delegate barcodeScannerViewController:self didFailWithErrorCode:@"PERMISSION_NOT_GRANTED"];
-                    [weakSelf dismissViewControllerAnimated:NO completion:nil];
-                }
-            }];
-            
-        }];
-        [alertVC addAction:action];
-        [self presentViewController:alertVC animated:YES completion:^{
-        }];
-        return;
-        
-    } else{
-        if (urlStr) {
-            [self.delegate barcodeScannerViewController:self didScanBarcodeWithResult:urlStr];
-            [self dismissViewControllerAnimated:NO completion:nil];
-        }
-    }
-    
-//    CIDetector *detector = [CIDetector detectorOfType:CIDetectorTypeQRCode context:nil options:@{ CIDetectorAccuracy : CIDetectorAccuracyHigh }];// 二维码识别
-//    NSArray *features = [detector featuresInImage:[CIImage imageWithCGImage:image.CGImage]];
-//    if (features.count >= 1) {
-//        CIQRCodeFeature *feature = [features objectAtIndex:0];
-//        NSString *scannedResult = feature.messageString;
-//        NSLog(@"---- %@", scannedResult);
-//        if (scannedResult) {
-//            [self.delegate barcodeScannerViewController:self didScanBarcodeWithResult:scannedResult];
-//            [self dismissViewControllerAnimated:NO completion:nil];
-//        }
-//    } else{
+//    ZBarReaderController *reader = [[ZBarReaderController alloc] init];
+//    CGImageRef cgimage = image.CGImage;
+//    ZBarSymbol *symbol = nil;
+//    for(symbol in [reader scanImage:cgimage])
+//        break;
+//    NSString *urlStr = symbol.data;
+//    if (urlStr==nil || urlStr.length<=0) {
 //        //二维码内容解析失败
 //        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"扫描失败" message:nil preferredStyle:UIAlertControllerStyleAlert];
 //        __weak __typeof(self) weakSelf = self;
@@ -307,7 +277,45 @@
 //        }];
 //        return;
 //
+//    } else{
+//        if (urlStr) {
+//            [self.delegate barcodeScannerViewController:self didScanBarcodeWithResult:urlStr];
+//            [self dismissViewControllerAnimated:NO completion:nil];
+//        }
 //    }
+    
+    CIDetector *detector = [CIDetector detectorOfType:CIDetectorTypeQRCode context:nil options:@{ CIDetectorAccuracy : CIDetectorAccuracyHigh }];// 二维码识别
+    NSArray *features = [detector featuresInImage:[CIImage imageWithCGImage:image.CGImage]];
+    if (features.count >= 1) {
+        CIQRCodeFeature *feature = [features objectAtIndex:0];
+        NSString *scannedResult = feature.messageString;
+        NSLog(@"---- %@", scannedResult);
+        if (scannedResult) {
+            [self.delegate barcodeScannerViewController:self didScanBarcodeWithResult:scannedResult];
+            [self dismissViewControllerAnimated:NO completion:nil];
+        }
+    } else{
+        //二维码内容解析失败
+        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"扫描失败" message:nil preferredStyle:UIAlertControllerStyleAlert];
+        __weak __typeof(self) weakSelf = self;
+        UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+            //重新扫描
+            [MTBBarcodeScanner requestCameraPermissionWithSuccess:^(BOOL success) {
+                if (success) {
+                    [weakSelf startScan];
+                } else {
+                    [weakSelf.delegate barcodeScannerViewController:self didFailWithErrorCode:@"PERMISSION_NOT_GRANTED"];
+                    [weakSelf dismissViewControllerAnimated:NO completion:nil];
+                }
+            }];
+
+        }];
+        [alertVC addAction:action];
+        [self presentViewController:alertVC animated:YES completion:^{
+        }];
+        return;
+
+    }
 }
 
 @end
