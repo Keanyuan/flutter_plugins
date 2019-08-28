@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/services.dart';
 
@@ -46,10 +47,15 @@ class UMengAnalytics {
 
   // event
   static Future<Null> logEvent(String name, {String label}) {
-    _channel.invokeMethod("logEvent", {"label": label});
+    _channel.invokeMethod("logEvent", {"name": name, "label": label});
   }
-  //flutter  堆栈错误信息
+  ///flutter  堆栈错误信息
+  /// iOS 没有自定义crash  添加一个logEvent事件
   static Future<Null> reportError(String name) {
-    _channel.invokeMethod("reportError", {"name": name});
+    if(Platform.isAndroid){
+      _channel.invokeMethod("reportError", {"name": name});
+    } else{
+      _channel.invokeMethod("logEvent", {"name": "reportError", "label": reportError});
+    }
   }
 }
