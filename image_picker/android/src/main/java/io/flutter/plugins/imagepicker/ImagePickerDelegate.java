@@ -12,17 +12,20 @@ import android.content.pm.ResolveInfo;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.provider.MediaStore;
+
 import androidx.annotation.VisibleForTesting;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
-import io.flutter.plugin.common.MethodCall;
-import io.flutter.plugin.common.MethodChannel;
-import io.flutter.plugin.common.PluginRegistry;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+
+import io.flutter.plugin.common.MethodCall;
+import io.flutter.plugin.common.MethodChannel;
+import io.flutter.plugin.common.PluginRegistry;
 
 /**
  * A delegate class doing the heavy lifting for the plugin.
@@ -476,8 +479,8 @@ public class ImagePickerDelegate
           new OnPathReadyListener() {
             @Override
             public void onPathReady(String path) {
-				 //解决三星手机拍照旋转的问题
-              String filePath=PhotoBitmapUtils.amendRotatePhoto(path,activity);
+				 //1 解决三星手机拍照旋转的问题 这里已经质量压缩到原来的十分之一了
+              String filePath= PhotoBitmapUtils.amendRotatePhoto(path,activity);
               handleImageResult(filePath, true);
           
             }
@@ -512,8 +515,11 @@ public class ImagePickerDelegate
     if (methodCall != null) {
       Double maxWidth = methodCall.argument("maxWidth");
       Double maxHeight = methodCall.argument("maxHeight");
-      String finalImagePath = imageResizer.resizeImageIfNeeded(path, maxWidth, maxHeight);
-
+      Double compressSize = methodCall.argument("compressSize");
+      //2 裁剪尺寸
+      String screenImagePath = imageResizer.resizeImageIfNeeded(path, maxWidth, maxHeight);
+      //3 压缩大小
+      String finalImagePath= PhotoBitmapUtils.getCompressPhotoUrl(screenImagePath,compressSize);
       finishWithSuccess(finalImagePath);
 
       //delete original file if scaled

@@ -49,7 +49,8 @@ Podfile 中 target 'Runner' do 添加 use_frameworks! 支持swift
       String barcode = "";
       try {
       //成功回调
-      barCode = await AjFlutterScan.getBarCode;
+      //scanTitle 可选 将二维码/条形码放入框内，即可自动扫描  或 将条形码放入框内，即可自动扫描
+      barCode = await AjFlutterScan.getBarCode(scanTitle: "将二维码/条形码放入框内，即可自动扫描");
       Toast.toast(context, barcode);
       } catch (e) {
       //成功失败

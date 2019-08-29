@@ -12,11 +12,13 @@ A new Flutter plugin.
   s.license          = { :file => '../LICENSE' }
   s.author           = { 'Your Company' => 'email@example.com' }
   s.source           = { :path => '.' }
-  s.source_files = 'Classes/**/*'
+  s.source_files = ['Classes/**/*']
+#  s.source_files = ['Classes/**/*','Classes/ZBarSDK/headers/ZBarSDK/zbar/*.{h}']
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
   s.dependency 'MTBBarcodeScanner'
-#  s.resources = ['Classes/resources/*.*']
+#  s.ios.vendored_library = 'Classes/ZBarSDK/libzbar.a'
+  s.resources = ['Classes/images/*.png']
 
   s.ios.deployment_target = '8.0'
 end

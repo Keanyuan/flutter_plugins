@@ -103,6 +103,7 @@ class _VersionUpdateWidgetState extends State<VersionUpdateWidget> {
   }
 
   List<Widget> getVersionLayout() {
+    var scale = MediaQuery.of(context).textScaleFactor;
     List<Widget> list = [];
     List<Widget> msgItems = [];
     list.add(SizedBox(
@@ -114,7 +115,7 @@ class _VersionUpdateWidgetState extends State<VersionUpdateWidget> {
           constraints: BoxConstraints(minHeight: 24),
           child: new Text(
             msg,
-            style: TextStyle(fontSize: 15.0, color: Color(0xFF666666)),
+            style: TextStyle(fontSize: 15.0/scale, color: Color(0xFF666666)),
           ),
           alignment: Alignment.centerLeft,
           padding: EdgeInsets.only(left: 12, right: 12),
@@ -162,6 +163,7 @@ class _VersionUpdateWidgetState extends State<VersionUpdateWidget> {
   }
 
   Widget _getNegativeWidget() {
+    var scale = MediaQuery.of(context).textScaleFactor;
     return Material(
         color: Colors.white,
         shape: RoundedRectangleBorder(
@@ -174,7 +176,7 @@ class _VersionUpdateWidgetState extends State<VersionUpdateWidget> {
           child: InkWell(
               child: Center(
                 child: Text(widget.mustUpdate ? "退出" : '取消',
-                    style: TextStyle(color: Color(0xFF333333), fontSize: 16.0)),
+                    style: TextStyle(color: Color(0xFF333333), fontSize: 16.0/scale)),
               ),
               onTap: () {
                 if (widget.mustUpdate) {
@@ -189,6 +191,7 @@ class _VersionUpdateWidgetState extends State<VersionUpdateWidget> {
   }
 
   Widget _getPositiveWidget() {
+    var scale = MediaQuery.of(context).textScaleFactor;
     return Material(
         color: widget.buttonColor,
         shape: RoundedRectangleBorder(
@@ -201,7 +204,7 @@ class _VersionUpdateWidgetState extends State<VersionUpdateWidget> {
           child: InkWell(
               child: Center(
                 child: Text('更新',
-                    style: TextStyle(color: Colors.white, fontSize: 16.0)),
+                    style: TextStyle(color: Colors.white, fontSize: 16.0/scale)),
               ),
               onTap: () {
 //                if (widget.downloadUrl == null || widget.downloadUrl.isEmpty) {
@@ -258,6 +261,7 @@ class _VersionUpdateWidgetState extends State<VersionUpdateWidget> {
 
   @override
   Widget build(BuildContext context) {
+    var scale = MediaQuery.of(context).textScaleFactor;
     return new WillPopScope(
       child: new Padding(
         padding: const EdgeInsets.only(left: 40.0, right: 40.0),
@@ -281,7 +285,7 @@ class _VersionUpdateWidgetState extends State<VersionUpdateWidget> {
                       child: new Text(
                         '新版发布',
                         style:
-                            TextStyle(fontSize: 20.0, color: widget.titleColor),
+                            TextStyle(fontSize: 20.0/scale, color: widget.titleColor),
                       ),
                       height: 36,
                       margin: EdgeInsets.only(top: 6),
@@ -320,6 +324,7 @@ class _iOSVersionUpdateWidgetState extends State<VersionUpdateWidget> {
   }
 
   List<Widget> getVersionLayout() {
+    var scale = MediaQuery.of(context).textScaleFactor;
     List<Widget> list = [];
     List<Widget> msgItems = [];
     list.add(SizedBox(
@@ -331,7 +336,7 @@ class _iOSVersionUpdateWidgetState extends State<VersionUpdateWidget> {
           constraints: BoxConstraints(minHeight: 24),
           child: new Text(
             msg,
-            style: TextStyle(fontSize: 15.0, color: Color(0xFF666666)),
+            style: TextStyle(fontSize: 15.0/scale, color: Color(0xFF666666)),
           ),
           alignment: Alignment.centerLeft,
           padding: EdgeInsets.only(left: 12, right: 12),
@@ -371,6 +376,7 @@ class _iOSVersionUpdateWidgetState extends State<VersionUpdateWidget> {
   }
 
   Widget _getNegativeWidget() {
+    var scale = MediaQuery.of(context).textScaleFactor;
     return Material(
         color: Colors.white,
         shape: RoundedRectangleBorder(
@@ -383,7 +389,7 @@ class _iOSVersionUpdateWidgetState extends State<VersionUpdateWidget> {
           child: InkWell(
               child: Center(
                 child: Text('取消',
-                    style: TextStyle(color: Color(0xFF333333), fontSize: 16.0)),
+                    style: TextStyle(color: Color(0xFF333333), fontSize: 16.0/scale)),
               ),
               onTap: () {
                 Navigator.of(context).pop();
@@ -394,6 +400,7 @@ class _iOSVersionUpdateWidgetState extends State<VersionUpdateWidget> {
   }
 
   Widget _getPositiveWidget() {
+    var scale = MediaQuery.of(context).textScaleFactor;
     return Material(
         color: widget.buttonColor,
         shape: RoundedRectangleBorder(
@@ -409,7 +416,7 @@ class _iOSVersionUpdateWidgetState extends State<VersionUpdateWidget> {
           child: InkWell(
               child: Center(
                 child: Text('更新',
-                    style: TextStyle(color: Colors.white, fontSize: 16.0)),
+                    style: TextStyle(color: Colors.white, fontSize: 16.0/scale)),
               ),
               onTap: () {
                 AppUtils.gotoAppstore(context, widget.downloadUrl);
@@ -425,6 +432,7 @@ class _iOSVersionUpdateWidgetState extends State<VersionUpdateWidget> {
 
   @override
   Widget build(BuildContext context) {
+    var scale = MediaQuery.of(context).textScaleFactor;
     return new WillPopScope(
       child: new Padding(
         padding: const EdgeInsets.only(left: 40.0, right: 40.0),
@@ -448,7 +456,7 @@ class _iOSVersionUpdateWidgetState extends State<VersionUpdateWidget> {
                       child: new Text(
                         '新版发布',
                         style:
-                            TextStyle(fontSize: 20.0, color: widget.titleColor),
+                            TextStyle(fontSize: 20.0/scale, color: widget.titleColor),
                       ),
                       height: 36,
                       margin: EdgeInsets.only(top: 6),

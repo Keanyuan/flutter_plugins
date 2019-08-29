@@ -23,6 +23,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
+import android.widget.TextView;
 
 import com.zbar.lib.camera.CameraManager;
 import com.zbar.lib.decode.CaptureActivityHandler;
@@ -108,6 +109,8 @@ public class CaptureActivity extends Activity implements Callback {
 //        TextView qrcode_notice = (TextView) findViewById(R.id.qrcode_notice);
 //        qrcode_notice.setText("将条形码/二维码放入框内");
         // }
+        TextView qrcode_notice = (TextView) findViewById(R.id.qrcode_notice);
+        qrcode_notice.setText((String)getIntent().getStringExtra("scan_title"));
         // 初始化CameraManager
         CameraManager.init(getApplication());
         hasSurface = false;
