@@ -97,18 +97,13 @@ class VersionUpdateWidget extends StatefulWidget {
 }
 
 class _VersionUpdateWidgetState extends State<VersionUpdateWidget> {
-  var scale ;
   @override
   void initState() {
     super.initState();
-    scale = MediaQuery.of(context).textScaleFactor;
-    print('VersionUpdateDialog _VersionUpdateWidgetState txt scale ${scale}');
-    if(scale == null ){
-      scale = 1.0;
-    }
   }
 
   List<Widget> getVersionLayout() {
+    var scale = MediaQuery.of(context).textScaleFactor;
     List<Widget> list = [];
     List<Widget> msgItems = [];
     list.add(SizedBox(
@@ -168,6 +163,7 @@ class _VersionUpdateWidgetState extends State<VersionUpdateWidget> {
   }
 
   Widget _getNegativeWidget() {
+    var scale = MediaQuery.of(context).textScaleFactor;
     return Material(
         color: Colors.white,
         shape: RoundedRectangleBorder(
@@ -195,6 +191,7 @@ class _VersionUpdateWidgetState extends State<VersionUpdateWidget> {
   }
 
   Widget _getPositiveWidget() {
+    var scale = MediaQuery.of(context).textScaleFactor;
     return Material(
         color: widget.buttonColor,
         shape: RoundedRectangleBorder(
@@ -264,6 +261,7 @@ class _VersionUpdateWidgetState extends State<VersionUpdateWidget> {
 
   @override
   Widget build(BuildContext context) {
+    var scale = MediaQuery.of(context).textScaleFactor;
     return new WillPopScope(
       child: new Padding(
         padding: const EdgeInsets.only(left: 40.0, right: 40.0),
@@ -320,18 +318,13 @@ class _VersionUpdateWidgetState extends State<VersionUpdateWidget> {
 }
 
 class _iOSVersionUpdateWidgetState extends State<VersionUpdateWidget> {
-  var scale ;
   @override
   void initState() {
     super.initState();
-    scale = MediaQuery.of(context).textScaleFactor;
-    print('VersionUpdateDialog _iOSVersionUpdateWidgetState txt scale ${scale}');
-    if(scale == null ){
-      scale = 1.0;
-    }
   }
 
   List<Widget> getVersionLayout() {
+    var scale = MediaQuery.of(context).textScaleFactor;
     List<Widget> list = [];
     List<Widget> msgItems = [];
     list.add(SizedBox(
@@ -383,6 +376,7 @@ class _iOSVersionUpdateWidgetState extends State<VersionUpdateWidget> {
   }
 
   Widget _getNegativeWidget() {
+    var scale = MediaQuery.of(context).textScaleFactor;
     return Material(
         color: Colors.white,
         shape: RoundedRectangleBorder(
@@ -406,6 +400,7 @@ class _iOSVersionUpdateWidgetState extends State<VersionUpdateWidget> {
   }
 
   Widget _getPositiveWidget() {
+    var scale = MediaQuery.of(context).textScaleFactor;
     return Material(
         color: widget.buttonColor,
         shape: RoundedRectangleBorder(
@@ -437,6 +432,7 @@ class _iOSVersionUpdateWidgetState extends State<VersionUpdateWidget> {
 
   @override
   Widget build(BuildContext context) {
+    var scale = MediaQuery.of(context).textScaleFactor;
     return new WillPopScope(
       child: new Padding(
         padding: const EdgeInsets.only(left: 40.0, right: 40.0),
