@@ -102,7 +102,7 @@ class _VersionUpdateWidgetState extends State<VersionUpdateWidget> {
   void initState() {
     super.initState();
     scale = MediaQuery.of(context).textScaleFactor;
-    print('VersionUpdateDialog txt scale ${scale}');
+    print('VersionUpdateDialog _VersionUpdateWidgetState txt scale ${scale}');
     if(scale == null ){
       scale = 1.0;
     }
@@ -320,9 +320,15 @@ class _VersionUpdateWidgetState extends State<VersionUpdateWidget> {
 }
 
 class _iOSVersionUpdateWidgetState extends State<VersionUpdateWidget> {
+  var scale ;
   @override
   void initState() {
     super.initState();
+    scale = MediaQuery.of(context).textScaleFactor;
+    print('VersionUpdateDialog _iOSVersionUpdateWidgetState txt scale ${scale}');
+    if(scale == null ){
+      scale = 1.0;
+    }
   }
 
   List<Widget> getVersionLayout() {
