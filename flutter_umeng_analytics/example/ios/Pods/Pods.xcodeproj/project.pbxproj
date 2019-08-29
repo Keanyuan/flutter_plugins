@@ -1,0 +1,761 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		2333F8C1724BF85B28887AE5E7B2D1E0 /* Flutter */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = B26E11467D023FA6CDCE36F75198812F /* Build configuration list for PBXAggregateTarget "Flutter" */;
+			buildPhases = (
+			);
+			dependencies = (
+			);
+			name = Flutter;
+		};
+		EAE45AD0EF43FB47EE707D6FF0D01F1D /* UMengAnalytics-NO-IDFA */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = B7760D50BFE03811A2010BA577898AAF /* Build configuration list for PBXAggregateTarget "UMengAnalytics-NO-IDFA" */;
+			buildPhases = (
+			);
+			dependencies = (
+			);
+			name = "UMengAnalytics-NO-IDFA";
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+		3F687E56B8E9D40280B2383A70006414 /* FlutterUmengAnalyticsPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = BAB71F81CC03DB035AA73D64688D69B1 /* FlutterUmengAnalyticsPlugin.m */; };
+		77C32A1A082314ABF2499DF9B08408C7 /* Pods-Runner-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 41E788EEB0F03036AB6FC06386886700 /* Pods-Runner-dummy.m */; };
+		A0D2891F8B16FE04090DF3126ED37CAC /* FlutterUmengAnalyticsPlugin.h in Headers */ = {isa = PBXBuildFile; fileRef = 31CEC9E628764081641241E33074D03F /* FlutterUmengAnalyticsPlugin.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		F14630B41DCA03AF751B27E21E41EDD3 /* flutter_umeng_analytics-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 31AF466B9B8A82884C16CDA181EA1C5D /* flutter_umeng_analytics-dummy.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		07A939E6778952D60CC8CBD00DBD1A07 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2333F8C1724BF85B28887AE5E7B2D1E0;
+			remoteInfo = Flutter;
+		};
+		08EE43C397DDD6F37EBFC4109F47485C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AC772EACFAC04717C30937400FAD5684;
+			remoteInfo = flutter_umeng_analytics;
+		};
+		382535B7A6D7F61D072D2C676EC1CF88 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EAE45AD0EF43FB47EE707D6FF0D01F1D;
+			remoteInfo = "UMengAnalytics-NO-IDFA";
+		};
+		39F0418AC9E0A2F7CEE22C143EB463CF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2333F8C1724BF85B28887AE5E7B2D1E0;
+			remoteInfo = Flutter;
+		};
+		B27D92364F33FC5CCC6A0A8ABABB86CF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EAE45AD0EF43FB47EE707D6FF0D01F1D;
+			remoteInfo = "UMengAnalytics-NO-IDFA";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0F4DA18BC2C1A9D8DB5D1ED182B50616 /* UMengAnalytics-NO-IDFA.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "UMengAnalytics-NO-IDFA.xcconfig"; sourceTree = "<group>"; };
+		2F10287A9D8E3C0A46433D41EFF56A0F /* libflutter_umeng_analytics.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libflutter_umeng_analytics.a; path = libflutter_umeng_analytics.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		31AF466B9B8A82884C16CDA181EA1C5D /* flutter_umeng_analytics-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "flutter_umeng_analytics-dummy.m"; sourceTree = "<group>"; };
+		31CEC9E628764081641241E33074D03F /* FlutterUmengAnalyticsPlugin.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FlutterUmengAnalyticsPlugin.h; path = Classes/FlutterUmengAnalyticsPlugin.h; sourceTree = "<group>"; };
+		3E41A83677B06BC243394C7C75878ACD /* Flutter.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = Flutter.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		41E788EEB0F03036AB6FC06386886700 /* Pods-Runner-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Runner-dummy.m"; sourceTree = "<group>"; };
+		47911645EAA6F0A0FFBC812B245109E6 /* Pods-Runner-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Runner-acknowledgements.markdown"; sourceTree = "<group>"; };
+		49958ACA7011AF98A579A31CDC31C4D1 /* Pods-Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Runner.debug.xcconfig"; sourceTree = "<group>"; };
+		613C1E4CC7942EC311B1DC22FE5A8406 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		785E1345DCBE556E24C76741559DE096 /* libPods-Runner.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-Runner.a"; path = "libPods-Runner.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		82CDE03382A4958F6C25BB673712BD82 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		88EA1C5EB9ECDECFF38F9503F865EA1C /* flutter_umeng_analytics.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = flutter_umeng_analytics.xcconfig; sourceTree = "<group>"; };
+		90E8EB706D230A05BB00485439D811B4 /* Pods-Runner-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Runner-frameworks.sh"; sourceTree = "<group>"; };
+		919A1A724830C8E09D316DDAABF8ACEB /* Pods-Runner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Runner.release.xcconfig"; sourceTree = "<group>"; };
+		9B18C251670BBA2FF87BDAB99310B72B /* UMMobClick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UMMobClick.framework; path = "umsdk_IOS_analyics_no-idfa_v4.2.5/UMMobClick.framework"; sourceTree = "<group>"; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		A1EF54B61D561D0D6DF48A3CCE76A84C /* flutter_umeng_analytics.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = flutter_umeng_analytics.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		ADBDFF5251EE1F6D8B1123C0F6E00D37 /* Flutter.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Flutter.xcconfig; sourceTree = "<group>"; };
+		BAB71F81CC03DB035AA73D64688D69B1 /* FlutterUmengAnalyticsPlugin.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FlutterUmengAnalyticsPlugin.m; path = Classes/FlutterUmengAnalyticsPlugin.m; sourceTree = "<group>"; };
+		CC7CADA49884F393994A5CB791757B88 /* Pods-Runner-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Runner-acknowledgements.plist"; sourceTree = "<group>"; };
+		D5245159C732A0668B557EDF9F1A7CF2 /* Flutter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Flutter.framework; sourceTree = "<group>"; };
+		FF4722FA0DD4828C8989A450E473B724 /* flutter_umeng_analytics-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "flutter_umeng_analytics-prefix.pch"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3BFC667605D72855C7B04A40CBCD69A4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ED0F1A31D443E3F524E1507E60CB5F57 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		145213A98CDB452A268AE592CB41AF73 /* Pods-Runner */ = {
+			isa = PBXGroup;
+			children = (
+				47911645EAA6F0A0FFBC812B245109E6 /* Pods-Runner-acknowledgements.markdown */,
+				CC7CADA49884F393994A5CB791757B88 /* Pods-Runner-acknowledgements.plist */,
+				41E788EEB0F03036AB6FC06386886700 /* Pods-Runner-dummy.m */,
+				90E8EB706D230A05BB00485439D811B4 /* Pods-Runner-frameworks.sh */,
+				49958ACA7011AF98A579A31CDC31C4D1 /* Pods-Runner.debug.xcconfig */,
+				919A1A724830C8E09D316DDAABF8ACEB /* Pods-Runner.release.xcconfig */,
+			);
+			name = "Pods-Runner";
+			path = "Target Support Files/Pods-Runner";
+			sourceTree = "<group>";
+		};
+		388A2C86FF755910F9EA6E190E67524D /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				145213A98CDB452A268AE592CB41AF73 /* Pods-Runner */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		5264DCDCB5FF46CDA04EBA7CB662B924 /* flutter_umeng_analytics */ = {
+			isa = PBXGroup;
+			children = (
+				31CEC9E628764081641241E33074D03F /* FlutterUmengAnalyticsPlugin.h */,
+				BAB71F81CC03DB035AA73D64688D69B1 /* FlutterUmengAnalyticsPlugin.m */,
+				97F38E616F9607AFB89A822810A9CD02 /* Pod */,
+				76E37C9B4863093D81D04B80FE3303F4 /* Support Files */,
+			);
+			name = flutter_umeng_analytics;
+			path = /Users/kean_qi/Desktop/AllwaysWork/AllwaysGit/yidong/modules/flutter_umeng_analytics/ios;
+			sourceTree = "<absolute>";
+		};
+		5A6BEDB92955F7A65E5EF5E5F07C0A79 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				0F4DA18BC2C1A9D8DB5D1ED182B50616 /* UMengAnalytics-NO-IDFA.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/UMengAnalytics-NO-IDFA";
+			sourceTree = "<group>";
+		};
+		7148A89B7E8BC338F8BB12D558DE9197 /* Pod */ = {
+			isa = PBXGroup;
+			children = (
+				3E41A83677B06BC243394C7C75878ACD /* Flutter.podspec */,
+				82CDE03382A4958F6C25BB673712BD82 /* LICENSE */,
+			);
+			name = Pod;
+			sourceTree = "<group>";
+		};
+		71AD62880AF01D3DCE659F741495BFAB /* UMengAnalytics-NO-IDFA */ = {
+			isa = PBXGroup;
+			children = (
+				E2F6CEBD15D1F77B1808B4C1B091A448 /* Frameworks */,
+				5A6BEDB92955F7A65E5EF5E5F07C0A79 /* Support Files */,
+			);
+			name = "UMengAnalytics-NO-IDFA";
+			path = "UMengAnalytics-NO-IDFA";
+			sourceTree = "<group>";
+		};
+		76E37C9B4863093D81D04B80FE3303F4 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				88EA1C5EB9ECDECFF38F9503F865EA1C /* flutter_umeng_analytics.xcconfig */,
+				31AF466B9B8A82884C16CDA181EA1C5D /* flutter_umeng_analytics-dummy.m */,
+				FF4722FA0DD4828C8989A450E473B724 /* flutter_umeng_analytics-prefix.pch */,
+			);
+			name = "Support Files";
+			path = "../example/ios/Pods/Target Support Files/flutter_umeng_analytics";
+			sourceTree = "<group>";
+		};
+		81A3802D33D9BBD1EECE562F45FAE083 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				71AD62880AF01D3DCE659F741495BFAB /* UMengAnalytics-NO-IDFA */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		97F38E616F9607AFB89A822810A9CD02 /* Pod */ = {
+			isa = PBXGroup;
+			children = (
+				A1EF54B61D561D0D6DF48A3CCE76A84C /* flutter_umeng_analytics.podspec */,
+				613C1E4CC7942EC311B1DC22FE5A8406 /* LICENSE */,
+			);
+			name = Pod;
+			sourceTree = "<group>";
+		};
+		A50AA24E14DAE5D6D9AB837CED0FB751 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2F10287A9D8E3C0A46433D41EFF56A0F /* libflutter_umeng_analytics.a */,
+				785E1345DCBE556E24C76741559DE096 /* libPods-Runner.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CEE54B04A5E10B569D36BCE05B3D85C7 /* Flutter */ = {
+			isa = PBXGroup;
+			children = (
+				F79F14BAFFD4602383E6A45D34240CA9 /* Frameworks */,
+				7148A89B7E8BC338F8BB12D558DE9197 /* Pod */,
+				EA375814770A16B831081F19207766B2 /* Support Files */,
+			);
+			name = Flutter;
+			path = /Users/kean_qi/flutter/flutter/bin/cache/artifacts/engine/ios;
+			sourceTree = "<absolute>";
+		};
+		CF1408CF629C7361332E53B88F7BD30C = {
+			isa = PBXGroup;
+			children = (
+				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
+				F49757578934FAAEE61DBB22C8B67316 /* Development Pods */,
+				D89477F20FB1DE18A04690586D7808C4 /* Frameworks */,
+				81A3802D33D9BBD1EECE562F45FAE083 /* Pods */,
+				A50AA24E14DAE5D6D9AB837CED0FB751 /* Products */,
+				388A2C86FF755910F9EA6E190E67524D /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		D89477F20FB1DE18A04690586D7808C4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E2F6CEBD15D1F77B1808B4C1B091A448 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9B18C251670BBA2FF87BDAB99310B72B /* UMMobClick.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		EA375814770A16B831081F19207766B2 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				ADBDFF5251EE1F6D8B1123C0F6E00D37 /* Flutter.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../../../../../../../Desktop/AllwaysWork/AllwaysGit/yidong/modules/flutter_umeng_analytics/example/ios/Pods/Target Support Files/Flutter";
+			sourceTree = "<group>";
+		};
+		F49757578934FAAEE61DBB22C8B67316 /* Development Pods */ = {
+			isa = PBXGroup;
+			children = (
+				CEE54B04A5E10B569D36BCE05B3D85C7 /* Flutter */,
+				5264DCDCB5FF46CDA04EBA7CB662B924 /* flutter_umeng_analytics */,
+			);
+			name = "Development Pods";
+			sourceTree = "<group>";
+		};
+		F79F14BAFFD4602383E6A45D34240CA9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D5245159C732A0668B557EDF9F1A7CF2 /* Flutter.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		1BE77A05634C0F72B926FB08CF066BDE /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B8D044493803D6EF4A33729A5228D07A /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A0D2891F8B16FE04090DF3126ED37CAC /* FlutterUmengAnalyticsPlugin.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		0E6C9CB9B98EFD9B36DB5C189F6B394D /* Pods-Runner */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6112976FAFB1A16A9AF1934E11881B06 /* Build configuration list for PBXNativeTarget "Pods-Runner" */;
+			buildPhases = (
+				1BE77A05634C0F72B926FB08CF066BDE /* Headers */,
+				97DAE3D28EDE76CD6E9B2A90A3739238 /* Sources */,
+				ED0F1A31D443E3F524E1507E60CB5F57 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1BD0B299BC38314217BCAAAA3D40B5DB /* PBXTargetDependency */,
+				F7B8154A78D78B2A548D5CF1E9B55784 /* PBXTargetDependency */,
+				5D4D647BC2D3920ED44355E76002140F /* PBXTargetDependency */,
+			);
+			name = "Pods-Runner";
+			productName = "Pods-Runner";
+			productReference = 785E1345DCBE556E24C76741559DE096 /* libPods-Runner.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		AC772EACFAC04717C30937400FAD5684 /* flutter_umeng_analytics */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 484EAA8B488FDD95BFB7F2F01047CC58 /* Build configuration list for PBXNativeTarget "flutter_umeng_analytics" */;
+			buildPhases = (
+				B8D044493803D6EF4A33729A5228D07A /* Headers */,
+				30E3788CDCBB7AAC661A4AC4E5873FEA /* Sources */,
+				3BFC667605D72855C7B04A40CBCD69A4 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A3251CBF7BC59B8657D53EA57103249D /* PBXTargetDependency */,
+				B04072A75BECF49DBC0F6C1AC6F15658 /* PBXTargetDependency */,
+			);
+			name = flutter_umeng_analytics;
+			productName = flutter_umeng_analytics;
+			productReference = 2F10287A9D8E3C0A46433D41EFF56A0F /* libflutter_umeng_analytics.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BFDFE7DC352907FC980B868725387E98 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1100;
+				LastUpgradeCheck = 1100;
+			};
+			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
+			productRefGroup = A50AA24E14DAE5D6D9AB837CED0FB751 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2333F8C1724BF85B28887AE5E7B2D1E0 /* Flutter */,
+				AC772EACFAC04717C30937400FAD5684 /* flutter_umeng_analytics */,
+				0E6C9CB9B98EFD9B36DB5C189F6B394D /* Pods-Runner */,
+				EAE45AD0EF43FB47EE707D6FF0D01F1D /* UMengAnalytics-NO-IDFA */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		30E3788CDCBB7AAC661A4AC4E5873FEA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F14630B41DCA03AF751B27E21E41EDD3 /* flutter_umeng_analytics-dummy.m in Sources */,
+				3F687E56B8E9D40280B2383A70006414 /* FlutterUmengAnalyticsPlugin.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		97DAE3D28EDE76CD6E9B2A90A3739238 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				77C32A1A082314ABF2499DF9B08408C7 /* Pods-Runner-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1BD0B299BC38314217BCAAAA3D40B5DB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Flutter;
+			target = 2333F8C1724BF85B28887AE5E7B2D1E0 /* Flutter */;
+			targetProxy = 39F0418AC9E0A2F7CEE22C143EB463CF /* PBXContainerItemProxy */;
+		};
+		5D4D647BC2D3920ED44355E76002140F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = flutter_umeng_analytics;
+			target = AC772EACFAC04717C30937400FAD5684 /* flutter_umeng_analytics */;
+			targetProxy = 08EE43C397DDD6F37EBFC4109F47485C /* PBXContainerItemProxy */;
+		};
+		A3251CBF7BC59B8657D53EA57103249D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Flutter;
+			target = 2333F8C1724BF85B28887AE5E7B2D1E0 /* Flutter */;
+			targetProxy = 07A939E6778952D60CC8CBD00DBD1A07 /* PBXContainerItemProxy */;
+		};
+		B04072A75BECF49DBC0F6C1AC6F15658 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "UMengAnalytics-NO-IDFA";
+			target = EAE45AD0EF43FB47EE707D6FF0D01F1D /* UMengAnalytics-NO-IDFA */;
+			targetProxy = 382535B7A6D7F61D072D2C676EC1CF88 /* PBXContainerItemProxy */;
+		};
+		F7B8154A78D78B2A548D5CF1E9B55784 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "UMengAnalytics-NO-IDFA";
+			target = EAE45AD0EF43FB47EE707D6FF0D01F1D /* UMengAnalytics-NO-IDFA */;
+			targetProxy = B27D92364F33FC5CCC6A0A8ABABB86CF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		129CDA740B926FD220837736E108D520 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0F4DA18BC2C1A9D8DB5D1ED182B50616 /* UMengAnalytics-NO-IDFA.xcconfig */;
+			buildSettings = {
+				ARCHS = arm64;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_BITCODE = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4BE66A09A74FD25164AAB3C2645B9B93 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Release;
+		};
+		7EF7227D9B20A1D549000096ACCB23D7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		9F98AD68E3DE716779B389E82522F6F6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 88EA1C5EB9ECDECFF38F9503F865EA1C /* flutter_umeng_analytics.xcconfig */;
+			buildSettings = {
+				ARCHS = arm64;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				ENABLE_BITCODE = NO;
+				GCC_PREFIX_HEADER = "Target Support Files/flutter_umeng_analytics/flutter_umeng_analytics-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_MODULE_NAME = flutter_umeng_analytics;
+				PRODUCT_NAME = flutter_umeng_analytics;
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A83AAF0C708E37544D90F24681AE36BF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 88EA1C5EB9ECDECFF38F9503F865EA1C /* flutter_umeng_analytics.xcconfig */;
+			buildSettings = {
+				ARCHS = arm64;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				ENABLE_BITCODE = NO;
+				GCC_PREFIX_HEADER = "Target Support Files/flutter_umeng_analytics/flutter_umeng_analytics-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_MODULE_NAME = flutter_umeng_analytics;
+				PRODUCT_NAME = flutter_umeng_analytics;
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C472993D3E04BA4CCEB2E592BFEE26AD /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0F4DA18BC2C1A9D8DB5D1ED182B50616 /* UMengAnalytics-NO-IDFA.xcconfig */;
+			buildSettings = {
+				ARCHS = arm64;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_BITCODE = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		CE208F35019979876A91B5CD3C6439DD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = ADBDFF5251EE1F6D8B1123C0F6E00D37 /* Flutter.xcconfig */;
+			buildSettings = {
+				ARCHS = arm64;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_BITCODE = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E36241D5C45DE173017946D385E7CE71 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 919A1A724830C8E09D316DDAABF8ACEB /* Pods-Runner.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ARCHS = arm64;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				ENABLE_BITCODE = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACH_O_TYPE = staticlib;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F9EA4417B6399490315F8C4331761C16 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = ADBDFF5251EE1F6D8B1123C0F6E00D37 /* Flutter.xcconfig */;
+			buildSettings = {
+				ARCHS = arm64;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_BITCODE = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F9FEC7D648CAD4F62EC844B186B38BF5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 49958ACA7011AF98A579A31CDC31C4D1 /* Pods-Runner.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ARCHS = arm64;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				ENABLE_BITCODE = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACH_O_TYPE = staticlib;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7EF7227D9B20A1D549000096ACCB23D7 /* Debug */,
+				4BE66A09A74FD25164AAB3C2645B9B93 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		484EAA8B488FDD95BFB7F2F01047CC58 /* Build configuration list for PBXNativeTarget "flutter_umeng_analytics" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A83AAF0C708E37544D90F24681AE36BF /* Debug */,
+				9F98AD68E3DE716779B389E82522F6F6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6112976FAFB1A16A9AF1934E11881B06 /* Build configuration list for PBXNativeTarget "Pods-Runner" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F9FEC7D648CAD4F62EC844B186B38BF5 /* Debug */,
+				E36241D5C45DE173017946D385E7CE71 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B26E11467D023FA6CDCE36F75198812F /* Build configuration list for PBXAggregateTarget "Flutter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CE208F35019979876A91B5CD3C6439DD /* Debug */,
+				F9EA4417B6399490315F8C4331761C16 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B7760D50BFE03811A2010BA577898AAF /* Build configuration list for PBXAggregateTarget "UMengAnalytics-NO-IDFA" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				129CDA740B926FD220837736E108D520 /* Debug */,
+				C472993D3E04BA4CCEB2E592BFEE26AD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+}

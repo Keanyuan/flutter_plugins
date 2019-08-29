@@ -1,0 +1,29 @@
+PODS:
+  - Flutter (1.0.0)
+  - flutter_umeng_analytics (0.0.1):
+    - Flutter
+    - UMengAnalytics-NO-IDFA
+  - UMengAnalytics-NO-IDFA (4.2.5)
+
+DEPENDENCIES:
+  - Flutter (from `/Users/kean_qi/flutter/flutter/bin/cache/artifacts/engine/ios`)
+  - flutter_umeng_analytics (from `/Users/kean_qi/Desktop/AllwaysWork/AllwaysGit/yidong/modules/flutter_umeng_analytics/ios`)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - UMengAnalytics-NO-IDFA
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: "/Users/kean_qi/flutter/flutter/bin/cache/artifacts/engine/ios"
+  flutter_umeng_analytics:
+    :path: "/Users/kean_qi/Desktop/AllwaysWork/AllwaysGit/yidong/modules/flutter_umeng_analytics/ios"
+
+SPEC CHECKSUMS:
+  Flutter: 58dd7d1b27887414a370fcccb9e645c08ffd7a6a
+  flutter_umeng_analytics: bc20e35b7be952205878ee563bfd65a1e3776f9b
+  UMengAnalytics-NO-IDFA: 16666e32edce5be44ae5b14aaaa7f3582e09d6ab
+
+PODFILE CHECKSUM: 351e02e34b831289961ec3558a535cbd2c4965d2
+
+COCOAPODS: 1.6.0

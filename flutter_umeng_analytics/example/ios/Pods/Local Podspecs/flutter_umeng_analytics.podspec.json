@@ -1,0 +1,30 @@
+{
+  "name": "flutter_umeng_analytics",
+  "static_framework": true,
+  "version": "0.0.1",
+  "summary": "Flutter plugin for umeng:analytics",
+  "description": "Flutter plugin for umeng:analytics",
+  "homepage": "http://example.com",
+  "license": {
+    "file": "../LICENSE"
+  },
+  "authors": {
+    "Your Company": "email@example.com"
+  },
+  "source": {
+    "path": "."
+  },
+  "source_files": "Classes/**/*",
+  "public_header_files": "Classes/**/*.h",
+  "dependencies": {
+    "Flutter": [
+
+    ],
+    "UMengAnalytics-NO-IDFA": [
+
+    ]
+  },
+  "platforms": {
+    "ios": "8.0"
+  }
+}
