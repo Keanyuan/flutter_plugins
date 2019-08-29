@@ -44,10 +44,14 @@ public class FlutterUmengAnalyticsPlugin implements MethodCallHandler {
             MobclickAgent.onPause(activity);
             result.success(null);
         } else if (call.method.equals("logEvent")) {
-            MobclickAgent.onEvent((Context) activity, (String) call.argument("name"));
+            if (call.argument("label") == null) {
+                MobclickAgent.onEvent((Context) activity, (String) call.argument("name"));
+            } else {
+                MobclickAgent.onEvent((Context) activity, (String) call.argument("name"), (String) call.argument("label"));
+            }
             result.success(null);
-        } else if(call.method.equals("reportError")){
-            MobclickAgent.reportError((Context)activity,(String) call.argument("name"));
+        } else if (call.method.equals("reportError")) {
+            MobclickAgent.reportError((Context) activity, (String) call.argument("name"));
             result.success(null);
         } else {
             result.notImplemented();
