@@ -222,17 +222,23 @@ public class PhotoBitmapUtils {
         while (baos.toByteArray().length / 1024 > kb) {  //循环判断如果压缩后图片是否大于1M,大于继续压缩
             Log.i("123", " comprss" + baos.toByteArray().length);
             //先压缩几倍
-            //int scaleSize = baos.toByteArray().length / 1024 / kb;
-            //if (scaleSize > 1) {
-            //    options = 100 / scaleSize;
-            //    image.compress(Bitmap.CompressFormat.JPEG, options, baos);
-            //}
+//            int scaleSize = baos.toByteArray().length / 1024 / kb;
+//            if (scaleSize > 1) {
+//                options = 100 / scaleSize;
+//                image.compress(Bitmap.CompressFormat.JPEG, options, baos);
+//            }
             baos.reset();//重置baos即清空baos
             options -= 10;//每次都减少5
             if (options == 0) {
                 break;
             }
             image.compress(Bitmap.CompressFormat.JPEG, options, baos);//这里压缩options%，把压缩后的数据存放到baos中
+        }
+		try {
+            baos.flush();
+            baos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         try {
             FileOutputStream fos = new FileOutputStream(file);
