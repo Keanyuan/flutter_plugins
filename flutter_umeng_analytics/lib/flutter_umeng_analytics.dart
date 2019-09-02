@@ -55,7 +55,7 @@ class UMengAnalytics {
     if(Platform.isAndroid){
       _channel.invokeMethod("reportError", {"name": name});
     } else{
-      _channel.invokeMethod("logEvent", {"name": "reportError", "label": reportError});
+      _channel.invokeMethod("logEvent", {"name": "reportError", "label": name});
     }
   }
 }
