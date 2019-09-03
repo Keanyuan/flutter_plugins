@@ -8,6 +8,7 @@ import android.media.ExifInterface;
 import android.os.Environment;
 import android.util.Log;
 
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -177,17 +178,28 @@ public class PhotoBitmapUtils {
             e.printStackTrace();
         }
         Bitmap bitmap = BitmapFactory.decodeFile(screenImagePath);
+
         //文件保存
-        File dir = new File(SAVE_PATH);
-        if (dir.exists()) {
-            dir.delete();
+        try {
+            //创建临时文件
+            File temp = File.createTempFile("img", String.format("%d", System.currentTimeMillis()) + ".jpg");
+            //压缩图片
+            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(temp));
+            //100表示不进行压缩，70表示压缩率为30%
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
+            //写入
+            bos.flush();
+            //关闭
+            bos.close();
+            //压缩到多少kb以下 大小已经锁定 只能压缩质量
+            finalImagePath = compressLargeImage(bitmap, compressSizeKb.intValue(), temp);
+        } catch (Exception e) {
+
+        } finally {
+            //回收bitmap
+            bitmap.recycle();
         }
-        if (!dir.exists()) {
-            dir.mkdirs();
-        }
-        File file1 = new File(dir, System.currentTimeMillis() + ".jpg");
-        //压缩到多少kb以下 大小已经锁定 只能压缩质量
-        finalImagePath = compressLargeImage(bitmap, compressSizeKb.intValue(), file1);
+
         return finalImagePath;
     }
 
