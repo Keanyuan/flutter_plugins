@@ -234,12 +234,7 @@ public class PhotoBitmapUtils {
             }
             image.compress(Bitmap.CompressFormat.JPEG, options, baos);//这里压缩options%，把压缩后的数据存放到baos中
         }
-		try {
-            baos.flush();
-            baos.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
         try {
             FileOutputStream fos = new FileOutputStream(file);
             fos.write(baos.toByteArray());
