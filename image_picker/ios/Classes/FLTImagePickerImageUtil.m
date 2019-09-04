@@ -4,6 +4,7 @@
 
 #import "FLTImagePickerImageUtil.h"
 #import <MobileCoreServices/MobileCoreServices.h>
+#import "UIImage+AJScale.h"
 
 @interface GIFInfo ()
 
@@ -125,10 +126,19 @@
 }
 
 + (UIImage *)compressImage:(UIImage *)image
-         maxDataSizeKBytes:(double)maxSize {
+         maxDataSizeKBytes:(double)maxSize
+            needChangeSize: (BOOL)needChange {
     
     if (maxSize <= 0) {
         return  image;
+    }
+    
+    double originalWidth = image.size.width;
+    double originalHeight = image.size.height;
+    double maxWidth = 1024;
+    //调整图片尺寸
+    if (needChange && originalWidth > maxWidth){
+        image = [image scaleWithMinWidth:maxWidth minHeight:maxWidth*(originalHeight/originalWidth)];
     }
     
     CGFloat targetMaxSize = maxSize;
@@ -161,4 +171,7 @@
     }
     return [UIImage imageWithData:data];
 }
+
+
+
 @end

@@ -27,9 +27,10 @@ NS_ASSUME_NONNULL_BEGIN
                    maxWidth:(NSNumber *)maxWidth
                   maxHeight:(NSNumber *)maxHeight;
 
-//压缩图片指定大小 单位kb
+//压缩图片指定大小 单位kb; 如果外部传入尺寸不需要调整大小
 + (UIImage *)compressImage:(UIImage *)image
-         maxDataSizeKBytes:(double)maxSize;
+         maxDataSizeKBytes:(double)maxSize
+            needChangeSize: (BOOL)needChange;
 
 @end
 
