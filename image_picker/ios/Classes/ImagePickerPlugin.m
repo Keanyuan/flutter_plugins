@@ -275,11 +275,13 @@ static const int SOURCE_GALLERY = 1;
                            options:nil
                      resultHandler:^(NSData *_Nullable imageData, NSString *_Nullable dataUTI,
                                      UIImageOrientation orientation, NSDictionary *_Nullable info) {
-                       // maxWidth and maxHeight are used only for GIF images.
-                       [weakSelf saveImageWithOriginalImageData:imageData
-                                                          image:image
-                                                       maxWidth:maxWidth
-                                                      maxHeight:maxHeight];
+                         if (image != nil) {
+                             // maxWidth and maxHeight are used only for GIF images.
+                             [weakSelf saveImageWithOriginalImageData:imageData
+                                                                image:image
+                                                             maxWidth:maxWidth
+                                                            maxHeight:maxHeight];
+                         }
                      }];
     }
   }
