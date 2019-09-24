@@ -18,7 +18,7 @@ A new Flutter plugin.
   s.dependency 'Flutter'
   s.dependency 'MTBBarcodeScanner'
 #  s.ios.vendored_library = 'Classes/ZBarSDK/libzbar.a'
-  s.resources = ['Classes/images/*.png', "Classes/scan_resources.bundle"]
+#  s.resources = ['Classes/images/*.png', "Classes/scan_resources.bundle"]
 
   s.ios.deployment_target = '8.0'
 end

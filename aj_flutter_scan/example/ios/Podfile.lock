@@ -20,7 +20,7 @@ EXTERNAL SOURCES:
     :path: ".symlinks/flutter/ios"
 
 SPEC CHECKSUMS:
-  aj_flutter_scan: bf8d1b09d88a8df4e515231557e183239a085533
+  aj_flutter_scan: 86f41bc62d332ad85a7fdcb7bfaaad7dcd4bd9d0
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   MTBBarcodeScanner: 2ce0cc045a584467e62a383fcd25f1b4adeb2779
 
