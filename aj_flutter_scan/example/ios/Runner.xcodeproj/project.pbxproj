@@ -258,6 +258,7 @@
 				"${PODS_ROOT}/../.symlinks/plugins/aj_flutter_scan/ios/Classes/images/flash_off.png",
 				"${PODS_ROOT}/../.symlinks/plugins/aj_flutter_scan/ios/Classes/images/flash_on.png",
 				"${PODS_ROOT}/../.symlinks/plugins/aj_flutter_scan/ios/Classes/images/photo.png",
+				"${PODS_ROOT}/../.symlinks/plugins/aj_flutter_scan/ios/Classes/scan_resources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
@@ -266,6 +267,7 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/flash_off.png",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/flash_on.png",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/photo.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/scan_resources.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
