@@ -69,13 +69,14 @@
     [self.backLabelButton addTarget:self action:@selector(cancel) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.backLabelButton];
     
-    self.flashButton = [[UIButton alloc]init];
+    self.flashButton = [[FlashButton alloc]init];
     //130 174
     self.flashButton.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - 60, kStatusBarH + 5, 30, 30);
-//    [self.flashButton setNeedsDrawColor:UIColor.whiteColor];
+    [self.flashButton setNeedsDrawColor:UIColor.whiteColor];
 //    self.flashButton.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
 
-    [self.flashButton setImage:[UIImage imageNamed:@"flash_off"] forState:UIControlStateNormal];
+//    [self.flashButton setImage:[UIImage imageNamed:@"flash_off"] forState:UIControlStateNormal];
+//    [self.flashButton setImage:[UIImage imageWithContentsOfFile:[self getBundleImage:@"flash_off"]] forState:UIControlStateNormal];
     [self.flashButton addTarget:self action:@selector(toggle) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.flashButton];
     CGRect rect = self.view.frame;
@@ -97,6 +98,14 @@
 //    [photoButton setImage:[UIImage imageNamed:@"photo"] forState:UIControlStateNormal];
 //    [photoButton addTarget:self action:@selector(photoButtonClick) forControlEvents:UIControlEventTouchUpInside];
 //    [self.view addSubview:photoButton];
+}
+
+- (NSString *)getBundleImage:(NSString *)imageName {
+    NSString * bundlePath = [[ NSBundle mainBundle] pathForResource: @ "scan_resources"ofType :@ "bundle"];
+
+    NSBundle *resourceBundle = [NSBundle bundleWithPath:bundlePath];
+    NSString *img_path = [resourceBundle pathForResource:imageName ofType:@"png"];
+    return img_path;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -150,15 +159,17 @@
         return;
     }
     if (self.isFlashOn) {
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Flash Off"
-                                                                                  style:UIBarButtonItemStylePlain
-                                                                                 target:self action:@selector(toggle)];
-        [self.flashButton setImage:[UIImage imageNamed:@"flash_on"] forState:UIControlStateNormal];
-//        [self.flashButton setNeedsDrawColor:[UIColor colorWithRed:95/255.0 green:144/255.0 blue:232/255.0 alpha:1/1.0]];
+//        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Flash Off"
+//                                                                                  style:UIBarButtonItemStylePlain
+//                                                                                 target:self action:@selector(toggle)];
+//        [self.flashButton setImage:[UIImage imageNamed:@"flash_on"] forState:UIControlStateNormal];
+//        [self.flashButton setImage:[UIImage imageWithContentsOfFile:[self getBundleImage:@"flash_on"]] forState:UIControlStateNormal];
+        [self.flashButton setNeedsDrawColor:[UIColor colorWithRed:95/255.0 green:144/255.0 blue:232/255.0 alpha:1/1.0]];
 
     } else {
-        [self.flashButton setImage:[UIImage imageNamed:@"flash_off"] forState:UIControlStateNormal];
-//        [self.flashButton setNeedsDrawColor:UIColor.whiteColor];
+//        [self.flashButton setImage:[UIImage imageWithContentsOfFile:[self getBundleImage:@"flash_off"]] forState:UIControlStateNormal];
+//        [self.flashButton setImage:[UIImage imageNamed:@"flash_off"] forState:UIControlStateNormal];
+        [self.flashButton setNeedsDrawColor:UIColor.whiteColor];
 
     }
 }

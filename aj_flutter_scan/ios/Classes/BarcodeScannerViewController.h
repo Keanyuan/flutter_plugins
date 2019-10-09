@@ -14,7 +14,7 @@
 @property(nonatomic, weak) id<BarcodeScannerViewControllerDelegate> delegate;
 
 @property(nonatomic, retain) BackButton *backLabelButton;
-@property(nonatomic, retain) UIButton *flashButton;
+@property(nonatomic, retain) FlashButton *flashButton;
 
 
   -(id) initWithOptions:(NSDictionary *) options;

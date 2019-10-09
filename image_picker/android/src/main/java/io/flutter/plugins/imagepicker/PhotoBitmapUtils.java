@@ -8,6 +8,7 @@ import android.media.ExifInterface;
 import android.os.Environment;
 import android.util.Log;
 
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -177,17 +178,28 @@ public class PhotoBitmapUtils {
             e.printStackTrace();
         }
         Bitmap bitmap = BitmapFactory.decodeFile(screenImagePath);
+
         //文件保存
-        File dir = new File(SAVE_PATH);
-        if (dir.exists()) {
-            dir.delete();
+        try {
+            //创建临时文件
+            File temp = File.createTempFile("img", String.format("%d", System.currentTimeMillis()) + ".jpg");
+            //压缩图片
+            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(temp));
+            //100表示不进行压缩，70表示压缩率为30%
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
+            //写入
+            bos.flush();
+            //关闭
+            bos.close();
+            //压缩到多少kb以下 大小已经锁定 只能压缩质量
+            finalImagePath = compressLargeImage(bitmap, compressSizeKb.intValue(), temp);
+        } catch (Exception e) {
+
+        } finally {
+            //回收bitmap
+            bitmap.recycle();
         }
-        if (!dir.exists()) {
-            dir.mkdirs();
-        }
-        File file1 = new File(dir, System.currentTimeMillis() + ".jpg");
-        //压缩到多少kb以下 大小已经锁定 只能压缩质量
-        finalImagePath = compressLargeImage(bitmap, compressSizeKb.intValue(), file1);
+
         return finalImagePath;
     }
 
@@ -222,11 +234,11 @@ public class PhotoBitmapUtils {
         while (baos.toByteArray().length / 1024 > kb) {  //循环判断如果压缩后图片是否大于1M,大于继续压缩
             Log.i("123", " comprss" + baos.toByteArray().length);
             //先压缩几倍
-            int scaleSize = baos.toByteArray().length / 1024 / kb;
-            if (scaleSize > 1) {
-                options = 100 / scaleSize;
-                image.compress(Bitmap.CompressFormat.JPEG, options, baos);
-            }
+//            int scaleSize = baos.toByteArray().length / 1024 / kb;
+//            if (scaleSize > 1) {
+//                options = 100 / scaleSize;
+//                image.compress(Bitmap.CompressFormat.JPEG, options, baos);
+//            }
             baos.reset();//重置baos即清空baos
             options -= 10;//每次都减少5
             if (options == 0) {
@@ -234,6 +246,7 @@ public class PhotoBitmapUtils {
             }
             image.compress(Bitmap.CompressFormat.JPEG, options, baos);//这里压缩options%，把压缩后的数据存放到baos中
         }
+
         try {
             FileOutputStream fos = new FileOutputStream(file);
             fos.write(baos.toByteArray());
