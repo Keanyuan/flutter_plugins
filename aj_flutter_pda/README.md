@@ -5,7 +5,7 @@
 ###集成方式
 一、pubspec.yaml引用
 
-    aj_flutter_pda:
+    pda:
     git:
     url: http://gitlab.anji-allways.com/mobileteam/modules.git
     path: aj_flutter_pda
