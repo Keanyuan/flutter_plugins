@@ -155,7 +155,7 @@ class _MyAppState extends State<MyApp> {
       "bold": false,
       "underLine": true,
       "fontSize": 20,
-      "title": "安吉208|V0001 2018 08 27 16 05 17",
+      "title": "LSVFA49J132037043",
       "byteMapPath": "",
       "mode": 2
     };
