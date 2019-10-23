@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:flutter/services.dart';
-import 'package:pda/pda.dart';
+import 'package:pda/aj_flutter_pda.dart';
 
 void main() => runApp(MyApp());
 
@@ -20,13 +20,22 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     _messageChannel =
-        new BasicMessageChannel('com.anjiplus.pdasend', StringCodec());
+        new BasicMessageChannel(Commons.pdaMethodChannel, StringCodec());
     receiveMessage();
     initData();
   }
 
   //打印标签的数据
   void initData() {
+
+
+    /*
+    line1：车架号
+    line2： 堆场 库区 道位
+    line3: 堆场 库区 道位(描述)
+    line4: 船名 船次 日期
+    line5: 条形码
+    * */
     List line1 = [];
     List line2 = [];
     List line3 = [];
@@ -170,7 +179,9 @@ class _MyAppState extends State<MyApp> {
     map = {"printer": item};
   }
 
+
   // 扫描
+  //TODO 扫描
   Future<void> scan() async {
     String barCode;
     try {
@@ -185,6 +196,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   //接收侧边按钮扫描消息监听
+  //TODO 侧边监听扫描
   void receiveMessage() {
     _messageChannel.setMessageHandler((result) async {
       setState(() {
@@ -204,6 +216,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   // 扫描车架号
+  // TODO RFID标签扫描
   Future<void> readRFIDCode() async {
     String readRFIDCode;
     try {

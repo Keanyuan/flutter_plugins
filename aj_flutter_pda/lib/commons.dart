@@ -1,5 +1,7 @@
 class Commons {
-  static const String pdaChannel = "com.anjiplus.pdaflutter";
+  static const String pdaMethodChannel = "com.anjiplus.pdaflutter";
+  static const String pdaMessageChannel = "com.anjiplus.pdasend";
+
   //method
   static const String startScanMethod = "startScan";
   static const String stopScanMethod = "stopScan";
