@@ -224,7 +224,7 @@ public class ImagePickerDelegate
         if (path != null) {
             Double maxWidth = (Double) resultMap.get(ImagePickerCache.MAP_KEY_MAX_WIDTH);
             Double maxHeight = (Double) resultMap.get(ImagePickerCache.MAP_KEY_MAX_HEIGHT);
-            String newPath = imageResizer.resizeImageIfNeeded(path, maxWidth, maxHeight);
+            String newPath = imageResizer.resizeImageIfNeeded(activity,path, maxWidth, maxHeight);
             resultMap.put(ImagePickerCache.MAP_KEY_PATH, newPath);
         }
         if (resultMap.isEmpty()) {
@@ -513,7 +513,7 @@ public class ImagePickerDelegate
             Double maxHeight = methodCall.argument("maxHeight");
             Double compressSize = methodCall.argument("compressSize");
             //2 裁剪尺寸
-            String screenImagePath = imageResizer.resizeImageIfNeeded(path, maxWidth, maxHeight);
+            String screenImagePath = imageResizer.resizeImageIfNeeded(activity,path, maxWidth, maxHeight);
             //3 压缩大小
             String finalImagePath = PhotoBitmapUtils.getCompressPhotoUrl(screenImagePath, compressSize);
             finishWithSuccess(finalImagePath);
