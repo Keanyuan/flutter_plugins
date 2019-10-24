@@ -1,6 +1,12 @@
 ###集成方式
 # aj_flutter_scan
 
+###新增功能
+Android支持从相册选择图片识别条形码/二维码
+
+###Fix
+Android选择图片过大可能造成的OOM
+
 ###集成方式
 ###一，For Android
 ```
@@ -31,46 +37,48 @@ Podfile 中 target 'Runner' do 添加 use_frameworks! 支持swift
 
 ###三，dart层调用
       （1）引用
-``` 
-      import 'package:permission_handler/permission_handler.dart';//permission request
+```
 	  import 'package:aj_flutter_scan/aj_flutter_scan.dart';
 ``` 
      (2)使用	
-```     
-  //扫一扫
-  _onScanRequest() async {
-    //permission_handler: ^3.1.0 iOS、Android通用
-    //权限先校验
-    final List<PermissionGroup> permissions = <PermissionGroup>[PermissionGroup.camera];
-    final Map<PermissionGroup, PermissionStatus> permissionRequestResult =
-    await PermissionHandler().requestPermissions(permissions);
-    PermissionStatus status =  permissionRequestResult[PermissionGroup.camera];
-    if (status == PermissionStatus.granted) {
-      String barcode = "";
-      try {
-      //成功回调
-      //scanTitle 可选 将二维码/条形码放入框内，即可自动扫描  或 将条形码放入框内，即可自动扫描
-      barCode = await AjFlutterScan.getBarCode(scanTitle: "将二维码/条形码放入框内，即可自动扫描");
-      Toast.toast(context, barcode);
-      } catch (e) {
-      //成功失败
-      if (e.code == AjFlutterScan.ScanCancle) {
-      print("Unknown error: 取消扫描 ${e.code}");
+```
+  //拍照识别二维码/条形码
+  Future<void> _getBarcodeFromCamera() async {
+    String barCode;
+    try {
+      barCode =
+          await AjFlutterScan.getBarCode(scanTitle: "将二维码/条形码放入框内，即可自动扫描");
+    } catch (e) {
+      if (e.code == AjFlutterScan.CameraAccessDenied) {
+        print("扫描失败,请在iOS\"设置\"-\"隐私\"-\"相机\"中开启权限");
       } else {
-      print("Unknown error: $e");
+        print("Unknown error: $e");
       }
-      }
-    } else {
-      String positiveMsg = Platform.isIOS ? "确定" : "前往";
-      String msg = Platform.isIOS
-          ? "扫描失败,请在iOS\"设置\"-\"隐私\"-\"相机\"中开启权限"
-          : '"相机权限获取失败,是否跳转“应用信息”>“权限”中开启相机权限？"';
-      AppUtils.showCommonDialog(context,
-          msg: msg, negativeMsg: '取消', positiveMsg: positiveMsg, onDone: () {
-          PermissionHandler().openAppSettings().then((openSuccess) {
-            if (openSuccess != true) {}
-          });
-      });
     }
+    if (!mounted) return;
+
+    print('barCode is ${barCode}');
+    setState(() {
+      _barCodeFromCamera = barCode;
+    });
+  }
+
+  //从相册识别二维码/条形码
+  _getBarcodeFromGallery() async {
+    String barCode;
+    try {
+      barCode = await AjFlutterScan.getBarCodeFromGallery();
+    } catch (e) {
+      if (e.code == AjFlutterScan.CameraAccessDenied) {
+        print("扫描失败,请在iOS\"设置\"-\"隐私\"-\"相机\"中开启权限");
+      } else {
+        print("Unknown error: $e");
+      }
+    }
+    if (!mounted) return;
+
+    setState(() {
+      _barCodeFromGallery = barCode;
+    });
   }
 ```

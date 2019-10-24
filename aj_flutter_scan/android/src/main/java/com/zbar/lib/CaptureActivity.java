@@ -32,6 +32,7 @@ import com.zbar.lib.decode.InactivityTimer;
 import java.io.IOException;
 
 import aj.flutter.scan.R;
+import anjiplus.aj.flutter.aj_flutter_scan.ImagePickerDelegate;
 
 
 /**
@@ -106,13 +107,11 @@ public class CaptureActivity extends Activity implements Callback {
         super.onCreate(savedInstanceState);
         TYPE = getIntent().getStringExtra("TYPE");
         setContentView(R.layout.activity_scanner);
-        //请求camera权限
-        // if ("SHENFENYANZHENG".equals(TYPE)) {
-//        TextView qrcode_notice = (TextView) findViewById(R.id.qrcode_notice);
-//        qrcode_notice.setText("将条形码/二维码放入框内");
-        // }
-        TextView qrcode_notice = (TextView) findViewById(R.id.qrcode_notice);
-        qrcode_notice.setText((String)getIntent().getStringExtra("scan_title"));
+        String scanTitle = getIntent().getStringExtra("scan_title");
+        if (scanTitle != null) {
+            TextView qrcode_notice = (TextView) findViewById(R.id.qrcode_notice);
+            qrcode_notice.setText(scanTitle);
+        }
         // 初始化CameraManager
         CameraManager.init(getApplication());
         hasSurface = false;
@@ -149,7 +148,7 @@ public class CaptureActivity extends Activity implements Callback {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN){
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
             onBackAction();
             return true;
         }
@@ -158,8 +157,8 @@ public class CaptureActivity extends Activity implements Callback {
 
     private void onBackAction() {
         Intent intent = new Intent();
-        intent.putExtra("resultCode",scan_cancle);
-        setResult(0104,intent);
+        intent.putExtra("resultCode", scan_cancle);
+        setResult(ImagePickerDelegate.REQUEST_CODE_TAKE_IMAGE_WITH_CAMERA_ERROR, intent);
         finish();
     }
 
@@ -220,8 +219,13 @@ public class CaptureActivity extends Activity implements Callback {
         inactivityTimer.onActivity();
         playBeepSoundAndVibrate();
         Intent intent = new Intent();
-        intent.putExtra("resultCode",result);
-        setResult(1,intent);
+        intent.putExtra("resultCode", result);
+        //TODO 如果需要连扫，如下操作
+//        AjFlutterScanPlugin.result.success(result);
+//        Message message = new Message();
+//        message.what = msgRestartPreview;
+//        handler.handleMessage(message);
+        setResult(1, intent);
         finish();
     }
 

@@ -22,9 +22,10 @@ class AjFlutterScan {
     return version;
   }
 
-
-//  static Future<String> checkQRCode(String imageFile) async {
-//    final String version = await _channel.invokeMethod('checkQRCode',{"imageFile": imageFile});
-//    return version;
-//  }
+  static Future<String> getBarCodeFromGallery(
+      {int maxWidth, int maxHeight}) async {
+    final String version = await _channel.invokeMethod('getBarCodeFromGallery',
+        {'maxWidth': maxWidth, 'maxHeight': maxHeight});
+    return version;
+  }
 }
