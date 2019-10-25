@@ -82,15 +82,15 @@ public class ImagePickerDelegate
         implements PluginRegistry.ActivityResultListener,
         PluginRegistry.RequestPermissionsResultListener {
     @VisibleForTesting
-    static final int REQUEST_CODE_CHOOSE_IMAGE_FROM_GALLERY = 2342;
+    static final int REQUEST_CODE_CHOOSE_IMAGE_FROM_GALLERY = 2242;
     @VisibleForTesting
-    static final int REQUEST_CODE_TAKE_IMAGE_WITH_CAMERA = 2343;
+    static final int REQUEST_CODE_TAKE_IMAGE_WITH_CAMERA = 2243;
     @VisibleForTesting
-    public static int REQUEST_CODE_TAKE_IMAGE_WITH_CAMERA_ERROR = 2344;
+    public static int REQUEST_CODE_TAKE_IMAGE_WITH_CAMERA_ERROR = 2244;
     @VisibleForTesting
-    static final int REQUEST_EXTERNAL_IMAGE_STORAGE_PERMISSION = 2345;
+    static final int REQUEST_EXTERNAL_IMAGE_STORAGE_PERMISSION = 2245;
     @VisibleForTesting
-    static final int REQUEST_CAMERA_IMAGE_PERMISSION = 2346;
+    static final int REQUEST_CAMERA_IMAGE_PERMISSION = 2246;
     @VisibleForTesting
     final String fileProviderName;
 
@@ -332,12 +332,14 @@ public class ImagePickerDelegate
 //                    pendingResult.error(code, null, null);
 //                }
             }
+            return true;
         } else if (REQUEST_CODE_CHOOSE_IMAGE_FROM_GALLERY == requestCode && resultCode == RESULT_OK) {
             //从相册识别，图片要处理，所以要异步
             GalleryHandleTask GalleryHandleTask = new GalleryHandleTask(resultCode, data);
             GalleryHandleTask.execute();
+            return true;
         }
-        return true;
+        return false;
     }
 
     private void handleChooseImageResult(int resultCode, Intent data) {
