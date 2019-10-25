@@ -127,6 +127,15 @@ public class CaptureActivity extends Activity implements Callback {
                         onBackAction();
                     }
                 });
+        findViewById(R.id.qr_open_light).setOnClickListener(
+                new OnClickListener() {
+
+                    @Override
+                    public void onClick(View arg0) {
+                        //Todo 打开闪光灯
+                        light();
+                    }
+                });
         // 获得屏幕的宽高
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
         int screenWith = displayMetrics.widthPixels;
