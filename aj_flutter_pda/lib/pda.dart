@@ -51,8 +51,8 @@ class Pda {
   }
 
   ///读取车架号
-  static Future<String> readRFIDCode() async {
-    final rfidCode  = await _channel.invokeMethod(Commons.readRFIDCodeMethod);
+  static Future<String> readRFIDCode({bool isNeedDialog}) async {
+    final rfidCode  = await _channel.invokeMethod(Commons.readRFIDCodeMethod,isNeedDialog);
     return rfidCode;
   }
 }

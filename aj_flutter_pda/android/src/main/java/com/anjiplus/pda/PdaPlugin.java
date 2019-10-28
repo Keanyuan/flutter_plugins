@@ -1,5 +1,6 @@
 package com.anjiplus.pda;
 
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -87,6 +88,7 @@ public class PdaPlugin implements MethodCallHandler {
     private byte btMemBank = 0x01;
     private String m_strresult = "";
     private static Map printData;
+    private static boolean isShowDialog=false;
 
 
     //接收扫描结果
@@ -168,6 +170,9 @@ public class PdaPlugin implements MethodCallHandler {
             stopScan();
             result.notImplemented();
         } else if (call.method.equals("readRFIDCode")) {//识别车架号
+            if (call.arguments!=null){
+                isShowDialog= (boolean) call.arguments;
+            }
             Log.d("wuyan", " Original  result " + result);
             if (recognizeComplete) {
                 Toast.makeText(mContext, "识别中...，请勿频繁操作!", Toast.LENGTH_SHORT).show();
@@ -378,37 +383,39 @@ public class PdaPlugin implements MethodCallHandler {
 
     IUhfCallback callback = new IUhfCallback.Stub() {
         @Override
-        public void doInventory(List<String> str) throws RemoteException {
-            if (str != null && str.size() > 0) {
-                String strEpc = "";
-                for (int i = 0; i < str.size(); i++) {
-                    String strepc = str.get(0);
-                    strEpc = strepc.substring(2, 6) + strepc.substring(6);
-                    if (!"".equals(strEpc)) {
-                        break;
+        public void doInventory(final List<String> str) throws RemoteException {
+            Handler mainThread = new Handler(Looper.getMainLooper());
+            mainThread.post(new Runnable() {
+                @Override
+                public void run() {
+                    if (str != null && str.size() > 0) {
+                        String strEpc = "";
+                        for (int i = 0; i < str.size(); i++) {
+                            String strepc = str.get(0);
+                            strEpc = strepc.substring(2, 6) + strepc.substring(6);
+                            if (!"".equals(strEpc)) {
+                                break;
+                            }
+                        }
+                        Log.d("wuyan", " strEpc " + strEpc);
+                        //单张
+                        DevBeep.PlayOK();
+                        Task task = new Task();
+                        task.execute(strEpc);
+                    } else if (result != null) {
+                        result.notImplemented();
+                        recognizeComplete = false;
                     }
                 }
-                Log.d("wuyan", " strEpc " + strEpc);
-                //单张
-                DevBeep.PlayOK();
-                Task task = new Task();
-                task.execute(strEpc);
-            } else if (result != null) {
-                Handler mainThread = new Handler(Looper.getMainLooper());
-                mainThread.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        result.notImplemented();
-                    }
-                });
-                recognizeComplete = false;
-            }
+            });
         }
 
         @Override
         public void doTIDAndEPC(List<String> str) throws RemoteException {
         }
     };
+
+    ProgressDialog dialog;
 
     private class Task extends AsyncTask<String, String, String> {
         @Override
@@ -421,10 +428,25 @@ public class PdaPlugin implements MethodCallHandler {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            if (isShowDialog){
+                //dialog开始
+                if (dialog != null && dialog.isShowing()) {
+                    dialog.dismiss();
+                }
+                dialog = new ProgressDialog(mContext, ProgressDialog.THEME_HOLO_LIGHT);
+                dialog.setMessage("正在处理，请稍候...");
+                dialog.setCanceledOnTouchOutside(false);
+                dialog.setCancelable(false);
+                dialog.show();
+            }
         }
 
         @Override
         protected void onPostExecute(String o) {
+            //dialog结束
+            if (dialog != null && dialog.isShowing()) {
+                dialog.dismiss();
+            }
             Log.d("wuyan", " onPostExecute result is " + o);
             if (result != null) {
                 if (!"".equals(o)) {

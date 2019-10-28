@@ -220,7 +220,7 @@ class _MyAppState extends State<MyApp> {
   Future<void> readRFIDCode() async {
     String readRFIDCode;
     try {
-      readRFIDCode = await Pda.readRFIDCode();
+      readRFIDCode = await Pda.readRFIDCode(isNeedDialog: false);
     } on PlatformException {
       readRFIDCode = 'Failed to get platform version.';
     }
