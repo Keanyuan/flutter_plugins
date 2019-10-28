@@ -7,6 +7,8 @@ import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Looper;
 import android.os.RemoteException;
 import android.provider.Settings;
 import android.util.Log;
@@ -392,7 +394,13 @@ public class PdaPlugin implements MethodCallHandler {
                 Task task = new Task();
                 task.execute(strEpc);
             } else if (result != null) {
-                result.notImplemented();
+                Handler mainThread = new Handler(Looper.getMainLooper());
+                mainThread.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        result.notImplemented();
+                    }
+                });
                 recognizeComplete = false;
             }
         }
@@ -406,7 +414,6 @@ public class PdaPlugin implements MethodCallHandler {
         @Override
         protected String doInBackground(String... strings) {
             Log.d("wuyan", " doInBackground input " + strings[0]);
-//            Log.d("wuyan"," Readlable(strings[0]) C8E65911096810C20037038 result "+Readlable("30001C8E65911096810C20037038"));
 
             return Readlable(strings[0]);
         }
