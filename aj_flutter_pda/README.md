@@ -11,7 +11,7 @@
     path: aj_flutter_pda
 
     Note：在Android中引用armeabi-v7a包，
-    debug模式下若找不到so文件，则置Additional arguments为
+    debug模式下若找不到so文件，且flutter sdk位1.5.4以下包含1.5.4，则置Additional arguments为
     --target-platform=android-arm，或者使用flutter run --target-platform=android-arm命令安装
 
 ```
@@ -34,6 +34,7 @@
 3）停止扫描：Pda.stopScan();
 4）打印标签：Pda.print(Map map);
 5）走纸一张：Pda.goNextPage();
-6）识别车架号：Pda.readRFIDCode();
-注：1）、2）、6）有返回值为String类型，其他无返回值；
+6）识别车架号：Pda.readRFIDCode(bool isNeedDialog);
+7）制卡：Pda.readRFIDCode(String vin，bool isNeedDialog);
+注：1）、2）、6）有返回值为String类型，7返回int类型，其他无返回值；
 ```

@@ -9,8 +9,6 @@ Date:2019/10/21
 功能：PDA扫描、打印、读取车架号
  */
 class Pda {
-
-
   /*
   {
         "marginLeft": 10, //x轴位置
@@ -37,12 +35,12 @@ class Pda {
 
   ///停止扫描
   static stopScan() {
-     _channel.invokeMethod(Commons.stopScanMethod);
+    _channel.invokeMethod(Commons.stopScanMethod);
   }
 
   ///打印
   static print(Map map) {
-   _channel.invokeMethod(Commons.printMethod,map);
+    _channel.invokeMethod(Commons.printMethod, map);
   }
 
   ///走纸一张（防止位置不准）
@@ -52,7 +50,19 @@ class Pda {
 
   ///读取车架号
   static Future<String> readRFIDCode({bool isNeedDialog}) async {
-    final rfidCode  = await _channel.invokeMethod(Commons.readRFIDCodeMethod,isNeedDialog);
+    final rfidCode =
+        await _channel.invokeMethod(Commons.readRFIDCodeMethod, isNeedDialog);
     return rfidCode;
+  }
+
+  ///制卡
+  static Future<int> WriteRFIDCode(String vin, {bool isNeedDialog}) async {
+    var map = {
+      "isNeedDialog": isNeedDialog,
+      "vin": vin,
+    };
+    final result =
+        await _channel.invokeMethod(Commons.writeRFIDCodeMethod, map);
+    return result;
   }
 }

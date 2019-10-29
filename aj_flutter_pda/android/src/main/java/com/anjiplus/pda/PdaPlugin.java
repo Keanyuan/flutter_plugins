@@ -86,9 +86,8 @@ public class PdaPlugin implements MethodCallHandler {
     private long lastTime;
     private long duration = 500;
     private byte btMemBank = 0x01;
-    private String m_strresult = "";
-    private static Map printData;
-    private static boolean isShowDialog=false;
+    private static boolean isShowDialog = false;
+    private String vin = "";
 
 
     //接收扫描结果
@@ -185,8 +184,19 @@ public class PdaPlugin implements MethodCallHandler {
                 result.notImplemented();
                 recognizeComplete = false;
             }
+        } else if (call.method.equals("writeRFIDCode")) {//制卡
+            Map writeMap = (Map) call.arguments;
+            vin = (String) writeMap.get("vin");
+            if (call.arguments != null) {
+                isShowDialog = (boolean) writeMap.get("isNeedDialog");
+            }
+            if (IsDoubClick()) {
+                uhf_6c.inventory(writeCallback);
+            } else if (result != null) {
+                result.notImplemented();
+            }
         } else if (call.method.equals("print")) { //打印
-            printData = (Map) call.arguments;
+            Map printData = (Map) call.arguments;
             String printDataString = new Gson().toJson(printData);
             PrintDto printDto = new Gson().fromJson(printDataString, PrintDto.class);
             mPrinter.SetGrayLevel((byte) 8);
@@ -370,7 +380,7 @@ public class PdaPlugin implements MethodCallHandler {
         return bitmap;
     }
 
-    //识别车架号相关
+    //识别车架号、制卡相关
     private boolean IsDoubClick() {
         boolean flag = false;
         long time = System.currentTimeMillis() - lastTime;
@@ -381,6 +391,7 @@ public class PdaPlugin implements MethodCallHandler {
         return flag;
     }
 
+    //用于识别车架号
     IUhfCallback callback = new IUhfCallback.Stub() {
         @Override
         public void doInventory(final List<String> str) throws RemoteException {
@@ -415,8 +426,43 @@ public class PdaPlugin implements MethodCallHandler {
         }
     };
 
+    //用于制卡
+    IUhfCallback writeCallback = new IUhfCallback.Stub() {
+        @Override
+        public void doInventory(final List<String> str) throws RemoteException {
+            Handler mainThread = new Handler(Looper.getMainLooper());
+            mainThread.post(new Runnable() {
+                @Override
+                public void run() {
+                    if (str != null && str.size() > 0) {
+                        String strEpc = "";
+                        for (int i = 0; i < str.size(); i++) {
+                            String strepc = str.get(0);
+                            strEpc = strepc.substring(2, 6) + strepc.substring(6);
+                            if (!"".equals(strEpc)) {
+                                break;
+                            }
+                        }
+                        Log.d("wuyan", "writeCallback strEpc " + strEpc);
+                        //单张
+                        DevBeep.PlayOK();
+                        WriteTask writeTask = new WriteTask();
+                        writeTask.execute(strEpc);
+                    } else if (result != null) {
+                        result.notImplemented();
+                    }
+                }
+            });
+        }
+
+        @Override
+        public void doTIDAndEPC(List<String> str) throws RemoteException {
+        }
+    };
+
     ProgressDialog dialog;
 
+    //用于识别车架号
     private class Task extends AsyncTask<String, String, String> {
         @Override
         protected String doInBackground(String... strings) {
@@ -428,7 +474,7 @@ public class PdaPlugin implements MethodCallHandler {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            if (isShowDialog){
+            if (isShowDialog) {
                 //dialog开始
                 if (dialog != null && dialog.isShowing()) {
                     dialog.dismiss();
@@ -459,10 +505,47 @@ public class PdaPlugin implements MethodCallHandler {
         }
     }
 
+    //用于制卡
+    private class WriteTask extends AsyncTask<String, String, Integer> {
+        @Override
+        protected Integer doInBackground(String... strings) {
+            Log.d("wuyan", "WriteTask doInBackground input " + strings[0]);
+            return Writelable(strings[0]);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            if (isShowDialog) {
+                //dialog开始
+                if (dialog != null && dialog.isShowing()) {
+                    dialog.dismiss();
+                }
+                dialog = new ProgressDialog(mContext, ProgressDialog.THEME_HOLO_LIGHT);
+                dialog.setMessage("正在处理，请稍候...");
+                dialog.setCanceledOnTouchOutside(false);
+                dialog.setCancelable(false);
+                dialog.show();
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Integer o) {
+            //dialog结束
+            if (dialog != null && dialog.isShowing()) {
+                dialog.dismiss();
+            }
+            Log.d("wuyan", "WriteTask onPostExecute result is " + o);
+            if (result != null) {
+                result.success(o);
+            }
+        }
+    }
+
+    //用于识别车架号
     private String Readlable(String epcString) {
         Log.d("wuyan", " Readlable epcString " + epcString);
         long time = System.currentTimeMillis();
-        m_strresult = "";
         //其实地址（word）默认
         int nadd = 2;
         //读取长度
@@ -489,6 +572,26 @@ public class PdaPlugin implements MethodCallHandler {
             }
         }
         return "";
+    }
+
+    //用于制卡
+    private int Writelable(String epcString) {
+        long time = System.currentTimeMillis();
+        int nadd = 2;
+        int ndatalen = 6;
+        String mimaStr = "00000000";
+        byte[] passw = stringToBytes(mimaStr);
+        byte[] pwrite = new byte[ndatalen * 2];
+        //vin 记得这里转换 TODO
+        String dataE = VinChangeUtil.str17To24(vin);
+        Log.d("wuyan", "str17To24 duration is " + (System.currentTimeMillis() - time));
+        byte[] myByte = stringToBytes(dataE);
+        System.arraycopy(myByte, 0, pwrite, 0,
+                myByte.length > ndatalen * 2 ? ndatalen * 2 : myByte.length);
+        byte[] epc = stringToBytes(epcString);
+        int iswrite = uhf_6c.write(passw, epc.length, epc, btMemBank, (byte) nadd, (byte) ndatalen * 2, pwrite);
+        Log.d("wuyan", "write duration is " + (System.currentTimeMillis() - time) + " iswrite " + iswrite);
+        return iswrite;
     }
 
     public static byte[] stringToBytes(String hexString) {

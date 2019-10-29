@@ -15,6 +15,7 @@ class _MyAppState extends State<MyApp> {
   String _barCode = 'Unknown';
   BasicMessageChannel _messageChannel; //只接收扫描结果的Channel
   var map;
+  String vin;
 
   @override
   void initState() {
@@ -27,8 +28,6 @@ class _MyAppState extends State<MyApp> {
 
   //打印标签的数据
   void initData() {
-
-
     /*
     line1：车架号
     line2： 堆场 库区 道位
@@ -179,7 +178,6 @@ class _MyAppState extends State<MyApp> {
     map = {"printer": item};
   }
 
-
   // 扫描
   //TODO 扫描
   Future<void> scan() async {
@@ -221,13 +219,34 @@ class _MyAppState extends State<MyApp> {
     String readRFIDCode;
     try {
       readRFIDCode = await Pda.readRFIDCode(isNeedDialog: false);
-    } on PlatformException {
-      readRFIDCode = 'Failed to get platform version.';
+    } on Exception {
+      readRFIDCode = '读取车架号失败';
     }
     if (!mounted) return;
     print('readRFIDCode ${readRFIDCode}');
     setState(() {
       _barCode = readRFIDCode;
+    });
+  }
+
+  // 制卡
+  // TODO RFID标签写
+  Future<void> WriteRFIDCode(String vin) async {
+    String result;
+    try {
+     int iswrite = await Pda.WriteRFIDCode(vin,isNeedDialog: true);
+     if(iswrite==0){
+       result = '制卡成功';
+     }else{
+       result = '制卡失败1';
+     }
+      print('result ${result}');
+    } on Exception {
+      result = '制卡失败2';
+    }
+    if (!mounted) return;
+    setState(() {
+      _barCode = result;
     });
   }
 
@@ -282,6 +301,37 @@ class _MyAppState extends State<MyApp> {
                 ),
                 onTap: () {
                   readRFIDCode();
+                },
+              ),
+              TextField(
+                  onChanged: (text) {
+                    vin = text;
+                  },
+                  textAlign: TextAlign.left,
+                  style: TextStyle(fontSize: 14),
+                  decoration: InputDecoration(
+                    hintText: '请扫VIN码',
+                    contentPadding: EdgeInsets.only(bottom: 0, left: 20),
+                    hintStyle: TextStyle(
+                      fontSize: 14,
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey, width: 0.5),
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        borderSide: BorderSide(color: Colors.grey, width: 0.5)),
+                  )),
+              InkWell(
+                child: Container(
+                  alignment: Alignment.center,
+                  width: 200,
+                  height: 50,
+                  child: Text("制卡"),
+                ),
+                onTap: () {
+                  WriteRFIDCode(vin);
                 },
               ),
             ],

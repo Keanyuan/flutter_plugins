@@ -8,5 +8,6 @@ class Commons {
   static const String readRFIDCodeMethod = "readRFIDCode";
   static const String printMethod = "print";
   static const String goNextPageMethod = "goNextPage";
+  static const String writeRFIDCodeMethod = "writeRFIDCode";
 
 }
