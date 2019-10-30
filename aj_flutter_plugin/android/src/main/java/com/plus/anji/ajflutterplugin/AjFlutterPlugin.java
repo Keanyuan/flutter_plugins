@@ -18,7 +18,7 @@ import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 import io.flutter.plugin.common.PluginRegistry.Registrar;
-
+import android.provider.Settings;
 import static android.content.ContentValues.TAG;
 
 /** AjFlutterPlugin */
@@ -48,6 +48,7 @@ public class AjFlutterPlugin implements MethodCallHandler {
         map.put("packageName", context.getPackageName());
         map.put("version", info.versionName);
         map.put("buildNumber", String.valueOf(info.versionCode));
+        map.put("deviceId", Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID));
         result.success(map);
       } else if (call.method.equals("launchUrl")){ //跳转外链，打电话，发邮件
         String url = call.argument("url");
