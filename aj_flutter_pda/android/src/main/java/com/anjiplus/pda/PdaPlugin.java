@@ -593,7 +593,7 @@ public class PdaPlugin implements MethodCallHandler {
         byte[] passw = stringToBytes(mimaStr);
         byte[] pwrite = new byte[ndatalen * 2];
         //vin 记得这里转换 TODO
-        String dataE = VinChangeUtil.str17To24(vin);
+        String dataE = VinChangeUtil.str17To24(vin.toUpperCase());
         Log.d("wuyan", "str17To24 duration is " + (System.currentTimeMillis() - time));
         byte[] myByte = stringToBytes(dataE);
         System.arraycopy(myByte, 0, pwrite, 0,
