@@ -65,4 +65,10 @@ class Pda {
         await _channel.invokeMethod(Commons.writeRFIDCodeMethod, map);
     return result;
   }
+
+  ///判断是否是pda
+  static Future<bool> isPda() async {
+    final bool result = await _channel.invokeMethod(Commons.isPDAMethod);
+    return result;
+  }
 }

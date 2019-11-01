@@ -16,6 +16,7 @@ class _MyAppState extends State<MyApp> {
   BasicMessageChannel _messageChannel; //只接收扫描结果的Channel
   var map;
   String vin;
+  bool isPdaDevice;
 
   @override
   void initState() {
@@ -23,6 +24,7 @@ class _MyAppState extends State<MyApp> {
     _messageChannel =
         new BasicMessageChannel(Commons.pdaMessageChannel, StringCodec());
     receiveMessage();
+    isPDA();
     initData();
   }
 
@@ -176,6 +178,22 @@ class _MyAppState extends State<MyApp> {
     item.add(line4);
     item.add(line5);
     map = {"printer": item};
+  }
+
+  // 判断是否是pda
+  Future<bool> isPDA() async {
+    try {
+      isPdaDevice = await Pda.isPda();
+    } on Exception {
+      isPdaDevice = false;
+    }
+    if(isPdaDevice){
+      _barCode = "是pda";
+    }else{
+      _barCode = "不是pda";
+    }
+    setState(() {
+    });
   }
 
   // 扫描

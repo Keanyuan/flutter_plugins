@@ -9,5 +9,6 @@ class Commons {
   static const String printMethod = "print";
   static const String goNextPageMethod = "goNextPage";
   static const String writeRFIDCodeMethod = "writeRFIDCode";
+  static const String isPDAMethod = "isPDA";
 
 }

@@ -126,35 +126,38 @@ public class PdaPlugin implements MethodCallHandler {
         final MethodChannel channel = new MethodChannel(registrar.messenger(), pdaChannel);
         channel.setMethodCallHandler(new PdaPlugin());
         mContext = registrar.activity();
+        boolean isinit = Settings.System.getInt(mContext.getContentResolver(), "scan_settings_left", 0) != 0;
+        Log.e("wuyan", "isinit:" + isinit);
+        if (isinit) {
+            //扫描相关
+            ScanSetting();
 
-        //扫描相关
-        ScanSetting();
+            //扫描广播注册
+            final IntentFilter intentFilter = new IntentFilter();
+            intentFilter.addAction(mBroadcastAction);
+            registrar.activity().registerReceiver(receiver, intentFilter);
 
-        //扫描广播注册
-        final IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(mBroadcastAction);
-        registrar.activity().registerReceiver(receiver, intentFilter);
+            //主动发送扫描结果
+            sendChannel = new BasicMessageChannel<String>(
+                    registrar.messenger(), pdaSendChannelName, StringCodec.INSTANCE);
+            sendChannel.setMessageHandler(new BasicMessageChannel.MessageHandler() {
+                @Override
+                public void onMessage(Object o, BasicMessageChannel.Reply reply) {
 
-        //主动发送扫描结果
-        sendChannel = new BasicMessageChannel<String>(
-                registrar.messenger(), pdaSendChannelName, StringCodec.INSTANCE);
-        sendChannel.setMessageHandler(new BasicMessageChannel.MessageHandler() {
-            @Override
-            public void onMessage(Object o, BasicMessageChannel.Reply reply) {
+                }
+            });
 
-            }
-        });
-
-        //识别车架号相关
-        //测试系统有没有UHF服务（0是没有服务）
-        int nType = Settings.System.getInt(mContext.getContentResolver(),
-                "uhf_type", 0);
-        mService = UhfAdapter.getUhfManager(mContext.getApplicationContext());
-        a = UhfAdapter.getUhfManager(mContext).getStatus();
-        boolean isopen = mService.open();
-        int b = 0;
-        uhf_6c = (ISO1800_6C) mService.getISO1800_6C();
-        DevBeep.init(mContext);
+            //识别车架号相关
+            //测试系统有没有UHF服务（0是没有服务）
+            int nType = Settings.System.getInt(mContext.getContentResolver(),
+                    "uhf_type", 0);
+            mService = UhfAdapter.getUhfManager(mContext.getApplicationContext());
+            a = UhfAdapter.getUhfManager(mContext).getStatus();
+            boolean isopen = mService.open();
+            int b = 0;
+            uhf_6c = (ISO1800_6C) mService.getISO1800_6C();
+            DevBeep.init(mContext);
+        }
     }
 
     @Override
@@ -169,8 +172,8 @@ public class PdaPlugin implements MethodCallHandler {
             stopScan();
             result.notImplemented();
         } else if (call.method.equals("readRFIDCode")) {//识别车架号
-            if (call.arguments!=null){
-                isShowDialog= (boolean) call.arguments;
+            if (call.arguments != null) {
+                isShowDialog = (boolean) call.arguments;
             }
             Log.d("wuyan", " Original  result " + result);
             if (recognizeComplete) {
@@ -187,6 +190,10 @@ public class PdaPlugin implements MethodCallHandler {
         } else if (call.method.equals("writeRFIDCode")) {//制卡
             Map writeMap = (Map) call.arguments;
             vin = (String) writeMap.get("vin");
+            if (vin.length() != 17) {
+                Toast.makeText(mContext, "请输入17位Vin码!", Toast.LENGTH_SHORT).show();
+                return;
+            }
             if (call.arguments != null) {
                 isShowDialog = (boolean) writeMap.get("isNeedDialog");
             }
@@ -212,6 +219,9 @@ public class PdaPlugin implements MethodCallHandler {
                 mPrinter.GoToNextPage();
                 mPrinter.Close();
             }
+        } else if (call.method.equals("isPDA")) {
+            boolean isPda = Settings.System.getInt(mContext.getContentResolver(), "scan_settings_left", 0) != 0;
+            result.success(isPda);
         }
     }
 
