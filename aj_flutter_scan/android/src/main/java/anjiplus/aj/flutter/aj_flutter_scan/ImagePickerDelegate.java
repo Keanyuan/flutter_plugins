@@ -328,9 +328,9 @@ public class ImagePickerDelegate
                     pendingResult.success(code);
                 }
             } else if (REQUEST_CODE_TAKE_IMAGE_WITH_CAMERA_ERROR == resultCode) {
-//                if (pendingResult != null) {
-//                    pendingResult.error(code, null, null);
-//                }
+                if (pendingResult != null) {
+                    pendingResult.error(code, null, null);
+                }
             }
             return true;
         } else if (REQUEST_CODE_CHOOSE_IMAGE_FROM_GALLERY == requestCode && resultCode == RESULT_OK) {
