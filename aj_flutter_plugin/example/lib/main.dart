@@ -126,6 +126,13 @@ class _MyAppState extends State<MyApp> {
                 },
                 child: Text("获取权限"),
               ),
+              FlatButton(
+                color: Colors.black12,
+                onPressed: () async {
+                  await AjFlutterPlugin.getSelfStart();
+                },
+                child: Text("Android APP自启动"),
+              ),
               //getLocationPermissions
             ],
           )),

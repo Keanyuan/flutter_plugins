@@ -85,6 +85,13 @@ class AjFlutterPlugin {
     }
 
   }
+
+  //Android 自启动
+  static Future<void> getSelfStart() async {
+    if(Platform.isAndroid){
+      await _channel.invokeMethod('selfStart');
+    }
+  }
 //  //iOS获取权限
 //  static Future<int> getRequestlocationAuthorization() async {
 //    if(Platform.isIOS){
