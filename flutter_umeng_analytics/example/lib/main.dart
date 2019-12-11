@@ -6,6 +6,7 @@ import 'package:flutter_umeng_analytics/flutter_umeng_analytics.dart';
 import 'aj_crash_collect.dart';
 
 void main() async {
+  //记得区分debug和release版本
   if (Platform.isIOS) {
     UMengAnalytics.init("iOS AppKey",
         encrypt: true, reportCrash: false); //app debug

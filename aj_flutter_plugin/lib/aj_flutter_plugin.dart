@@ -71,7 +71,8 @@ class AjFlutterPlugin {
     this.appName,
     this.packageName,
     this.version,
-    this.buildNumber
+    this.buildNumber,
+    this.deviceId
   });
   static Future<AjFlutterPlugin> _fromPlatform;
 
@@ -83,6 +84,13 @@ class AjFlutterPlugin {
       return 1;
     }
 
+  }
+
+  //Android 自启动
+  static Future<void> getSelfStart() async {
+    if(Platform.isAndroid){
+      await _channel.invokeMethod('selfStart');
+    }
   }
 //  //iOS获取权限
 //  static Future<int> getRequestlocationAuthorization() async {
@@ -106,7 +114,8 @@ class AjFlutterPlugin {
             appName: map["appName"],
             packageName: map["packageName"],
             version: map["version"],
-            buildNumber: map["buildNumber"]
+            buildNumber: map["buildNumber"],
+            deviceId: map["deviceId"]?? ""
         ));
       }, onError: completer.completeError);
 
@@ -128,5 +137,6 @@ class AjFlutterPlugin {
 
   /// The build number. `CFBundleVersion` on iOS, `versionCode` on Android.
   final String buildNumber;
-
+  //设备ID
+  final String deviceId;
 }

@@ -18,7 +18,7 @@ import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 import io.flutter.plugin.common.PluginRegistry.Registrar;
-
+import android.provider.Settings;
 import static android.content.ContentValues.TAG;
 
 /** AjFlutterPlugin */
@@ -48,6 +48,7 @@ public class AjFlutterPlugin implements MethodCallHandler {
         map.put("packageName", context.getPackageName());
         map.put("version", info.versionName);
         map.put("buildNumber", String.valueOf(info.versionCode));
+        map.put("deviceId", Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID));
         result.success(map);
       } else if (call.method.equals("launchUrl")){ //跳转外链，打电话，发邮件
         String url = call.argument("url");
@@ -70,6 +71,8 @@ public class AjFlutterPlugin implements MethodCallHandler {
       } else if (call.method.equals("canLaunch")) { //是否可以跳转
         String url = call.argument("url");
         canLaunch(url, result);
+      } else if (call.method.equals("selfStart")) { //是否可以跳转
+        selfStart(call, result);
       } else if (call.method.equals("exitAppMethod")) { //回到桌面
         if (mRegistrar.activity() != null) {
           context = (Context) mRegistrar.activity();
@@ -110,6 +113,23 @@ public class AjFlutterPlugin implements MethodCallHandler {
     boolean canLaunch = this.canLaunchUrl(url);
     result.success(canLaunch);
   }
+
+  private void selfStart(MethodCall call, Result result)  {
+    try {
+      Intent intent = new Intent(Intent.ACTION_MAIN);
+      intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+      ComponentName cn =
+              intent.resolveActivity(mRegistrar.context().getPackageManager());
+      intent.setComponent(cn);
+      mRegistrar.context().startActivity(intent);
+      result.success(null);
+    } catch (Exception e){
+      result.error("Not found", e.getMessage(), null);
+    }
+  }
+
+
+
 
 //  /**
 //   * 清除WebView缓存

@@ -29,6 +29,8 @@ import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.PluginRegistry;
 
+import static android.app.Activity.RESULT_OK;
+
 /**
  * A delegate class doing the heavy lifting for the plugin.
  *
@@ -224,7 +226,7 @@ public class ImagePickerDelegate
         if (path != null) {
             Double maxWidth = (Double) resultMap.get(ImagePickerCache.MAP_KEY_MAX_WIDTH);
             Double maxHeight = (Double) resultMap.get(ImagePickerCache.MAP_KEY_MAX_HEIGHT);
-            String newPath = imageResizer.resizeImageIfNeeded(path, maxWidth, maxHeight);
+            String newPath = imageResizer.resizeImageIfNeeded(activity, path, maxWidth, maxHeight);
             resultMap.put(ImagePickerCache.MAP_KEY_PATH, newPath);
         }
         if (resultMap.isEmpty()) {
@@ -310,7 +312,6 @@ public class ImagePickerDelegate
     private void launchPickImageFromGalleryIntent() {
         Intent pickImageIntent = new Intent(Intent.ACTION_GET_CONTENT);
         pickImageIntent.setType("image/*");
-
         activity.startActivityForResult(pickImageIntent, REQUEST_CODE_CHOOSE_IMAGE_FROM_GALLERY);
     }
 
@@ -439,13 +440,16 @@ public class ImagePickerDelegate
 
     @Override
     public boolean onActivityResult(int requestCode, int resultCode, Intent data) {
-        PictureHandleTask pictureHandleTask = new PictureHandleTask(requestCode, resultCode, data);
-        pictureHandleTask.execute();
-        return true;
+        if (REQUEST_CODE_CHOOSE_IMAGE_FROM_GALLERY == requestCode && resultCode == RESULT_OK) {
+            PictureHandleTask pictureHandleTask = new PictureHandleTask(requestCode, resultCode, data);
+            pictureHandleTask.execute();
+            return true;
+        }
+        return false;
     }
 
     private void handleChooseImageResult(int resultCode, Intent data) {
-        if (resultCode == Activity.RESULT_OK && data != null) {
+        if (resultCode == RESULT_OK && data != null) {
             String path = fileUtils.getPathFromUri(activity, data.getData());
             handleImageResult(path, false);
             return;
@@ -456,7 +460,7 @@ public class ImagePickerDelegate
     }
 
     private void handleChooseVideoResult(int resultCode, Intent data) {
-        if (resultCode == Activity.RESULT_OK && data != null) {
+        if (resultCode == RESULT_OK && data != null) {
             String path = fileUtils.getPathFromUri(activity, data.getData());
             handleVideoResult(path);
             return;
@@ -467,7 +471,7 @@ public class ImagePickerDelegate
     }
 
     private void handleCaptureImageResult(int resultCode) {
-        if (resultCode == Activity.RESULT_OK) {
+        if (resultCode == RESULT_OK) {
             fileUriResolver.getFullImagePath(
                     pendingCameraMediaUri != null
                             ? pendingCameraMediaUri
@@ -489,7 +493,7 @@ public class ImagePickerDelegate
     }
 
     private void handleCaptureVideoResult(int resultCode) {
-        if (resultCode == Activity.RESULT_OK) {
+        if (resultCode == RESULT_OK) {
             fileUriResolver.getFullImagePath(
                     pendingCameraMediaUri != null
                             ? pendingCameraMediaUri
@@ -513,11 +517,10 @@ public class ImagePickerDelegate
             Double maxHeight = methodCall.argument("maxHeight");
             Double compressSize = methodCall.argument("compressSize");
             //2 裁剪尺寸
-            String screenImagePath = imageResizer.resizeImageIfNeeded(path, maxWidth, maxHeight);
+            String screenImagePath = imageResizer.resizeImageIfNeeded(activity, path, maxWidth, maxHeight);
             //3 压缩大小
             String finalImagePath = PhotoBitmapUtils.getCompressPhotoUrl(screenImagePath, compressSize);
             finishWithSuccess(finalImagePath);
-
             //delete original file if scaled
             if (!finalImagePath.equals(path) && shouldDeleteOriginalIfScaled) {
                 new File(path).delete();

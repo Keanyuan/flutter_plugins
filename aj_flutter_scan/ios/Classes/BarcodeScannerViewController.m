@@ -61,7 +61,7 @@
     CGFloat kStatusBarH = isIPhone8X ? 44.0 : 20.0;
     
     self.backLabelButton = [[BackButton alloc]init];
-    self.backLabelButton.frame = CGRectMake(10, kStatusBarH+5, 40, 40);
+    self.backLabelButton.frame = CGRectMake(10, [UIScreen mainScreen].bounds.size.height - 80, 40, 40);
     self.backLabelButton.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
     self.backLabelButton.layer.cornerRadius = 20;
     self.backLabelButton.layer.masksToBounds = true;

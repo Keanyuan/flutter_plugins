@@ -4,99 +4,89 @@
 
 package io.flutter.plugins.imagepicker;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
 class ImageResizer {
-  private final File externalFilesDirectory;
-  private final ExifDataCopier exifDataCopier;
+    private final File externalFilesDirectory;
+    private final ExifDataCopier exifDataCopier;
 
-  ImageResizer(File externalFilesDirectory, ExifDataCopier exifDataCopier) {
-    this.externalFilesDirectory = externalFilesDirectory;
-    this.exifDataCopier = exifDataCopier;
-  }
-
-  /**
-   * If necessary, resizes the image located in imagePath and then returns the path for the scaled
-   * image.
-   *
-   * <p>If no resizing is needed, returns the path for the original image.
-   */
-  String resizeImageIfNeeded(String imagePath, Double maxWidth, Double maxHeight) {
-    boolean shouldScale = maxWidth != null || maxHeight != null;
-
-    if (!shouldScale) {
-      return imagePath;
+    ImageResizer(File externalFilesDirectory, ExifDataCopier exifDataCopier) {
+        this.externalFilesDirectory = externalFilesDirectory;
+        this.exifDataCopier = exifDataCopier;
     }
 
-    try {
-      File scaledImage = resizedImage(imagePath, maxWidth, maxHeight);
-      exifDataCopier.copyExif(imagePath, scaledImage.getPath());
+    /**
+     * If necessary, resizes the image located in imagePath and then returns the path for the scaled
+     * image.
+     *
+     * <p>If no resizing is needed, returns the path for the original image.
+     */
+    String resizeImageIfNeeded(Context context, String imagePath, Double maxWidth, Double maxHeight) {
+        try {
+            File scaledImage = resizedImage(context, imagePath, maxWidth, maxHeight);
+            exifDataCopier.copyExif(imagePath, scaledImage.getPath());
 
-      return scaledImage.getPath();
-    } catch (IOException e) {
-      throw new RuntimeException(e);
+            return scaledImage.getPath();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
-  }
 
-  private File resizedImage(String path, Double maxWidth, Double maxHeight) throws IOException {
-    Bitmap bmp = BitmapFactory.decodeFile(path);
-    double originalWidth = bmp.getWidth() * 1.0;
-    double originalHeight = bmp.getHeight() * 1.0;
+    //避免OOM
+    private Bitmap getZoomBitmapFromURI(String path, int targetWidth, int targetHeight) {
+        BitmapFactory.Options ops = new BitmapFactory.Options();
+        ops.inJustDecodeBounds = true;
+        Bitmap bm = BitmapFactory.decodeFile(path, ops);
+        ops.inSampleSize = 1;
+        int oHeight = ops.outHeight;
+        int oWidth = ops.outWidth;
 
-    boolean hasMaxWidth = maxWidth != null;
-    boolean hasMaxHeight = maxHeight != null;
-
-    Double width = hasMaxWidth ? Math.min(originalWidth, maxWidth) : originalWidth;
-    Double height = hasMaxHeight ? Math.min(originalHeight, maxHeight) : originalHeight;
-
-    boolean shouldDownscaleWidth = hasMaxWidth && maxWidth < originalWidth;
-    boolean shouldDownscaleHeight = hasMaxHeight && maxHeight < originalHeight;
-    boolean shouldDownscale = shouldDownscaleWidth || shouldDownscaleHeight;
-
-    if (shouldDownscale) {
-      double downscaledWidth = (height / originalHeight) * originalWidth;
-      double downscaledHeight = (width / originalWidth) * originalHeight;
-
-      if (width < height) {
-        if (!hasMaxWidth) {
-          width = downscaledWidth;
+        if (((float) oHeight / targetHeight) < ((float) oWidth / targetWidth)) {
+            ops.inSampleSize = (int) Math.ceil((float) oWidth / targetWidth);
         } else {
-          height = downscaledHeight;
+            ops.inSampleSize = (int) Math.ceil((float) oHeight / targetHeight);
         }
-      } else if (height < width) {
-        if (!hasMaxHeight) {
-          height = downscaledHeight;
-        } else {
-          width = downscaledWidth;
-        }
-      } else {
-        if (originalWidth < originalHeight) {
-          width = downscaledWidth;
-        } else if (originalHeight < originalWidth) {
-          height = downscaledHeight;
-        }
-      }
+        ops.inJustDecodeBounds = false;
+        bm = BitmapFactory.decodeFile(path, ops);
+        return bm;
     }
 
-    Bitmap scaledBmp = Bitmap.createScaledBitmap(bmp, width.intValue(), height.intValue(), false);
-    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    boolean saveAsPNG = bmp.hasAlpha();
-    scaledBmp.compress(
-        saveAsPNG ? Bitmap.CompressFormat.PNG : Bitmap.CompressFormat.JPEG, 100, outputStream);
+    private File resizedImage(Context context, String path, Double maxWidth, Double maxHeight) throws IOException {
+        int screenWidth = context.getResources().getDisplayMetrics().widthPixels;
+        int screenHeight = context.getResources().getDisplayMetrics().heightPixels;
+        if (maxWidth == null || maxHeight == null) {
+            maxWidth = screenWidth * 1.0;
+            maxHeight = screenHeight * 1.0;
+        }
+        //保持比例
+        if (maxWidth != null && maxWidth > screenWidth) {
+            maxHeight = (maxWidth / screenWidth) * screenHeight;
+            maxWidth = screenWidth * 1.0;
+        }
+        //清晰度处理
+        Bitmap bmp = getZoomBitmapFromURI(path, maxWidth.intValue(), maxHeight.intValue());
 
-    String[] pathParts = path.split("/");
-    String imageName = pathParts[pathParts.length - 1];
+        //压缩保存
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        boolean saveAsPNG = bmp.hasAlpha();
+        bmp.compress(
+                saveAsPNG ? Bitmap.CompressFormat.PNG : Bitmap.CompressFormat.JPEG, 100, outputStream);
 
-    File imageFile = new File(externalFilesDirectory, "/scaled_" + imageName);
-    FileOutputStream fileOutput = new FileOutputStream(imageFile);
-    fileOutput.write(outputStream.toByteArray());
-    fileOutput.close();
+        String[] pathParts = path.split("/");
+        String imageName = pathParts[pathParts.length - 1];
 
-    return imageFile;
-  }
+        File imageFile = new File(externalFilesDirectory, "/scaled_" + imageName);
+        FileOutputStream fileOutput = new FileOutputStream(imageFile);
+        fileOutput.write(outputStream.toByteArray());
+        fileOutput.close();
+
+        return imageFile;
+    }
 }

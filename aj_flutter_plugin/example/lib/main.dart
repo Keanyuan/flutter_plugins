@@ -33,7 +33,8 @@ class _MyAppState extends State<MyApp> {
       platformVersion = "appName:${info.appName}\n" +
           "packageName: ${info.packageName}\n" +
           "version:${info.version}\n" +
-          "buildNumber:${info.buildNumber}";
+          "buildNumber:${info.buildNumber}" +
+          "deviceId:${info.deviceId}";
 
       print(platformVersion);
     } on PlatformException {
@@ -118,15 +119,21 @@ class _MyAppState extends State<MyApp> {
               FlatButton(
                 color: Colors.black12,
                 onPressed: () async {
-                  int permissState = await AjFlutterPlugin.getLocationPermissions();
+                  int permissState =
+                      await AjFlutterPlugin.getLocationPermissions();
                   _platformVersion = "$permissState";
-                  setState(() {
-                  });
+                  setState(() {});
                 },
                 child: Text("获取权限"),
               ),
+              FlatButton(
+                color: Colors.black12,
+                onPressed: () async {
+                  await AjFlutterPlugin.getSelfStart();
+                },
+                child: Text("Android APP自启动"),
+              ),
               //getLocationPermissions
-
             ],
           )),
         ),

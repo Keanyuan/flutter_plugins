@@ -1,13 +1,19 @@
 # flutter_umeng_analytics
 
 Flutter plugin for [umeng:analytics](http://mobile.umeng.com/analytics)
+##Install
+pubspec.yaml add:
 
+flutter_umeng_analytics:
+    git:
+      url: http://gitlab.anji-allways.com/mobileteam/modules.git
+      path: flutter_umeng_analytics
 ## Usage
 
 ### Init
 ```dart
 import 'package:platform/platform.dart';
-
+//debug or release version?
 final Platform platform = const LocalPlatform();
 if (platform.isAndroid)
   UMengAnalytics.init('Android AppKey',
