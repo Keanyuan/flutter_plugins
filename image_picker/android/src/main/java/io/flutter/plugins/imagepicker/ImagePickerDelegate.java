@@ -440,10 +440,15 @@ public class ImagePickerDelegate
 
     @Override
     public boolean onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (REQUEST_CODE_CHOOSE_IMAGE_FROM_GALLERY == requestCode && resultCode == RESULT_OK) {
-            PictureHandleTask pictureHandleTask = new PictureHandleTask(requestCode, resultCode, data);
-            pictureHandleTask.execute();
-            return true;
+        if (resultCode == RESULT_OK) {
+            if (requestCode == REQUEST_CODE_CHOOSE_IMAGE_FROM_GALLERY
+                    || requestCode == REQUEST_CODE_TAKE_IMAGE_WITH_CAMERA) {
+                PictureHandleTask pictureHandleTask = new PictureHandleTask(requestCode, resultCode, data);
+                pictureHandleTask.execute();
+                return true;
+            }
+        } else if (pendingResult != null) {
+            pendingResult.notImplemented();
         }
         return false;
     }
@@ -594,9 +599,9 @@ public class ImagePickerDelegate
 
     private boolean setPendingMethodCallAndResult(
             MethodCall methodCall, MethodChannel.Result result) {
-        if (pendingResult != null) {
-            return false;
-        }
+//        if (pendingResult != null) {
+//            return false;
+//        }
 
         this.methodCall = methodCall;
         pendingResult = result;
