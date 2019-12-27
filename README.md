@@ -76,3 +76,7 @@ path: xxx
 
 6、[image_picker](./image_picker/) 
 使用详细描述[【README.md】](./image_picker/README.md))
+
+
+7、[aj_flutter_component](./aj_flutter_component/) 
+使用详细描述[【README.md】](./aj_flutter_component/README.md))
