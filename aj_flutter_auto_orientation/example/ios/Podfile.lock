@@ -14,9 +14,9 @@ EXTERNAL SOURCES:
     :path: ".symlinks/flutter/ios"
 
 SPEC CHECKSUMS:
-  aj_flutter_auto_orientation: a37c6d7cb7218fc3ec9dec3573b74f5d6066e5ba
-  Flutter: 9d0fac939486c9aba2809b7982dfdbb47a7b0296
+  aj_flutter_auto_orientation: 75ac0d926e905a8d5022d5b91121bf2c4e684a06
+  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
 
 PODFILE CHECKSUM: aff02bfeed411c636180d6812254b2daeea14d09
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.6.0
