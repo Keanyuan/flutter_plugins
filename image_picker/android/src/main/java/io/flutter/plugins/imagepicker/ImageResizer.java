@@ -31,6 +31,9 @@ class ImageResizer {
     String resizeImageIfNeeded(Context context, String imagePath, Double maxWidth, Double maxHeight) {
         try {
             File scaledImage = resizedImage(context, imagePath, maxWidth, maxHeight);
+            if (scaledImage == null) {
+                return null;
+            }
             exifDataCopier.copyExif(imagePath, scaledImage.getPath());
 
             return scaledImage.getPath();
@@ -72,7 +75,9 @@ class ImageResizer {
         }
         //清晰度处理
         Bitmap bmp = getZoomBitmapFromURI(path, maxWidth.intValue(), maxHeight.intValue());
-
+        if (bmp == null) {
+            return null;
+        }
         //压缩保存
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         boolean saveAsPNG = bmp.hasAlpha();

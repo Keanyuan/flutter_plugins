@@ -523,6 +523,12 @@ public class ImagePickerDelegate
             Double compressSize = methodCall.argument("compressSize");
             //2 裁剪尺寸
             String screenImagePath = imageResizer.resizeImageIfNeeded(activity, path, maxWidth, maxHeight);
+            if (screenImagePath == null) {
+                if (pendingResult != null) {
+                    pendingResult.notImplemented();
+                }
+                return;
+            }
             //3 压缩大小
             String finalImagePath = PhotoBitmapUtils.getCompressPhotoUrl(screenImagePath, compressSize);
             finishWithSuccess(finalImagePath);
