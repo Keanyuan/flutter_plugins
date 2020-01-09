@@ -225,6 +225,11 @@ class _VersionUpdateWidgetState extends State<VersionUpdateWidget> {
   downloadFile(String apkUrl) async {
     Response response;
     Dio dio = new Dio();
+    (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
+        (client) {
+      client.badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+    };
     // 获取本地文档目录
     String dir = (await getExternalStorageDirectory()).path;
     //保证唯一
