@@ -8,7 +8,8 @@ import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 const kAndroidUserAgent =
     'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Mobile Safari/537.36';
 
-String selectedUrl = 'http://10.108.11.46/mweb/#/appMonitorChartList';
+//String selectedUrl = 'http://10.108.11.46/mweb/#/appMonitorChartList';
+String selectedUrl = 'http://10.108.2.139:30245/#/feedback?code=D000000165&userName=张莹金口&sgin=A64AE97249DEB03E488E7B9FD258FC57';
 
 // http://10.108.11.46/mweb/#/appMonitorChartList??token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI5IiwiZXhwIjoxNTY0OTEyNTM0fQ.eb8KstYlIOT7NwM4TPKO35HlpLm7Hl_P5p8KdBXBkDhgxX6qV0puvb9FQxeJ6jVCJuef-sCEzCwQ2Sb95VpR7Q&projectId=8&connectName=0&plateform=3
 //flutter: str.length 255
