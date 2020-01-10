@@ -164,27 +164,25 @@ static NSString *const CHANNEL_NAME = @"flutter_webview_plugin";
 
 - (void)navigate:(FlutterMethodCall*)call {
     if (self.webview != nil) {
-        NSString *url = call.arguments[@"url"];
-        url = (NSString*) CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
-        (CFStringRef)url,(CFStringRef)@"!$&'()*+,-./:;=?@_~%#[]",NULL, kCFStringEncodingUTF8));
-        NSNumber *withLocalUrl = call.arguments[@"withLocalUrl"];
-        if ( [withLocalUrl boolValue]) {
-            NSURL *htmlUrl = [NSURL fileURLWithPath:url isDirectory:false];
-            if (@available(iOS 9.0, *)) {
-                [self.webview loadFileURL:htmlUrl allowingReadAccessToURL:htmlUrl];
+            NSString *url = call.arguments[@"url"];
+            NSNumber *withLocalUrl = call.arguments[@"withLocalUrl"];
+            if ( [withLocalUrl boolValue]) {
+                NSURL *htmlUrl = [NSURL fileURLWithPath:url isDirectory:false];
+                if (@available(iOS 9.0, *)) {
+                    [self.webview loadFileURL:htmlUrl allowingReadAccessToURL:htmlUrl];
+                } else {
+                    @throw @"not available on version earlier than ios 9.0";
+                }
             } else {
-                @throw @"not available on version earlier than ios 9.0";
-            }
-        } else {
-            NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
-            NSDictionary *headers = call.arguments[@"headers"];
+                NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
+                NSDictionary *headers = call.arguments[@"headers"];
 
-            if (headers != nil) {
-                [request setAllHTTPHeaderFields:headers];
-            }
+                if (headers != nil) {
+                    [request setAllHTTPHeaderFields:headers];
+                }
 
-            [self.webview loadRequest:request];
-        }
+                [self.webview loadRequest:request];
+            }
         }
 }
 
@@ -233,8 +231,6 @@ static NSString *const CHANNEL_NAME = @"flutter_webview_plugin";
 - (void)reloadUrl:(FlutterMethodCall*)call {
     if (self.webview != nil) {
 		NSString *url = call.arguments[@"url"];
-        url = (NSString*) CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
-        (CFStringRef)url,(CFStringRef)@"!$&'()*+,-./:;=?@_~%#[]",NULL, kCFStringEncodingUTF8));
 		NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
         [self.webview loadRequest:request];
     }
