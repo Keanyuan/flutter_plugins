@@ -10,6 +10,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.graphics.Bitmap;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -226,7 +227,14 @@ public class ImagePickerDelegate
         if (path != null) {
             Double maxWidth = (Double) resultMap.get(ImagePickerCache.MAP_KEY_MAX_WIDTH);
             Double maxHeight = (Double) resultMap.get(ImagePickerCache.MAP_KEY_MAX_HEIGHT);
-            String newPath = imageResizer.resizeImageIfNeeded(activity, path, maxWidth, maxHeight);
+            Bitmap bitmap = imageResizer.resizedBitmap(activity, path, maxWidth, maxHeight);
+            if (bitmap == null) {
+                if (pendingResult != null) {
+                    pendingResult.notImplemented();
+                }
+                return;
+            }
+            String newPath = PhotoBitmapUtils.getCompressPhotoUrl(externalFilesDirectory, bitmap, path, 0d);
             resultMap.put(ImagePickerCache.MAP_KEY_PATH, newPath);
         }
         if (resultMap.isEmpty()) {
@@ -485,8 +493,8 @@ public class ImagePickerDelegate
                         @Override
                         public void onPathReady(String path) {
                             //1 解决三星手机拍照旋转的问题 这里已经质量压缩到原来的十分之一了
-                            String filePath = PhotoBitmapUtils.amendRotatePhoto(path, activity);
-                            handleImageResult(filePath, true);
+//                            String filePath = PhotoBitmapUtils.amendRotatePhoto(path, activity);
+                            handleImageResult(path, true);
 
                         }
                     });
@@ -522,15 +530,15 @@ public class ImagePickerDelegate
             Double maxHeight = methodCall.argument("maxHeight");
             Double compressSize = methodCall.argument("compressSize");
             //2 裁剪尺寸
-            String screenImagePath = imageResizer.resizeImageIfNeeded(activity, path, maxWidth, maxHeight);
-            if (screenImagePath == null) {
+            Bitmap bitmap = imageResizer.resizedBitmap(activity, path, maxWidth, maxHeight);
+            if (bitmap == null) {
                 if (pendingResult != null) {
                     pendingResult.notImplemented();
                 }
                 return;
             }
             //3 压缩大小
-            String finalImagePath = PhotoBitmapUtils.getCompressPhotoUrl(screenImagePath, compressSize);
+            String finalImagePath = PhotoBitmapUtils.getCompressPhotoUrl(externalFilesDirectory, bitmap, path, compressSize);
             finishWithSuccess(finalImagePath);
             //delete original file if scaled
             if (!finalImagePath.equals(path) && shouldDeleteOriginalIfScaled) {
