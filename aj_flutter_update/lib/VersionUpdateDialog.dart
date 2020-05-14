@@ -26,7 +26,8 @@ class VersionUpdateDialog extends Dialog {
   bool mustUpdate;
   String downloadUrl;
   List<String> versionMsgList;
-
+  GestureTapCallback onConformTap;
+  GestureTapCallback onCancelTap;
   VersionUpdateDialog({
     Key key,
     this.iconPath,
@@ -38,6 +39,8 @@ class VersionUpdateDialog extends Dialog {
     this.versionMsgList,
     this.titleColor,
     this.buttonColor,
+    this.onCancelTap,
+    this.onConformTap,
   })  : assert(minHeight > 0),
         super(key: key);
 
@@ -53,6 +56,8 @@ class VersionUpdateDialog extends Dialog {
       versionMsgList: versionMsgList,
       titleColor: titleColor,
       buttonColor: buttonColor,
+      onCancelTap: onCancelTap,
+      onConformTap: onConformTap,
     );
   }
 }
@@ -72,6 +77,8 @@ class VersionUpdateWidget extends StatefulWidget {
   String downloadUrl;
   bool mustUpdate;
   List<String> versionMsgList;
+  GestureTapCallback onConformTap;
+  GestureTapCallback onCancelTap;
 
   VersionUpdateWidget({
     Key key,
@@ -85,6 +92,8 @@ class VersionUpdateWidget extends StatefulWidget {
     this.versionMsgList,
     this.titleColor,
     this.buttonColor,
+    this.onCancelTap,
+    this.onConformTap,
   }) : super(key: key);
 
   @override
@@ -181,8 +190,14 @@ class _VersionUpdateWidgetState extends State<VersionUpdateWidget> {
               onTap: () {
                 if (widget.mustUpdate) {
                   AppUtils.popApp();
+                  if(widget.onCancelTap != null){
+                    widget.onCancelTap();
+                  }
                 } else {
                   Navigator.of(context).pop();
+                  if(widget.onCancelTap != null){
+                    widget.onCancelTap();
+                  }
                 }
               },
               borderRadius: BorderRadius.only(
@@ -214,6 +229,10 @@ class _VersionUpdateWidgetState extends State<VersionUpdateWidget> {
                 //开始下载
                 if (widget != null) {
                   downloadFile(widget.downloadUrl);
+                } else {
+                  if(widget.onConformTap != null){
+                    widget.onConformTap();
+                  }
                 }
               },
               borderRadius: BorderRadius.only(
@@ -398,6 +417,9 @@ class _iOSVersionUpdateWidgetState extends State<VersionUpdateWidget> {
               ),
               onTap: () {
                 Navigator.of(context).pop();
+                if(widget.onCancelTap != null){
+                  widget.onCancelTap();
+                }
               },
               borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(widget.radius))),
@@ -425,6 +447,9 @@ class _iOSVersionUpdateWidgetState extends State<VersionUpdateWidget> {
               ),
               onTap: () {
                 AppUtils.gotoAppstore(context, widget.downloadUrl);
+                if(widget.onConformTap != null){
+                  widget.onConformTap();
+                }
               },
               borderRadius: widget.mustUpdate
                   ? BorderRadius.only(
@@ -487,6 +512,9 @@ class _iOSVersionUpdateWidgetState extends State<VersionUpdateWidget> {
           AppUtils.popApp();
         } else {
           Navigator.of(context).pop();
+          if(widget.onCancelTap != null){
+            widget.onCancelTap();
+          }
         }
       },
     );
