@@ -1,18 +1,19 @@
 name: aj_flutter_update
 description: version update Flutter plugin.
-version: 0.0.2
+version: 0.0.3
 author:
 homepage:
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
+  flutter: ">=1.12.13+hotfix.5"
 
 dependencies:
   flutter:
     sdk: flutter
 #  simple_permissions: ^0.1.9
   permission_handler: ^3.1.0
-  dio: ^2.1.2 #网络请求
+  dio: ^3.0.1 #网络请求
   path_provider: ^0.5.0+1
 
 dev_dependencies:
