@@ -18,6 +18,7 @@ import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Vibrator;
+import android.util.Log;
 
 import androidx.annotation.VisibleForTesting;
 import androidx.core.app.ActivityCompat;
@@ -220,6 +221,8 @@ public class ImagePickerDelegate
 
     }
 
+    private boolean isflag = false;//从扫描的页面进入相册时别
+
     void retrieveLostImage(MethodChannel.Result result) {
         Map<String, Object> resultMap = ImagePickerCache.getCacheMap();
         String path = (String) resultMap.get(ImagePickerCache.MAP_KEY_PATH);
@@ -261,6 +264,12 @@ public class ImagePickerDelegate
         launchPickImageFromGalleryIntent();
     }
 
+    //相册
+    public void chooseImageFromGallery() {
+        isflag = true;
+        launchPickImageFromGalleryIntent();
+    }
+
     private boolean needRequestCameraPermission() {
         if (permissionManager == null) {
             return false;
@@ -280,6 +289,7 @@ public class ImagePickerDelegate
         pickImageIntent.setType("image/*");
 
         activity.startActivityForResult(pickImageIntent, REQUEST_CODE_CHOOSE_IMAGE_FROM_GALLERY);
+
     }
 
     @Override
@@ -320,6 +330,12 @@ public class ImagePickerDelegate
 
     @Override
     public boolean onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        //从扫描页进入到相册中选择图片识别
+        if (REQUEST_CODE_TAKE_IMAGE_WITH_CAMERA == requestCode && isflag) {
+            isflag = false;
+            return false;
+        }
         //从相机识别，这里无需异步
         if (REQUEST_CODE_TAKE_IMAGE_WITH_CAMERA == requestCode) {
             String code = data.getStringExtra("resultCode");
@@ -506,4 +522,5 @@ public class ImagePickerDelegate
             vibrator.vibrate(VIBRATE_DURATION);
         }
     }
+
 }

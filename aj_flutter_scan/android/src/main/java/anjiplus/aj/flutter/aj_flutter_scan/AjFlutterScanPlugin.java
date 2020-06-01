@@ -40,6 +40,10 @@ public class AjFlutterScanPlugin implements MethodCallHandler {
         channel.setMethodCallHandler(new AjFlutterScanPlugin());
     }
 
+    public static ImagePickerDelegate getDelegate() {
+        return delegate;
+    }
+
     // MethodChannel.Result wrapper that responds on the platform thread.
     private static class MethodResultWrapper implements MethodChannel.Result {
         private MethodChannel.Result methodResult;
