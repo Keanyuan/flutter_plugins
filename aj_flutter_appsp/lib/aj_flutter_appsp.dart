@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'sp_resp_update_model.dart';
@@ -18,10 +17,9 @@ class AjFlutterAppSp {
 
   static Future<SpRespNoticeModel> getNoticeModel({String appKey}) async {
     final String jsonStr =
-    await _channel.invokeMethod('getNoticeModel', {"appKey": appKey});
+        await _channel.invokeMethod('getNoticeModel', {"appKey": appKey});
     SpRespNoticeModel noticeModel =
-    SpRespNoticeModel.fromJson(json.decode(jsonStr));
+        SpRespNoticeModel.fromJson(json.decode(jsonStr));
     return noticeModel;
   }
-
 }

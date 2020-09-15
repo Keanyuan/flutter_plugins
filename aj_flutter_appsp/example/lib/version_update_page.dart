@@ -34,7 +34,7 @@ enum UpdateType {
 }
 
 class _VersionUpdateState extends State<VersionUpdateWidget> {
-  static const String appKey = "64cf5a851f37c6c0ab7a3186a2377d5d";
+  static const String appKey = "b9abfa24ee644e1d8baa39cef165261d";
 
   @override
   void initState() {
@@ -54,8 +54,8 @@ class _VersionUpdateState extends State<VersionUpdateWidget> {
     }
     print("spUpdateModel is $updateModel ");
     String errorMsg = null;
-    if (AppSpStatusCode.StatusCode_Success != updateModel.code) {
-      errorMsg = updateModel.errorMsg;
+    if (AppSpStatusCode.StatusCode_Success != updateModel.repCode) {
+      errorMsg = updateModel.repMsg;
     }
 
     if (errorMsg != null) {
@@ -67,41 +67,50 @@ class _VersionUpdateState extends State<VersionUpdateWidget> {
     }
   }
 
-  void _handleUpdate(SpRespUpdateModel updateModel, UpdateType updateType) {
-    if (updateModel == null) {
+  void _handleUpdate(SpRespUpdateModel respModel, UpdateType updateType) {
+    if (respModel == null) {
       return;
+    }
+    //是否是外部链接，如果是，跳转到外部H5，否则直接下载
+    bool isExternalUrl = true;
+    UpdateModel updateModel = respModel.repData;
+    if (updateModel != null &&
+        updateModel.downloadUrl != null &&
+        updateModel.downloadUrl.contains(".apk")) {
+      isExternalUrl = false;
     }
     if (updateType != null) {
       switch (updateType) {
         case UpdateType.Normal:
           //无需改造数据，用服务器返回数据，下面的都是模拟的数据
-          //ignore
           break;
         case UpdateType.Force:
           //是外部地址，需要跳转H5
-          updateModel.isExternalUrl = false;
+          isExternalUrl = false;
           //强制更新
           updateModel.mustUpdate = true;
           break;
         case UpdateType.NotForce:
-          updateModel.isExternalUrl = false;
+          isExternalUrl = false;
           updateModel.mustUpdate = false;
           break;
         case UpdateType.ForceH5:
-          updateModel.isExternalUrl = true;
-          updateModel.url = "https://shouji.baidu.com/software/27007946.html";
+          isExternalUrl = true;
+          updateModel.downloadUrl =
+              "https://shouji.baidu.com/software/27007946.html";
           updateModel.mustUpdate = true;
           break;
         case UpdateType.NotForceH5:
-          updateModel.isExternalUrl = true;
-          updateModel.url = "https://shouji.baidu.com/software/27007946.html";
+          isExternalUrl = true;
+          updateModel.downloadUrl =
+              "https://shouji.baidu.com/software/27007946.html";
           updateModel.mustUpdate = false;
           break;
         default:
           break;
       }
     }
-    if (!updateModel.showUpdate) {
+    if (updateModel.showUpdate != null && !updateModel.showUpdate) {
       Scaffold.of(context).showSnackBar(
         SnackBar(content: Text("当前为最新版本")),
       );
@@ -109,10 +118,10 @@ class _VersionUpdateState extends State<VersionUpdateWidget> {
     }
     _versionUpdate(
         context: context,
-        url: updateModel.url,
+        url: updateModel.downloadUrl,
         updateLog: updateModel.updateLog,
         mustUpdate: updateModel.mustUpdate,
-        isExternalUrl: updateModel.isExternalUrl);
+        isExternalUrl: isExternalUrl);
   }
 
   ///url: url or

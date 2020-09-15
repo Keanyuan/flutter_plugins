@@ -1,19 +1,12 @@
 package anjiplus.aj_flutter_appsp;
 
-import android.app.Activity;
-import android.app.Application;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.anji.appsp.sdk.AppSpConfig;
 import com.anji.appsp.sdk.AppSpLog;
 import com.anji.appsp.sdk.IAppSpNoticeCallback;
 import com.anji.appsp.sdk.IAppSpVersionUpdateCallback;
-import com.anji.appsp.sdk.model.AppSpNoticeModel;
-import com.anji.appsp.sdk.model.AppSpUpdateModel;
 
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
@@ -21,8 +14,12 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 import io.flutter.plugin.common.PluginRegistry.Registrar;
 
+import com.anji.appsp.sdk.model.AppSpModel;
+import com.anji.appsp.sdk.model.AppSpNoticeModelItem;
+import com.anji.appsp.sdk.model.AppSpVersion;
 import com.google.gson.Gson;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -90,15 +87,30 @@ public class AjFlutterAppspPlugin implements MethodCallHandler {
         AppSpConfig.getInstance().init(registrar.activity(), appKey);
         AppSpConfig.getInstance().setVersionUpdateCallback(new IAppSpVersionUpdateCallback() {
             @Override
-            public void update(AppSpUpdateModel updateModel) {
-                AppSpLog.d("Test updateModel is " + updateModel);
-                if (updateModel == null) {
+            public void update(AppSpModel<AppSpVersion> spModel) {
+                AppSpLog.d("Test updateModel is " + spModel);
+                if (spModel == null) {
                     resultWrapper.notImplemented();
                 } else {
                     //先转成json
-                    resultWrapper.success(new Gson().toJson(updateModel));
+                    if (spModel.getRepData() != null) {
+                        resultWrapper.success(new Gson().toJson(spModel));
+                    } else {
+                        AppSpModel tempModel = new AppSpModel<>();
+                        tempModel.setRepCode(spModel.getRepCode());
+                        tempModel.setRepMsg(spModel.getRepMsg());
+                        resultWrapper.success(new Gson().toJson(tempModel));
+                    }
                 }
 
+            }
+
+            @Override
+            public void error(String code, String msg) {
+                AppSpModel<AppSpVersion> spModel = new AppSpModel<>();
+                spModel.setRepCode(code);
+                spModel.setRepMsg(msg);
+                resultWrapper.success(new Gson().toJson(spModel));
             }
         });
     }
@@ -107,21 +119,32 @@ public class AjFlutterAppspPlugin implements MethodCallHandler {
         AppSpConfig.getInstance().init(registrar.activity(), appKey);
         AppSpConfig.getInstance().setNoticeCallback(new IAppSpNoticeCallback() {
             @Override
-            public void notice(AppSpNoticeModel noticeModel) {
+            public void notice(AppSpModel<List<AppSpNoticeModelItem>> noticeModel) {
                 AppSpLog.d("Test noticeModel is " + noticeModel);
 
                 if (noticeModel == null) {
                     resultWrapper.notImplemented();
+                } else if (noticeModel.getRepData() != null) {
+                    resultWrapper.success(new Gson().toJson(noticeModel));
                 } else {
                     //先转成json
-                    resultWrapper.success(new Gson().toJson(noticeModel));
+                    AppSpModel tempModel = new AppSpModel<>();
+                    tempModel.setRepCode(noticeModel.getRepCode());
+                    tempModel.setRepMsg(noticeModel.getRepMsg());
+                    resultWrapper.success(new Gson().toJson(tempModel));
                 }
 
             }
+
+            @Override
+            public void error(String code, String msg) {
+                AppSpModel<List<AppSpNoticeModelItem>> noticeModel = new AppSpModel<>();
+                noticeModel.setRepCode(code);
+                noticeModel.setRepMsg(msg);
+                resultWrapper.success(new Gson().toJson(noticeModel));
+            }
         });
     }
-
-    MethodChannel.Result resultWrapper;
 
     @Override
     public void onMethodCall(MethodCall call, Result result) {

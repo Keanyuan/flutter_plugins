@@ -1,42 +1,36 @@
 import 'sp_notice_model_item.dart';
 
 class SpRespNoticeModel {
-  List<SpNoticeModelItem> modelItemList;
-  String code;
-  String errorMsg;
-  SpRespNoticeModel(
-      {this.modelItemList,
-        this.code,
-        this.errorMsg
-        });
+  List<SpNoticeModelItem> repData;
+  String repCode;
+  String repMsg;
 
+  SpRespNoticeModel({this.repData, this.repCode, this.repMsg});
 
   SpRespNoticeModel.fromJson(Map<String, dynamic> json) {
-    if (json['modelItemList'] != null) {
-      modelItemList = new List<SpNoticeModelItem>();
-      json['modelItemList'].forEach((v) {
-        modelItemList.add(new SpNoticeModelItem.fromJson(v));
+    if (json['repData'] != null) {
+      repData = new List<SpNoticeModelItem>();
+      json['repData'].forEach((v) {
+        repData.add(new SpNoticeModelItem.fromJson(v));
       });
     }
-    code = json['code'];
-    errorMsg = json['errorMsg'];
+    repCode = json['repCode'];
+    repMsg = json['repMsg'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.modelItemList != null) {
-      data['modelItemList'] =
-          this.modelItemList.map((v) => v.toJson()).toList();
+    if (this.repData != null) {
+      data['repData'] =
+          this.repData.map((v) => v.toJson()).toList();
     }
-    data['code'] = this.code;
-    data['errorMsg'] = this.errorMsg;
+    data['repCode'] = this.repCode;
+    data['repMsg'] = this.repMsg;
     return data;
   }
 
   @override
   String toString() {
-    return 'SpRespNoticeModel{modelItemList: $modelItemList, code: $code, errorMsg: $errorMsg}';
+    return 'SpRespNoticeModel{repData: $repData, repCode: $repCode, repMsg: $repMsg}';
   }
-
-
 }

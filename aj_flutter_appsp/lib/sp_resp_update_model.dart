@@ -1,48 +1,65 @@
 class SpRespUpdateModel {
-  bool isExternalUrl;
-  bool mustUpdate;
-  bool showUpdate;
-  String code;
-  String errorMsg;
-  String updateLog;
-  String url;
+  String repCode;
+  String repMsg;
+  UpdateModel repData;
 
-  SpRespUpdateModel({this.isExternalUrl,
-    this.mustUpdate,
-    this.showUpdate,
-    this.code,
-    this.errorMsg,
-    this.updateLog,
-    this.url});
-
+  SpRespUpdateModel({
+    this.repCode,
+    this.repMsg,
+    this.repData,
+  });
 
   SpRespUpdateModel.fromJson(Map<String, dynamic> json) {
-    isExternalUrl = json['isExternalUrl'];
-    mustUpdate = json['mustUpdate'];
-    showUpdate = json['showUpdate'];
-    code = json['code'];
-    errorMsg = json['errorMsg'];
-    updateLog = json['updateLog'];
-    url = json['url'];
+    repCode = json['repCode'];
+    repMsg = json['repMsg'];
+    repData = json['repData'] != null
+        ? new UpdateModel.fromJson(json['repData'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['isExternalUrl'] = this.isExternalUrl;
-    data['mustUpdate'] = this.mustUpdate;
-    data['showUpdate'] = this.showUpdate;
-    data['code'] = this.code;
-    data['errorMsg'] = this.errorMsg;
-    data['updateLog'] = this.updateLog;
-    data['url'] = this.url;
+    data['repCode'] = this.repCode;
+    data['repMsg'] = this.repMsg;
+    if (this.repData != null) {
+      data['repData'] = this.repData.toJson();
+    }
     return data;
   }
 
+  @override
+  String toString() {
+    return 'SpRespUpdateModel{repCode: $repCode, repMsg: $repMsg, repData: $repData}';
+  }
+}
+
+class UpdateModel {
+  bool mustUpdate;
+  bool showUpdate;
+  String updateLog;
+  String downloadUrl;
+
+  UpdateModel(
+      {this.mustUpdate, this.showUpdate, this.updateLog, this.downloadUrl});
+
+  UpdateModel.fromJson(Map<String, dynamic> json) {
+    mustUpdate = json['mustUpdate'];
+    showUpdate = json['showUpdate'];
+    updateLog = json['updateLog'];
+    downloadUrl = json['downloadUrl'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['mustUpdate'] = this.mustUpdate;
+    data['showUpdate'] = this.showUpdate;
+    data['updateLog'] = this.updateLog;
+    data['downloadUrl'] = this.downloadUrl;
+    return data;
+  }
 
   @override
   String toString() {
-    return 'SpRespUpdateModel{isExternalUrl: $isExternalUrl, mustUpdate: $mustUpdate, showUpdate: $showUpdate, code: $code, errorMsg: $errorMsg, updateLog: $updateLog, url: $url}';
+    return 'UpdateModel{mustUpdate: $mustUpdate, showUpdate: $showUpdate, updateLog: $updateLog, downloadUrl: $downloadUrl}';
   }
-
-
 }

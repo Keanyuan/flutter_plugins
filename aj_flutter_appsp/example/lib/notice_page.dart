@@ -26,7 +26,7 @@ class NoticeWidget extends StatefulWidget {
 }
 
 class _NoticeState extends State<NoticeWidget> {
-  static const String appKey = "64cf5a851f37c6c0ab7a3186a2377d5d";
+  static const String appKey = "b9abfa24ee644e1d8baa39cef165261d";
   List<SpNoticeModelItem> marqueeeItems = [];
   var _scaffoldkey = new GlobalKey<ScaffoldState>();
 
@@ -48,8 +48,8 @@ class _NoticeState extends State<NoticeWidget> {
     }
     print("noticeModel is $noticeModel ");
     String errorMsg = null;
-    if (AppSpStatusCode.StatusCode_Success != noticeModel.code) {
-      errorMsg = noticeModel.errorMsg;
+    if (AppSpStatusCode.StatusCode_Success != noticeModel.repCode) {
+      errorMsg = noticeModel.repMsg;
     }
 
     if (errorMsg != null) {
@@ -57,7 +57,7 @@ class _NoticeState extends State<NoticeWidget> {
       _scaffoldkey.currentState.showSnackBar(snackBar);
       return;
     } else {
-      _handleNotice(noticeModel.modelItemList, noticeType);
+      _handleNotice(noticeModel.repData, noticeType);
     }
   }
 

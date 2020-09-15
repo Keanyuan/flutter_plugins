@@ -41,5 +41,5 @@ dependencies {
     api "androidx.appcompat:appcompat:1.0.0"
     api 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.code.gson:gson:2.8.0'
-    api 'anji.sdk.appsp:aar:1.0.1'
+    api 'anji.sdk.appsp:aar:1.0.0'
 }
