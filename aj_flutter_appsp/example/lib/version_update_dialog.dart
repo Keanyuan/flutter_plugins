@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'dart:ui';
-
+import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -235,12 +235,13 @@ class _VersionUpdateWidgetState extends State<VersionUpdateWidget> {
 
   //用dio实现文件下载
   downloadFile(String apkUrl) async {
-    Response response;
     Dio dio = new Dio();
     (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
         (client) {
       client.badCertificateCallback =
-          (X509Certificate cert, String host, int port) => true;
+          (X509Certificate cert, String host, int port) {
+        return true;
+      };
     };
     // 获取本地文档目录
     String dir = (await getExternalStorageDirectory()).path;
@@ -248,7 +249,7 @@ class _VersionUpdateWidgetState extends State<VersionUpdateWidget> {
     File file = new File('$dir/AJ_' +
         new DateTime.now().millisecondsSinceEpoch.toString() +
         '.apk');
-    response = await dio.download(apkUrl, file.path,
+    Response response = await dio.download(apkUrl, file.path,
         onReceiveProgress: (received, total) {
       print("total" + total.toString() + " received " + received.toString());
       double ratio = received / total;

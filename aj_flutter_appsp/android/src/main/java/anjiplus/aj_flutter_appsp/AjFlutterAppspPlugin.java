@@ -107,7 +107,7 @@ public class AjFlutterAppspPlugin implements MethodCallHandler {
 
             @Override
             public void error(String code, String msg) {
-                AppSpModel<AppSpVersion> spModel = new AppSpModel<>();
+                AppSpModel spModel = new AppSpModel<>();
                 spModel.setRepCode(code);
                 spModel.setRepMsg(msg);
                 resultWrapper.success(new Gson().toJson(spModel));
@@ -138,7 +138,7 @@ public class AjFlutterAppspPlugin implements MethodCallHandler {
 
             @Override
             public void error(String code, String msg) {
-                AppSpModel<List<AppSpNoticeModelItem>> noticeModel = new AppSpModel<>();
+                AppSpModel noticeModel = new AppSpModel<>();
                 noticeModel.setRepCode(code);
                 noticeModel.setRepMsg(msg);
                 resultWrapper.success(new Gson().toJson(noticeModel));

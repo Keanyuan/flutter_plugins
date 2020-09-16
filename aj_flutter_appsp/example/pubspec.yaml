@@ -3,13 +3,13 @@ description: Demonstrates how to use the aj_flutter_appsp plugin.
 publish_to: 'none'
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
   permission_handler: ^3.1.0
-  dio: ^2.1.2
+  dio: ^3.0.10
   path_provider: ^0.5.0+1
   url_launcher: 3.0.0
   marquee: ^1.5.2
