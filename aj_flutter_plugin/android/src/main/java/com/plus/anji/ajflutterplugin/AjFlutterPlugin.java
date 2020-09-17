@@ -8,6 +8,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.util.Log;
+import android.webkit.WebStorage;
 
 import java.io.File;
 import java.util.HashMap;
@@ -73,6 +74,8 @@ public class AjFlutterPlugin implements MethodCallHandler {
         canLaunch(url, result);
       } else if (call.method.equals("selfStart")) { //是否可以跳转
         selfStart(call, result);
+      } else if (call.method.equals("clearWebCache")) { //清除缓存
+        result.success(clearWebCache());
       } else if (call.method.equals("exitAppMethod")) { //回到桌面
         if (mRegistrar.activity() != null) {
           context = (Context) mRegistrar.activity();
@@ -127,7 +130,10 @@ public class AjFlutterPlugin implements MethodCallHandler {
       result.error("Not found", e.getMessage(), null);
     }
   }
-
+  private boolean clearWebCache(){
+    WebStorage.getInstance().deleteAllData();
+    return true;
+  }
 
 
 
