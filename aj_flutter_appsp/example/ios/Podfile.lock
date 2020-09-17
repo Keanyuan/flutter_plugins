@@ -2,7 +2,7 @@ PODS:
   - aj_flutter_appsp (0.0.1):
     - AppSpSDK
     - Flutter
-  - AppSpSDK (1.0.1)
+  - AppSpSDK (1.0.2)
   - Flutter (1.0.0)
   - path_provider (0.0.1):
     - Flutter
@@ -36,7 +36,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   aj_flutter_appsp: 9bb77decfd724a1b68a1335c238fae5796fd8955
-  AppSpSDK: f1ed6a3812b2f4bcf655bc89173d699c2f1b0c60
+  AppSpSDK: bff92ae3a73c3d2e18c34c856d484fda188eef6c
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   path_provider: f96fff6166a8867510d2c25fdcc346327cc4b259
   permission_handler: 67637977b227d62d46bfbf524f335f8568de5a73
