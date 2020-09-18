@@ -26,7 +26,7 @@ class NoticeWidget extends StatefulWidget {
 }
 
 class _NoticeState extends State<NoticeWidget> {
-  static const String appKey = "b9abfa24ee644e1d8baa39cef165261d";
+  static const String appKey = "674c0872fc4e4dd3be383b2dc3c37417";
   List<SpNoticeModelItem> marqueeeItems = [];
   var _scaffoldkey = new GlobalKey<ScaffoldState>();
 
@@ -40,6 +40,9 @@ class _NoticeState extends State<NoticeWidget> {
     //ignore
     SpRespNoticeModel noticeModel =
         await appsp.AjFlutterAppSp.getNoticeModel(appKey: appKey);
+    if (!mounted) {
+      return;
+    }
     if (noticeModel == null) {
       Scaffold.of(context).showSnackBar(
         SnackBar(content: Text("没有公告信息")),

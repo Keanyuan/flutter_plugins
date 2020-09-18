@@ -3,5 +3,5 @@
  */
 class NoticeType {
   static const String Dialog = "dialog";
-  static const String Marquee = "scroll";
+  static const String Marquee = "horizontal_scroll";
 }
