@@ -1,8 +1,8 @@
 PODS:
   - aj_flutter_appsp (0.0.1):
-    - AppSpSDK
+    - AJAppSpSdk
     - Flutter
-  - AppSpSDK (1.0.2)
+  - AJAppSpSdk (0.0.2)
   - Flutter (1.0.0)
   - path_provider (0.0.1):
     - Flutter
@@ -20,7 +20,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
-    - AppSpSDK
+    - AJAppSpSdk
 
 EXTERNAL SOURCES:
   aj_flutter_appsp:
@@ -35,8 +35,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/url_launcher/ios"
 
 SPEC CHECKSUMS:
-  aj_flutter_appsp: 9bb77decfd724a1b68a1335c238fae5796fd8955
-  AppSpSDK: bff92ae3a73c3d2e18c34c856d484fda188eef6c
+  aj_flutter_appsp: 796fc8e731a5c77ddeb37ebe6ab6af3f80536ce9
+  AJAppSpSdk: 8e74c1fcfbe99ea4829848ccc3ba872db3ba2eab
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   path_provider: f96fff6166a8867510d2c25fdcc346327cc4b259
   permission_handler: 67637977b227d62d46bfbf524f335f8568de5a73
@@ -44,4 +44,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 124871c13717f2388253dcfb709d8627f84a282d
 
-COCOAPODS: 1.10.0.beta.2
+COCOAPODS: 1.9.0

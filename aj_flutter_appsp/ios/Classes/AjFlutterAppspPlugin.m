@@ -1,5 +1,5 @@
 #import "AjFlutterAppspPlugin.h"
-#import <AppSpSDK/AppSpSDK-Swift.h>
+#import <AJAppSpSdk/AJAppSpSdk-Swift.h>
 @implementation AjFlutterAppspPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
   FlutterMethodChannel* channel = [FlutterMethodChannel
