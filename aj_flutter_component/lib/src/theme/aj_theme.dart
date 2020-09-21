@@ -94,7 +94,7 @@ class AJUi extends InheritedWidget {
   }) : super(key: key, child: child);
 
   static AJUi of(BuildContext context) {
-    return context.inheritFromWidgetOfExactType(AJUi);
+    return context.dependOnInheritedWidgetOfExactType(aspect: AJUi);
   }
 
   // 获取主题配置
