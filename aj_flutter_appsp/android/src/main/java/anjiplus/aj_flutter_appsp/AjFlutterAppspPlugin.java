@@ -7,13 +7,6 @@ import com.anji.appsp.sdk.AppSpConfig;
 import com.anji.appsp.sdk.AppSpLog;
 import com.anji.appsp.sdk.IAppSpNoticeCallback;
 import com.anji.appsp.sdk.IAppSpVersionUpdateCallback;
-
-import io.flutter.plugin.common.MethodCall;
-import io.flutter.plugin.common.MethodChannel;
-import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
-import io.flutter.plugin.common.MethodChannel.Result;
-import io.flutter.plugin.common.PluginRegistry.Registrar;
-
 import com.anji.appsp.sdk.model.AppSpModel;
 import com.anji.appsp.sdk.model.AppSpNoticeModelItem;
 import com.anji.appsp.sdk.model.AppSpVersion;
@@ -21,12 +14,21 @@ import com.google.gson.Gson;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentLinkedQueue;
+
+import io.flutter.plugin.common.MethodCall;
+import io.flutter.plugin.common.MethodChannel;
+import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
+import io.flutter.plugin.common.MethodChannel.Result;
+import io.flutter.plugin.common.PluginRegistry.Registrar;
 
 /**
  * AjFlutterAppSpPlugin
  */
 public class AjFlutterAppspPlugin implements MethodCallHandler {
     private static Registrar registrar;
+    //为了解决并发问题，比如多次点击，异常情况时候容易出问题
+    private ConcurrentLinkedQueue<MethodResultWrapper> wrappers = new ConcurrentLinkedQueue<>();
 
     /**
      * Plugin registration.
@@ -83,23 +85,30 @@ public class AjFlutterAppspPlugin implements MethodCallHandler {
         }
     }
 
-    private void checkVersion(String appKey, final MethodResultWrapper resultWrapper) {
+    private void checkVersion(String appKey) {
         AppSpConfig.getInstance().init(registrar.activity(), appKey);
         AppSpConfig.getInstance().setVersionUpdateCallback(new IAppSpVersionUpdateCallback() {
             @Override
             public void update(AppSpModel<AppSpVersion> spModel) {
                 AppSpLog.d("Test updateModel is " + spModel);
+                MethodResultWrapper wrapper = peekWraper();
                 if (spModel == null) {
-                    resultWrapper.notImplemented();
+                    if (wrapper != null) {
+                        wrapper.notImplemented();
+                    }
                 } else {
                     //先转成json
                     if (spModel.getRepData() != null) {
-                        resultWrapper.success(new Gson().toJson(spModel));
+                        if (wrapper != null) {
+                            wrapper.success(new Gson().toJson(spModel));
+                        }
                     } else {
                         AppSpModel tempModel = new AppSpModel<>();
                         tempModel.setRepCode(spModel.getRepCode());
                         tempModel.setRepMsg(spModel.getRepMsg());
-                        resultWrapper.success(new Gson().toJson(tempModel));
+                        if (wrapper != null) {
+                            wrapper.success(new Gson().toJson(tempModel));
+                        }
                     }
                 }
 
@@ -107,33 +116,41 @@ public class AjFlutterAppspPlugin implements MethodCallHandler {
 
             @Override
             public void error(String code, String msg) {
+                MethodResultWrapper wrapper = peekWraper();
                 AppSpModel spModel = new AppSpModel<>();
                 spModel.setRepCode(code);
                 spModel.setRepMsg(msg);
-                resultWrapper.success(new Gson().toJson(spModel));
+                if (wrapper != null) {
+                    wrapper.success(new Gson().toJson(spModel));
+                }
             }
         });
     }
 
-    private void checkNotice(String appKey, final MethodResultWrapper resultWrapper) {
+    private void checkNotice(String appKey) {
         AppSpConfig.getInstance().init(registrar.activity(), appKey);
         AppSpConfig.getInstance().setNoticeCallback(new IAppSpNoticeCallback() {
             @Override
             public void notice(AppSpModel<List<AppSpNoticeModelItem>> noticeModel) {
                 AppSpLog.d("Test noticeModel is " + noticeModel);
-
+                MethodResultWrapper wrapper = peekWraper();
                 if (noticeModel == null) {
-                    resultWrapper.notImplemented();
+                    if (wrapper != null) {
+                        wrapper.notImplemented();
+                    }
                 } else if (noticeModel.getRepData() != null) {
-                    resultWrapper.success(new Gson().toJson(noticeModel));
+                    if (wrapper != null) {
+                        wrapper.success(new Gson().toJson(noticeModel));
+                    }
                 } else {
                     //先转成json
                     AppSpModel tempModel = new AppSpModel<>();
                     tempModel.setRepCode(noticeModel.getRepCode());
                     tempModel.setRepMsg(noticeModel.getRepMsg());
-                    resultWrapper.success(new Gson().toJson(tempModel));
+                    if (wrapper != null) {
+                        wrapper.success(new Gson().toJson(tempModel));
+                    }
                 }
-
             }
 
             @Override
@@ -141,21 +158,58 @@ public class AjFlutterAppspPlugin implements MethodCallHandler {
                 AppSpModel noticeModel = new AppSpModel<>();
                 noticeModel.setRepCode(code);
                 noticeModel.setRepMsg(msg);
-                resultWrapper.success(new Gson().toJson(noticeModel));
+                MethodResultWrapper wrapper = peekWraper();
+                if (wrapper != null) {
+                    wrapper.success(new Gson().toJson(noticeModel));
+                }
             }
         });
     }
 
+    /**
+     * 获取当前的result
+     * @return
+     */
+    private MethodResultWrapper peekWraper() {
+        if (wrappers == null
+                || wrappers.isEmpty()) {
+            return null;
+        }
+        return wrappers.remove();
+    }
+
+    /**
+     * 只考虑最后一次
+     */
+    private void removeAllWrapper() {
+        if (wrappers == null) {
+            return;
+        }
+        wrappers.clear();
+    }
+
+    /**
+     * 加入唯一的result
+     * @param wrapper
+     */
+    private void addWraper(MethodResultWrapper wrapper) {
+        if (wrappers == null) {
+            return;
+        }
+        wrappers.add(wrapper);
+    }
+
     @Override
     public void onMethodCall(MethodCall call, Result result) {
-        MethodResultWrapper resultWrapper = new MethodResultWrapper(result);
+        removeAllWrapper();
+        addWraper(new MethodResultWrapper(result));
         if (call.method.equals("getUpdateModel")) {
             String appkey = null;
             Object parameter = call.arguments();
 
             if (parameter instanceof Map) {
                 appkey = (String) ((Map) parameter).get("appKey");
-                checkVersion(appkey, resultWrapper);
+                checkVersion(appkey);
             }
         } else if (call.method.equals("getNoticeModel")) {
             String appkey = null;
@@ -163,10 +217,13 @@ public class AjFlutterAppspPlugin implements MethodCallHandler {
 
             if (parameter instanceof Map) {
                 appkey = (String) ((Map) parameter).get("appKey");
-                checkNotice(appkey, resultWrapper);
+                checkNotice(appkey);
             }
-        } else if (resultWrapper != null) {
-            resultWrapper.notImplemented();
+        } else {
+            MethodResultWrapper wrapper = peekWraper();
+            if (wrapper != null) {
+                wrapper.notImplemented();
+            }
         }
     }
 }

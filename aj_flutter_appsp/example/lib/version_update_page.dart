@@ -34,7 +34,7 @@ enum UpdateType {
 }
 
 class _VersionUpdateState extends State<VersionUpdateWidget> {
-  static const String appKey = "b9abfa24ee644e1d8baa39cef165261d";
+  static const String appKey = "674c0872fc4e4dd3be383b2dc3c37417";
 
   @override
   void initState() {
@@ -46,6 +46,9 @@ class _VersionUpdateState extends State<VersionUpdateWidget> {
     //ignore
     SpRespUpdateModel updateModel =
         await appsp.AjFlutterAppSp.getUpdateModel(appKey: appKey);
+    if (!mounted) {
+      return;
+    }
     if (updateModel == null) {
       Scaffold.of(context).showSnackBar(
         SnackBar(content: Text("没有更新信息")),

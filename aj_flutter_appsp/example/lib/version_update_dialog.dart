@@ -191,6 +191,7 @@ class _VersionUpdateWidgetState extends State<VersionUpdateWidget> {
                         color: Color(0xFF333333), fontSize: 16.0 / scale)),
               ),
               onTap: () {
+                print('AAAAAAAAAAA');
                 if (widget.mustUpdate) {
                   NavigatorUtils.popApp();
                 } else {
@@ -280,50 +281,49 @@ class _VersionUpdateWidgetState extends State<VersionUpdateWidget> {
   Widget build(BuildContext context) {
     var scale = MediaQuery.of(context).textScaleFactor;
     return new WillPopScope(
-      child: new Padding(
-        padding: const EdgeInsets.only(left: 40.0, right: 40.0),
-        child: new Material(
-          type: MaterialType.transparency,
-          child: new Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              new Container(
-                decoration: ShapeDecoration(
-                  color: Color(0xffffffff),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(widget.radius),
-                    ),
+      child: new Material(
+        color: Colors.transparent,
+        child: new Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            new Container(
+              margin: const EdgeInsets.only(left: 40.0, right: 40.0),
+              decoration: ShapeDecoration(
+                color: Color(0xffffffff),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(widget.radius),
                   ),
                 ),
-                child: new Column(
-                  children: <Widget>[
-                    new Container(
-                      child: new Text(
-                        '新版发布',
-                        style: TextStyle(
-                            fontSize: 20.0 / scale, color: widget.titleColor),
-                      ),
-                      height: 36,
-                      margin: EdgeInsets.only(top: 6),
-                      alignment: Alignment.center,
-                    ),
-                    new Container(
-                      constraints: BoxConstraints(minHeight: widget.minHeight),
-                      child: Column(
-                        children: getVersionLayout(),
-                      ),
-                    ),
-                    getDivider(),
-                    this._buildOperationBar(),
-                  ],
-                ),
               ),
-            ],
-          ),
+              child: new Column(
+                children: <Widget>[
+                  new Container(
+                    child: new Text(
+                      '新版发布',
+                      style: TextStyle(
+                          fontSize: 20.0 / scale, color: widget.titleColor),
+                    ),
+                    height: 36,
+                    margin: EdgeInsets.only(top: 6),
+                    alignment: Alignment.center,
+                  ),
+                  new Container(
+                    constraints: BoxConstraints(minHeight: widget.minHeight),
+                    child: Column(
+                      children: getVersionLayout(),
+                    ),
+                  ),
+                  getDivider(),
+                  this._buildOperationBar(),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
       onWillPop: () {
+        print('BBBBBBBBBBB');
         if (widget.mustUpdate) {
           NavigatorUtils.popApp();
         } else {
