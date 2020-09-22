@@ -441,6 +441,7 @@ class WebviewManager {
         webView.getSettings().setJavaScriptEnabled(withJavascript);
         webView.getSettings().setBuiltInZoomControls(withZoom);
         webView.getSettings().setSupportZoom(withZoom);
+        webView.getSettings().setLoadWithOverviewMode(withZoom);
         webView.getSettings().setDomStorageEnabled(withLocalStorage);
         webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(supportMultipleWindows);
 
