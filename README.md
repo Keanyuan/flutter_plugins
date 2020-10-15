@@ -80,3 +80,7 @@ path: xxx
 
 7、[aj_flutter_component](./aj_flutter_component/) 
 使用详细描述[【README.md】](./aj_flutter_component/README.md))
+
+
+8、[flutter_x5webview_plugin](./flutter_x5webview_plugin/) 
+ 使用详细描述[【README.md】](./flutter_x5webview_plugin/README.md))
