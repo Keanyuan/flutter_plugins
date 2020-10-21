@@ -26,7 +26,7 @@ class NoticeWidget extends StatefulWidget {
 }
 
 class _NoticeState extends State<NoticeWidget> {
-  static const String appKey = "674c0872fc4e4dd3be383b2dc3c37417";
+  static const String appKey = "24b14615101b4fe0ab9595d6e1d5e428";
   List<SpNoticeModelItem> marqueeeItems = [];
   var _scaffoldkey = new GlobalKey<ScaffoldState>();
 
@@ -43,18 +43,17 @@ class _NoticeState extends State<NoticeWidget> {
     if (!mounted) {
       return;
     }
-    if (noticeModel == null) {
-      Scaffold.of(context).showSnackBar(
-        SnackBar(content: Text("没有公告信息")),
-      );
+    if (noticeModel == null ||
+        noticeModel.repData == null ||
+        noticeModel.repData.isEmpty) {
+      var snackBar = SnackBar(content: Text("没有公告信息"));
+      _scaffoldkey.currentState.showSnackBar(snackBar);
       return;
     }
-    print("noticeModel is $noticeModel ");
     String errorMsg = null;
     if (AppSpStatusCode.StatusCode_Success != noticeModel.repCode) {
       errorMsg = noticeModel.repMsg;
     }
-
     if (errorMsg != null) {
       var snackBar = SnackBar(content: Text(errorMsg));
       _scaffoldkey.currentState.showSnackBar(snackBar);

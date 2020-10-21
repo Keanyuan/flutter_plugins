@@ -18,7 +18,7 @@ rootProject.allprojects {
         google()
         jcenter()
         maven {
-            url "https://raw.githubusercontent.com/hailonggit/appsp/master"
+            url "https://raw.githubusercontent.com/anji-plus/aj_android_appsp_aar/main"
         }
     }
 }
@@ -41,5 +41,5 @@ dependencies {
     api "androidx.appcompat:appcompat:1.0.0"
     api 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.code.gson:gson:2.8.0'
-    api 'anji.sdk.appsp:aar:1.0.0'
+    api 'anji.sdk.appsp:aar:0.0.1'
 }

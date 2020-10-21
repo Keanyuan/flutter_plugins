@@ -34,7 +34,7 @@ enum UpdateType {
 }
 
 class _VersionUpdateState extends State<VersionUpdateWidget> {
-  static const String appKey = "674c0872fc4e4dd3be383b2dc3c37417";
+  static const String appKey = "24b14615101b4fe0ab9595d6e1d5e428";
 
   @override
   void initState() {
@@ -77,6 +77,12 @@ class _VersionUpdateState extends State<VersionUpdateWidget> {
     //是否是外部链接，如果是，跳转到外部H5，否则直接下载
     bool isExternalUrl = true;
     UpdateModel updateModel = respModel.repData;
+    if (updateModel == null) {
+      Scaffold.of(context).showSnackBar(
+        SnackBar(content: Text("当前为最新版本")),
+      );
+      return;
+    }
     if (updateModel != null &&
         updateModel.downloadUrl != null &&
         updateModel.downloadUrl.contains(".apk")) {
