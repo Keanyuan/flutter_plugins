@@ -33,7 +33,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "anjiplus.aj_flutter_appsp_example"
+        applicationId "com.anji.appsp.sdktest"
         minSdkVersion 17
         targetSdkVersion 28
         versionCode flutterVersionCode.toInteger()

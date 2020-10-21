@@ -12,8 +12,8 @@
          FlutterApplication and put your custom class here. -->
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="aj_flutter_appsp_example"
-        android:icon="@mipmap/ic_launcher">
+        android:label="Flutter移动服务平台"
+        android:icon="@mipmap/logo">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
@@ -35,7 +35,7 @@
         </activity>
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="anjiplus.aj_flutter_appsp_example.fileprovider"
+            android:authorities="com.anji.appsp.sdktest.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
