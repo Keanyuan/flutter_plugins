@@ -1,9 +1,6 @@
 import 'dart:ui';
 
-import 'package:aj_flutter_appsp/aj_flutter_appsp.dart' as appsp;
-import 'package:aj_flutter_appsp/appsp_status_code.dart';
-import 'package:aj_flutter_appsp/sp_notice_model_item.dart';
-import 'package:aj_flutter_appsp/sp_resp_notice_model.dart';
+import 'package:aj_flutter_appsp/aj_flutter_appsp_lib.dart';
 import 'package:flutter/material.dart';
 import 'package:marquee/marquee.dart';
 
@@ -39,7 +36,7 @@ class _NoticeState extends State<NoticeWidget> {
     //无需改造数据，用服务器返回数据，下面的都是模拟的数据
     //ignore
     SpRespNoticeModel noticeModel =
-        await appsp.AjFlutterAppSp.getNoticeModel(appKey: appKey);
+        await AjFlutterAppSp.getNoticeModel(appKey: appKey);
     if (!mounted) {
       return;
     }

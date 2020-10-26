@@ -1,9 +1,6 @@
 import 'dart:io';
 import 'dart:ui';
-
-import 'package:aj_flutter_appsp/aj_flutter_appsp.dart' as appsp;
-import 'package:aj_flutter_appsp/appsp_status_code.dart';
-import 'package:aj_flutter_appsp/sp_resp_update_model.dart';
+import 'package:aj_flutter_appsp/aj_flutter_appsp_lib.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -45,7 +42,7 @@ class _VersionUpdateState extends State<VersionUpdateWidget> {
     //无需改造数据，用服务器返回数据，下面的都是模拟的数据
     //ignore
     SpRespUpdateModel updateModel =
-        await appsp.AjFlutterAppSp.getUpdateModel(appKey: appKey);
+        await AjFlutterAppSp.getUpdateModel(appKey: appKey);
     if (!mounted) {
       return;
     }

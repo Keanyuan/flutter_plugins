@@ -1,8 +1,8 @@
+import 'aj_flutter_appsp_lib.dart';
+
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/services.dart';
-import 'sp_resp_update_model.dart';
-import 'sp_resp_notice_model.dart';
 
 class AjFlutterAppSp {
   static const MethodChannel _channel = const MethodChannel('aj_flutter_appsp');
