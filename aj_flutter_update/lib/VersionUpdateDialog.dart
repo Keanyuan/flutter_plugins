@@ -241,8 +241,19 @@ class _VersionUpdateWidgetState extends State<VersionUpdateWidget> {
         ));
   }
 
+  bool updateButtonEnable = true;
+  Map<String, String> _fileMap = new Map();
+
   //用dio实现文件下载
   downloadFile(String apkUrl) async {
+    if(!updateButtonEnable)return;
+    if(_fileMap["path"] != null){
+      _pushAndInstall();
+      return;
+    }
+    setState(() {
+      updateButtonEnable = false;
+    });
     Response response;
     Dio dio = new Dio();
     (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
@@ -266,22 +277,33 @@ class _VersionUpdateWidgetState extends State<VersionUpdateWidget> {
       ratio = ratio * 100;
       print("rate" + ratio.toString() + "%");
       if (ratio >= 100) {
+        setState(() {
+          updateButtonEnable = true;
+        });
         _notifyInstall(file);
       }
     });
   }
 
   _notifyInstall(File file) async {
-    try {
-      print("dart -_versionUpdate");
+    print("dart -_versionUpdate");
 //      在通道上调用此方法
-      Map<String, String> argument = new Map();
-      argument["path"] = file.path;
+    Map<String, String> argument = new Map();
+    argument["path"] = file.path;
+    setState(() {
+      _fileMap = argument;
+    });
+    _pushAndInstall();
+  }
+
+  _pushAndInstall() async {
+    try {
       await AjFlutterUpdateMixin.apkInstallChannel
-          .invokeMethod(AjFlutterUpdateMixin.apkInstallMethod, argument);
+          .invokeMethod(AjFlutterUpdateMixin.apkInstallMethod, _fileMap);
     } on PlatformException catch (e) {
       print("dart -PlatformException ");
-    } finally {}
+    } finally {
+    }
   }
 
   @override
