@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'commons.dart';
+import 'package:aj_flutter_appsp_example/commons.dart';
 
 // ignore: must_be_immutable
 class NoticeDialog extends Dialog {

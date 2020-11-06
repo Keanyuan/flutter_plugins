@@ -4,9 +4,9 @@ import 'package:aj_flutter_appsp/aj_flutter_appsp_lib.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-import 'dialog_utils.dart';
-import 'styles.dart';
-import 'version_update_dialog.dart';
+import 'package:aj_flutter_appsp_example/dialog_utils.dart';
+import 'package:aj_flutter_appsp_example/styles.dart';
+import 'package:aj_flutter_appsp_example/update/version_update_dialog.dart';
 
 class VersionUpdatePage extends StatelessWidget {
   @override

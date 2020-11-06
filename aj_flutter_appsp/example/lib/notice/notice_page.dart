@@ -4,9 +4,9 @@ import 'package:aj_flutter_appsp/aj_flutter_appsp_lib.dart';
 import 'package:flutter/material.dart';
 import 'package:marquee/marquee.dart';
 
-import 'notice_dialog.dart';
-import 'notice_type.dart';
-import 'styles.dart';
+import 'package:aj_flutter_appsp_example/notice/notice_dialog.dart';
+import 'package:aj_flutter_appsp_example/notice/notice_type.dart';
+import 'package:aj_flutter_appsp_example/styles.dart';
 
 class NoticePage extends StatelessWidget {
   @override

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'notice_page.dart';
+import 'package:aj_flutter_appsp_example/notice/notice_page.dart';
 import "styles.dart";
-import 'version_update_page.dart';
+import 'package:aj_flutter_appsp_example/update/version_update_page.dart';
 
 void main() => runApp(MaterialApp(
       home: MyApp(),
