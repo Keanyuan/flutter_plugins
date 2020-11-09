@@ -33,7 +33,7 @@ class _AppPageState extends State<AppWidget> with AjFlutterUpdateMixin {
         onTap: () {
           AjFlutterUpdateMixin.versionUpdate(
             context: context,
-            downloadUrl: "https://s3.cn-north-1.amazonaws.com.cn/anjiplus-ftp/6c2e042d-075f-450a-86eb-459f3722a7ad5084544252265841842.apk",
+            downloadUrl: "https://appsp.anji-plus.com/download/lsdclient2020-1603877805848-24-24b14615101b4fe0ab9595d6e1d5e428.apk",
             updateLog: "1，我的老哥==2，你的老妹",//updateLog 以 == 做分割
             mustUpdate: false,
             titleColor: Color(0xFFFFA033),

@@ -8,11 +8,16 @@ import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 const kAndroidUserAgent =
     'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Mobile Safari/537.36';
 
-String selectedUrl = 'http://10.108.11.46/mweb/#/appMonitorChartList';
+//String selectedUrl = 'http://10.108.11.46/mweb/#/appMonitorChartList';
+String selectedUrl =
+    'https://desk.anji-plus.com/#/feedback/app?code=D000000140&userName=qizhiyuan&sgin=67A8EE398FA7DEFE31003E2A28B24DFA&iphone=18810092406&email=qizhiyuan@anji-plus.com';
 
 // http://10.108.11.46/mweb/#/appMonitorChartList??token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI5IiwiZXhwIjoxNTY0OTEyNTM0fQ.eb8KstYlIOT7NwM4TPKO35HlpLm7Hl_P5p8KdBXBkDhgxX6qV0puvb9FQxeJ6jVCJuef-sCEzCwQ2Sb95VpR7Q&projectId=8&connectName=0&plateform=3
 //flutter: str.length 255
-void main() => runApp(MyApp());
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   final flutterWebViewPlugin = FlutterWebviewPlugin();
@@ -71,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-
+    print("ssss");
     flutterWebViewPlugin.close();
 
     _urlCtrl.addListener(() {
@@ -144,20 +149,23 @@ class _MyHomePageState extends State<MyHomePage> {
     _onJavascriptChannelMessage = flutterWebViewPlugin
         .onJavascriptChannelMessage
         .listen((JavascriptChannel javascriptChannel) {
-      print("${javascriptChannel.message}   --- ${javascriptChannel.channelName}");
+      print(
+          "${javascriptChannel.message}   --- ${javascriptChannel.channelName}");
 
-      if(javascriptChannel.channelName == "NativeJavascriptChannel"){
-            if (javascriptChannel.message == "setProjectInfo") { //TODO 索取筛选信息
-              var map = {
-                "token" : "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI5IiwiZXhwIjoxNTY0OTEyNTM0fQ.eb8KstYlIOT7NwM4TPKO35HlpLm7Hl_P5p8KdBXBkDhgxX6qV0puvb9FQxeJ6jVCJuef-sCEzCwQ2Sb95VpR7Q",
-                "projectId": 8,
-                "connectName": 0,//网络状态
-                "plateform": 3, //APP来源  Android： 1，  iOS真机： 2 ,   iOS 模拟器： 3,
-              };
-              String mapStr = json.encode(map);
-              flutterWebViewPlugin.evalJavascript("getProjectInfo($mapStr)");
-            }
-          }
+      if (javascriptChannel.channelName == "NativeJavascriptChannel") {
+        if (javascriptChannel.message == "setProjectInfo") {
+          //TODO 索取筛选信息
+          var map = {
+            "token":
+                "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI5IiwiZXhwIjoxNTY0OTEyNTM0fQ.eb8KstYlIOT7NwM4TPKO35HlpLm7Hl_P5p8KdBXBkDhgxX6qV0puvb9FQxeJ6jVCJuef-sCEzCwQ2Sb95VpR7Q",
+            "projectId": 8,
+            "connectName": 0, //网络状态
+            "plateform": 3, //APP来源  Android： 1，  iOS真机： 2 ,   iOS 模拟器： 3,
+          };
+          String mapStr = json.encode(map);
+          flutterWebViewPlugin.evalJavascript("getProjectInfo($mapStr)");
+        }
+      }
     });
   }
 
@@ -179,15 +187,13 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return  WebviewScaffold(
+    return WebviewScaffold(
       url: selectedUrl,
       appBar: AppBar(
         title: const Text('Widget WebView'),
       ),
       withZoom: true,
-      javascriptChannels: <String>[
-        "NativeJavascriptChannel"
-      ],
+      javascriptChannels: <String>["NativeJavascriptChannel"],
       withLocalStorage: true,
       hidden: true,
       initialChild: Container(

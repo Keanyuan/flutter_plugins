@@ -139,6 +139,7 @@ class _MyAppState extends State<MyApp> {
         ),
         onWillPop: () {
           _exitApp();
+          return Future(() => false);
         },
       ),
     );

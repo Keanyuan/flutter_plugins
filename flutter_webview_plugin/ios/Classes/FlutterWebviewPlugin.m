@@ -69,12 +69,20 @@ static NSString *const CHANNEL_NAME = @"flutter_webview_plugin";
     } else if ([@"forward" isEqualToString:call.method]) {
         [self forward];
         result(nil);
+    } else if ([@"canGoBack" isEqualToString:call.method]) {
+        [self canGoBack:call result:result];
+    } else if ([@"canGoForward" isEqualToString:call.method]) {
+        [self canGoForward:call result:result];
     } else if ([@"reload" isEqualToString:call.method]) {
         [self reload];
         result(nil);
     } else {
         result(FlutterMethodNotImplemented);
     }
+}
+- (NSString *)encodeToPercentEscapeString: (NSString *) input {
+    NSString*encodedString = (NSString*) CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,(CFStringRef)input,(CFStringRef)@"!$&'()*+,-./:;=?@_~%#[]",NULL, kCFStringEncodingUTF8));
+    return encodedString;
 }
 
 - (void)initWebview:(FlutterMethodCall*)call {
@@ -164,7 +172,7 @@ static NSString *const CHANNEL_NAME = @"flutter_webview_plugin";
 
 - (void)navigate:(FlutterMethodCall*)call {
     if (self.webview != nil) {
-            NSString *url = call.arguments[@"url"];
+            NSString *url = [self encodeToPercentEscapeString:call.arguments[@"url"]];
             NSNumber *withLocalUrl = call.arguments[@"withLocalUrl"];
             if ( [withLocalUrl boolValue]) {
                 NSURL *htmlUrl = [NSURL fileURLWithPath:url isDirectory:false];
@@ -230,7 +238,7 @@ static NSString *const CHANNEL_NAME = @"flutter_webview_plugin";
 
 - (void)reloadUrl:(FlutterMethodCall*)call {
     if (self.webview != nil) {
-		NSString *url = call.arguments[@"url"];
+		NSString *url = [self encodeToPercentEscapeString:call.arguments[@"url"]];
 		NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
         [self.webview loadRequest:request];
     }
@@ -251,6 +259,25 @@ static NSString *const CHANNEL_NAME = @"flutter_webview_plugin";
         [self.webview stopLoading];
     }
 }
+
+- (void)canGoBack:(FlutterMethodCall*)call result:(FlutterResult)result {
+    if (self.webview != nil) {
+        BOOL canGoBack = [self.webview canGoBack];
+        result([NSNumber numberWithBool:canGoBack]);
+    }else {
+        result([NSNumber numberWithBool:false]);
+    }
+}
+
+- (void)canGoForward:(FlutterMethodCall*)call result:(FlutterResult)result {
+    if (self.webview != nil) {
+        BOOL canGoForward = [self.webview canGoForward];
+        result([NSNumber numberWithBool:canGoForward]);
+    }else {
+        result([NSNumber numberWithBool:false]);
+    }
+}
+
 - (void)back {
     if (self.webview != nil) {
         [self.webview goBack];

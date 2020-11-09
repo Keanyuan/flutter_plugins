@@ -1,7 +1,9 @@
 package com.zbar.lib;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.AssetFileDescriptor;
 import android.graphics.Point;
 import android.media.AudioManager;
@@ -25,6 +27,10 @@ import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
 import com.zbar.lib.camera.CameraManager;
 import com.zbar.lib.decode.CaptureActivityHandler;
 import com.zbar.lib.decode.InactivityTimer;
@@ -32,8 +38,8 @@ import com.zbar.lib.decode.InactivityTimer;
 import java.io.IOException;
 
 import aj.flutter.scan.R;
+import anjiplus.aj.flutter.aj_flutter_scan.AjFlutterScanPlugin;
 import anjiplus.aj.flutter.aj_flutter_scan.ImagePickerDelegate;
-
 
 /**
  * 条形码/二维码扫描
@@ -56,6 +62,7 @@ public class CaptureActivity extends Activity implements Callback {
     private boolean isNeedCapture = false;
     private String TYPE = null;//类型 分从车辆扫描进来和从身份验证进来
     private static String scan_cancle = "SCAN_CANCLE"; //取消扫描
+    private static ImagePickerDelegate delegate;
 
     public boolean isNeedCapture() {
         return isNeedCapture;
@@ -117,6 +124,7 @@ public class CaptureActivity extends Activity implements Callback {
 
         mContainer = (RelativeLayout) findViewById(R.id.capture_containter);
         mCropLayout = (RelativeLayout) findViewById(R.id.capture_crop_layout);
+        delegate = AjFlutterScanPlugin.getDelegate();
         findViewById(R.id.qr_back).setOnClickListener(
                 new OnClickListener() {
 
@@ -134,6 +142,21 @@ public class CaptureActivity extends Activity implements Callback {
                         light();
                     }
                 });
+        findViewById(R.id.tv_Gallery).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Todo  申请权限后打开相册
+                if (ContextCompat.checkSelfPermission(CaptureActivity.this,
+                        Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    //申请权限
+                    ActivityCompat.requestPermissions(CaptureActivity.this,
+                            new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+                    return;
+                }
+                delegate.chooseImageFromGallery();
+                finish();
+            }
+        });
         // 获得屏幕的宽高
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
         int screenWith = displayMetrics.widthPixels;
@@ -151,6 +174,7 @@ public class CaptureActivity extends Activity implements Callback {
         mAnimation.setRepeatMode(Animation.REVERSE);
         mAnimation.setInterpolator(new LinearInterpolator());
         mQrLineView.setAnimation(mAnimation);
+
     }
 
     @Override
@@ -329,4 +353,16 @@ public class CaptureActivity extends Activity implements Callback {
             mediaPlayer.seekTo(0);
         }
     };
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        boolean permissionGranted =
+                grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED;
+        if (requestCode == 1 && permissionGranted) {
+            delegate.chooseImageFromGallery();
+            finish();
+        }
+    }
 }

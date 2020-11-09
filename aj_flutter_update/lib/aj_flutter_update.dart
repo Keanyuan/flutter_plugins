@@ -19,7 +19,9 @@ mixin AjFlutterUpdateMixin<T extends StatefulWidget> on State<T> {
   /// [downloadUrl] 下载地址 （iOS 跳转App Store URL 或者 跳转下载页 URL，Android下载apkURL ）
   /// [updateLog] 更新信息描述 以 == 做分割
   /// [mustUpdate] 是否强制更新 default is false
-  /// [buttonColor] 确定按钮颜色 默认
+  /// [mustUpdate] 是否强制更新 default is false
+  /// [onCancelTap] 取消回调
+  /// [buttonColor] 确认回调
   /// [titleColor] 标题颜色
   static versionUpdate(
       {BuildContext context,
@@ -27,34 +29,62 @@ mixin AjFlutterUpdateMixin<T extends StatefulWidget> on State<T> {
       String updateLog,
       bool mustUpdate = false,
       Color buttonColor = Colors.blue,
+      GestureTapCallback onConformTap,
+      GestureTapCallback onCancelTap,
       Color titleColor = const Color(0xFFFFA033)}) async {
     if (Platform.isIOS) {
-      showUpdateDialog(context, downloadUrl, updateLog, mustUpdate,
-          buttonColor: buttonColor, titleColor: titleColor);
+      showUpdateDialog(
+        context,
+        downloadUrl,
+        updateLog,
+        mustUpdate,
+        buttonColor: buttonColor,
+        titleColor: titleColor,
+        onConformTap: onConformTap,
+        onCancelTap: onCancelTap,
+      );
       return;
     }
-    final List<PermissionGroup> permissions = <PermissionGroup>[PermissionGroup.storage];
+    final List<PermissionGroup> permissions = <PermissionGroup>[
+      PermissionGroup.storage
+    ];
     final Map<PermissionGroup, PermissionStatus> permissionRequestResult =
-    await PermissionHandler().requestPermissions(permissions);
-    PermissionStatus status =  permissionRequestResult[PermissionGroup.storage];
+        await PermissionHandler().requestPermissions(permissions);
+    PermissionStatus status = permissionRequestResult[PermissionGroup.storage];
 
     if (status == PermissionStatus.granted) {
-      showUpdateDialog(context, downloadUrl, updateLog, mustUpdate,
-          buttonColor: buttonColor, titleColor: titleColor);
+      showUpdateDialog(
+        context,
+        downloadUrl,
+        updateLog,
+        mustUpdate,
+        buttonColor: buttonColor,
+        titleColor: titleColor,
+        onConformTap: onConformTap,
+        onCancelTap: onCancelTap,
+      );
     } else {
       DialogUtils.showCommonDialog(context,
           msg: '"获取文件读写权限失败,即将跳转应用信息”>“权限”中开启权限"',
           negativeMsg: '取消',
           positiveMsg: '前往', onDone: () {
-            PermissionHandler().openAppSettings().then((openSuccess) {
+        PermissionHandler().openAppSettings().then((openSuccess) {
           if (openSuccess != true) {}
         });
       });
     }
   }
-  static showUpdateDialog(BuildContext context, String downloadUrl,
-      String releaseLog, bool mustUpdate,
-      {Color buttonColor, Color titleColor}) {
+
+  static showUpdateDialog(
+    BuildContext context,
+    String downloadUrl,
+    String releaseLog,
+    bool mustUpdate, {
+    Color buttonColor,
+    Color titleColor,
+    GestureTapCallback onConformTap,
+    GestureTapCallback onCancelTap,
+  }) {
     showDialog(
         context: context,
         builder: (context) {
@@ -66,6 +96,8 @@ mixin AjFlutterUpdateMixin<T extends StatefulWidget> on State<T> {
 //            minHeight: 160,
             buttonColor: buttonColor,
             titleColor: titleColor,
+            onConformTap: onConformTap,
+            onCancelTap: onCancelTap,
           );
           return messageDialog;
         });

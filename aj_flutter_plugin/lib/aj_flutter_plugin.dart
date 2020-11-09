@@ -9,39 +9,39 @@ const MethodChannel _channel = const MethodChannel('aj_flutter_plugin');
 /// 跳转外部浏览器、打电话、发邮件
 /// 外链url:  http:xxx, https: -----------test
 /// 与canLaunch同步使用
-Future<void> launch(String urlString){
+Future<void> launch(String urlString) async{
   if(urlString.isNotEmpty){
-    return _channel.invokeMethod('launchUrl', {'url': urlString});
+    await _channel.invokeMethod('launchUrl', {'url': urlString});
   }
 }
 
 //打电话
-Future<void> launchCallPhone(String phoneNum){
+Future<void> launchCallPhone(String phoneNum)async{
   if(phoneNum.isNotEmpty){
   String _callphone = "tel:" + phoneNum;
-  return _channel.invokeMethod('launchUrl', {'url': _callphone});
+  await _channel.invokeMethod('launchUrl', {'url': _callphone});
   }
 }
 
 //发短信
-Future<void> launchMessage(String messagePhone){
+Future<void> launchMessage(String messagePhone)async{
   if(messagePhone.isNotEmpty){
     String _messagePhone = "sms:" + messagePhone;
-    return _channel.invokeMethod('launchUrl', {'url': _messagePhone});
+    await _channel.invokeMethod('launchUrl', {'url': _messagePhone});
   }
 }
 
 //发邮箱 手机号
-Future<void> launchEmail(String emailNum){
+Future<void> launchEmail(String emailNum) async{
   if(emailNum.isNotEmpty){
     String _emailNum = "mailto:" + emailNum;
-    return _channel.invokeMethod('launchUrl', {'url': _emailNum});
+    await _channel.invokeMethod('launchUrl', {'url': _emailNum});
   }
 }
 
 //退出APP
-Future<void> exitApp(){
-  return _channel.invokeMethod('exitAppMethod');
+Future<void> exitApp()async{
+  await _channel.invokeMethod('exitAppMethod');
 }
 
 //是否可以跳转
@@ -139,4 +139,8 @@ class AjFlutterPlugin {
   final String buildNumber;
   //设备ID
   final String deviceId;
+
+  static Future<bool> clearWebCache() async {
+    return await _channel.invokeMethod('clearWebCache');
+  }
 }

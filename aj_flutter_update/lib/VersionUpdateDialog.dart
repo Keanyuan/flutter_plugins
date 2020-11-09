@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:ui';
 
+import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +27,8 @@ class VersionUpdateDialog extends Dialog {
   bool mustUpdate;
   String downloadUrl;
   List<String> versionMsgList;
-
+  GestureTapCallback onConformTap;
+  GestureTapCallback onCancelTap;
   VersionUpdateDialog({
     Key key,
     this.iconPath,
@@ -38,6 +40,8 @@ class VersionUpdateDialog extends Dialog {
     this.versionMsgList,
     this.titleColor,
     this.buttonColor,
+    this.onCancelTap,
+    this.onConformTap,
   })  : assert(minHeight > 0),
         super(key: key);
 
@@ -53,6 +57,8 @@ class VersionUpdateDialog extends Dialog {
       versionMsgList: versionMsgList,
       titleColor: titleColor,
       buttonColor: buttonColor,
+      onCancelTap: onCancelTap,
+      onConformTap: onConformTap,
     );
   }
 }
@@ -72,6 +78,8 @@ class VersionUpdateWidget extends StatefulWidget {
   String downloadUrl;
   bool mustUpdate;
   List<String> versionMsgList;
+  GestureTapCallback onConformTap;
+  GestureTapCallback onCancelTap;
 
   VersionUpdateWidget({
     Key key,
@@ -85,6 +93,8 @@ class VersionUpdateWidget extends StatefulWidget {
     this.versionMsgList,
     this.titleColor,
     this.buttonColor,
+    this.onCancelTap,
+    this.onConformTap,
   }) : super(key: key);
 
   @override
@@ -181,8 +191,14 @@ class _VersionUpdateWidgetState extends State<VersionUpdateWidget> {
               onTap: () {
                 if (widget.mustUpdate) {
                   AppUtils.popApp();
+                  if(widget.onCancelTap != null){
+                    widget.onCancelTap();
+                  }
                 } else {
                   Navigator.of(context).pop();
+                  if(widget.onCancelTap != null){
+                    widget.onCancelTap();
+                  }
                 }
               },
               borderRadius: BorderRadius.only(
@@ -214,6 +230,10 @@ class _VersionUpdateWidgetState extends State<VersionUpdateWidget> {
                 //开始下载
                 if (widget != null) {
                   downloadFile(widget.downloadUrl);
+                } else {
+                  if(widget.onConformTap != null){
+                    widget.onConformTap();
+                  }
                 }
               },
               borderRadius: BorderRadius.only(
@@ -221,10 +241,26 @@ class _VersionUpdateWidgetState extends State<VersionUpdateWidget> {
         ));
   }
 
+  bool updateButtonEnable = true;
+  Map<String, String> _fileMap = new Map();
+
   //用dio实现文件下载
   downloadFile(String apkUrl) async {
+    if(!updateButtonEnable)return;
+    if(_fileMap["path"] != null){
+      _pushAndInstall();
+      return;
+    }
+    setState(() {
+      updateButtonEnable = false;
+    });
     Response response;
     Dio dio = new Dio();
+    (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
+        (client) {
+      client.badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+    };
     // 获取本地文档目录
     String dir = (await getExternalStorageDirectory()).path;
     //保证唯一
@@ -241,22 +277,33 @@ class _VersionUpdateWidgetState extends State<VersionUpdateWidget> {
       ratio = ratio * 100;
       print("rate" + ratio.toString() + "%");
       if (ratio >= 100) {
+        setState(() {
+          updateButtonEnable = true;
+        });
         _notifyInstall(file);
       }
     });
   }
 
   _notifyInstall(File file) async {
-    try {
-      print("dart -_versionUpdate");
+    print("dart -_versionUpdate");
 //      在通道上调用此方法
-      Map<String, String> argument = new Map();
-      argument["path"] = file.path;
+    Map<String, String> argument = new Map();
+    argument["path"] = file.path;
+    setState(() {
+      _fileMap = argument;
+    });
+    _pushAndInstall();
+  }
+
+  _pushAndInstall() async {
+    try {
       await AjFlutterUpdateMixin.apkInstallChannel
-          .invokeMethod(AjFlutterUpdateMixin.apkInstallMethod, argument);
+          .invokeMethod(AjFlutterUpdateMixin.apkInstallMethod, _fileMap);
     } on PlatformException catch (e) {
       print("dart -PlatformException ");
-    } finally {}
+    } finally {
+    }
   }
 
   @override
@@ -393,6 +440,9 @@ class _iOSVersionUpdateWidgetState extends State<VersionUpdateWidget> {
               ),
               onTap: () {
                 Navigator.of(context).pop();
+                if(widget.onCancelTap != null){
+                  widget.onCancelTap();
+                }
               },
               borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(widget.radius))),
@@ -420,6 +470,9 @@ class _iOSVersionUpdateWidgetState extends State<VersionUpdateWidget> {
               ),
               onTap: () {
                 AppUtils.gotoAppstore(context, widget.downloadUrl);
+                if(widget.onConformTap != null){
+                  widget.onConformTap();
+                }
               },
               borderRadius: widget.mustUpdate
                   ? BorderRadius.only(
@@ -482,6 +535,9 @@ class _iOSVersionUpdateWidgetState extends State<VersionUpdateWidget> {
           AppUtils.popApp();
         } else {
           Navigator.of(context).pop();
+          if(widget.onCancelTap != null){
+            widget.onCancelTap();
+          }
         }
       },
     );

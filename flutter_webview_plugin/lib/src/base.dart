@@ -193,6 +193,12 @@ class FlutterWebviewPlugin {
   /// Navigates back on the Webview.
   Future<Null> goBack() async => await _channel.invokeMethod('back');
 
+  /// Navigates canGoBack on the Webview.
+  Future<bool> canGoBack() async => await _channel.invokeMethod<bool>('canGoBack');
+
+  /// Navigates canGoForward on the Webview.
+  Future<bool> canGoForward() async => await _channel.invokeMethod<bool>('canGoForward');
+
   /// Navigates forward on the Webview.
   Future<Null> goForward() async => await _channel.invokeMethod('forward');
 

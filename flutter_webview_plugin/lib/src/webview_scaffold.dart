@@ -7,35 +7,34 @@ import 'package:flutter/rendering.dart';
 import 'base.dart';
 
 class WebviewScaffold extends StatefulWidget {
-
-  const WebviewScaffold({
-    Key key,
-    this.appBar,
-    @required this.url,
-    this.headers,
-    this.withJavascript,
-    this.clearCache,
-    this.clearCookies,
-    this.enableAppScheme,
-    this.userAgent,
-    this.primary = true,
-    this.persistentFooterButtons,
-    this.bottomNavigationBar,
-    this.withZoom,
-    this.withLocalStorage,
-    this.withLocalUrl,
-    this.scrollBar,
-    this.supportMultipleWindows,
-    this.appCacheEnabled,
-    this.hidden = false,
-    this.initialChild,
-    this.allowFileURLs,
-    this.resizeToAvoidBottomInset = false,
-    this.invalidUrlRegex,
-    this.geolocationEnabled,
-    this.javascriptChannels
-  }) : super(key: key);
-
+  const WebviewScaffold(
+      {Key key,
+      this.appBar,
+      @required this.url,
+      this.headers,
+      this.withJavascript,
+      this.clearCache,
+      this.clearCookies,
+      this.enableAppScheme,
+      this.userAgent,
+      this.primary = true,
+      this.persistentFooterButtons,
+      this.bottomNavigationBar,
+      this.withZoom,
+      this.useWideViewPort,
+      this.withLocalStorage,
+      this.withLocalUrl,
+      this.scrollBar,
+      this.supportMultipleWindows,
+      this.appCacheEnabled,
+      this.hidden = false,
+      this.initialChild,
+      this.allowFileURLs,
+      this.resizeToAvoidBottomInset = false,
+      this.invalidUrlRegex,
+      this.geolocationEnabled,
+      this.javascriptChannels})
+      : super(key: key);
 
   final PreferredSizeWidget appBar;
   final String url;
@@ -49,6 +48,7 @@ class WebviewScaffold extends StatefulWidget {
   final List<Widget> persistentFooterButtons;
   final Widget bottomNavigationBar;
   final bool withZoom;
+  final bool useWideViewPort;
   final bool withLocalStorage;
   final bool withLocalUrl;
   final bool scrollBar;
@@ -138,27 +138,26 @@ class _WebviewScaffoldState extends State<WebviewScaffold> {
         onRectChanged: (Rect value) {
           if (_rect == null) {
             _rect = value;
-            webviewReference.launch(
-              widget.url,
-              headers: widget.headers,
-              withJavascript: widget.withJavascript,
-              clearCache: widget.clearCache,
-              clearCookies: widget.clearCookies,
-              hidden: widget.hidden,
-              enableAppScheme: widget.enableAppScheme,
-              userAgent: widget.userAgent,
-              rect: _rect,
-              withZoom: widget.withZoom,
-              withLocalStorage: widget.withLocalStorage,
-              withLocalUrl: widget.withLocalUrl,
-              scrollBar: widget.scrollBar,
-              supportMultipleWindows: widget.supportMultipleWindows,
-              appCacheEnabled: widget.appCacheEnabled,
-              allowFileURLs: widget.allowFileURLs,
-              invalidUrlRegex: widget.invalidUrlRegex,
-              geolocationEnabled: widget.geolocationEnabled,
-              javascriptChannels: widget.javascriptChannels
-            );
+            webviewReference.launch(widget.url,
+                headers: widget.headers,
+                withJavascript: widget.withJavascript,
+                clearCache: widget.clearCache,
+                clearCookies: widget.clearCookies,
+                hidden: widget.hidden,
+                enableAppScheme: widget.enableAppScheme,
+                useWideViewPort: widget.useWideViewPort,
+                userAgent: widget.userAgent,
+                rect: _rect,
+                withZoom: widget.withZoom,
+                withLocalStorage: widget.withLocalStorage,
+                withLocalUrl: widget.withLocalUrl,
+                scrollBar: widget.scrollBar,
+                supportMultipleWindows: widget.supportMultipleWindows,
+                appCacheEnabled: widget.appCacheEnabled,
+                allowFileURLs: widget.allowFileURLs,
+                invalidUrlRegex: widget.invalidUrlRegex,
+                geolocationEnabled: widget.geolocationEnabled,
+                javascriptChannels: widget.javascriptChannels);
           } else {
             if (_rect != value) {
               _rect = value;
@@ -170,7 +169,8 @@ class _WebviewScaffoldState extends State<WebviewScaffold> {
             }
           }
         },
-        child: widget.initialChild ?? const Center(child: const CircularProgressIndicator()),
+        child: widget.initialChild ??
+            const Center(child: const CircularProgressIndicator()),
       ),
     );
   }
@@ -193,7 +193,8 @@ class _WebviewPlaceholder extends SingleChildRenderObjectWidget {
   }
 
   @override
-  void updateRenderObject(BuildContext context, _WebviewPlaceholderRender renderObject) {
+  void updateRenderObject(
+      BuildContext context, _WebviewPlaceholderRender renderObject) {
     renderObject..onRectChanged = onRectChanged;
   }
 }

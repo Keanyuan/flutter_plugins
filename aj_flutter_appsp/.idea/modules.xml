@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/aj_flutter_appsp.iml" filepath="$PROJECT_DIR$/aj_flutter_appsp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android/aj_flutter_appsp_android.iml" filepath="$PROJECT_DIR$/android/aj_flutter_appsp_android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/example/android/aj_flutter_appsp_example_android.iml" filepath="$PROJECT_DIR$/example/android/aj_flutter_appsp_example_android.iml" />
+    </modules>
+  </component>
+</project>

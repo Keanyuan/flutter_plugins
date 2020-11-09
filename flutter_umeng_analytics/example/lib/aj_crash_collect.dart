@@ -44,6 +44,6 @@ class AJCrashCollect {
     AJLogUtil.v("$obj", tag: "_makeDetails_obj");
     AJLogUtil.v(stack.toString(), tag: "_makeDetails_stack -------- >");
     FlutterErrorDetails details = FlutterErrorDetails(stack: stack);
-    UMengAnalytics.reportError(details?.toString() ?? "" + details.context);
+    UMengAnalytics.reportError("details：" + details?.toString() ?? "" +"\n stack:"+ stack.toString());
   }
 }
